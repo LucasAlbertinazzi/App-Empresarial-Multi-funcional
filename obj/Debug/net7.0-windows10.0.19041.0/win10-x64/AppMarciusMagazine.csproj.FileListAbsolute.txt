@@ -1,0 +1,12 @@
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\AppMarciusMagazine.csproj.AssemblyReference.cache
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\mauiimage.inputs
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\mauifont.inputs
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\mauisplash.inputs
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\mauimanifest.stamp
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\Platforms\Windows\App.g.i.cs
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\Platforms\Windows\App.g.cs
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\XamlTypeInfo.g.cs
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\Platforms\Windows\App.xaml
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\Platforms\Windows\App.xbf
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\XamlSaveStateFile.xml
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-windows10.0.19041.0\win10-x64\AppMarciusMagazine.GeneratedMSBuildEditorConfig.editorconfig

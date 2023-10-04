@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppMarciusMagazine.Views.Cobranca.VInfoCliente"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VInfoCliente">
+    <Grid>
+        <Image
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            Source="background1.png"
+            VerticalOptions="Fill" />
+        <ActivityIndicator
+            x:Name="LoadingIndicator"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="False"
+            IsVisible="False"
+            VerticalOptions="CenterAndExpand"
+            Color="White" />
+
+        <StackLayout
+            x:Name="PrincipalView"
+            Margin="15"
+            Orientation="Vertical"
+            Spacing="6">
+
+            <!--#region 1- Foto-->
+            <SwipeView x:Name="swPrincipal">
+                <!--  Conteúdo central  -->
+                <SwipeView.Content>
+                    <Frame
+                        x:Name="BorderFrame"
+                        BackgroundColor="White"
+                        BorderColor="White"
+                        CornerRadius="15"
+                        HeightRequest="162"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="162">
+                        <Frame
+                            x:Name="ImageFrame"
+                            Padding="0"
+                            BackgroundColor="White"
+                            CornerRadius="15"
+                            HeightRequest="160"
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="160">
+                            <Image
+                                x:Name="FotoCliente"
+                                Aspect="AspectFill"
+                                BackgroundColor="White"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand" />
+                        </Frame>
+                    </Frame>
+                </SwipeView.Content>
+
+                <!--  Swipe para a esquerda  -->
+                <SwipeView.LeftItems>
+                    <SwipeItems Mode="Execute">
+                        <SwipeItemView
+                            BackgroundColor="Transparent"
+                            Command="{Binding FiadorCommand}"
+                            HeightRequest="162"
+                            Invoked="FiadorInvoked"
+                            WidthRequest="160">
+                            <Frame CornerRadius="15">
+                                <Grid>
+                                    <Image
+                                        Aspect="AspectFill"
+                                        HorizontalOptions="FillAndExpand"
+                                        Opacity="0.4"
+                                        Source="figura.svg"
+                                        VerticalOptions="FillAndExpand" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="24"
+                                        HorizontalOptions="Center"
+                                        Style="{StaticResource labelInfos}"
+                                        Text="Fiador"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Frame>
+                        </SwipeItemView>
+                    </SwipeItems>
+                </SwipeView.LeftItems>
+
+                <!--  Swipe para a direita  -->
+                <SwipeView.RightItems>
+                    <SwipeItems Mode="Execute">
+                        <SwipeItemView
+                            BackgroundColor="Transparent"
+                            Command="{Binding ConjugeCommand}"
+                            HeightRequest="162"
+                            Invoked="ConjugeInvoked"
+                            WidthRequest="160">
+                            <Frame CornerRadius="15">
+                                <Grid>
+                                    <Image
+                                        Aspect="AspectFill"
+                                        HorizontalOptions="FillAndExpand"
+                                        Opacity="0.4"
+                                        Source="figura.svg"
+                                        VerticalOptions="FillAndExpand" />
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="24"
+                                        HorizontalOptions="Center"
+                                        Style="{StaticResource labelInfos}"
+                                        Text="Cônjuge"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Frame>
+                        </SwipeItemView>
+                    </SwipeItems>
+                </SwipeView.RightItems>
+            </SwipeView>
+
+            <!--#endregion-->
+
+            <!--#region 2- Nome-->
+            <Label Style="{StaticResource labelPadraoWhite}" Text="Nome :" />
+            <Frame Style="{StaticResource EstiloFrameInfos}">
+                <Label x:Name="lblNome" Style="{StaticResource labelInfos}" />
+            </Frame>
+            <!--#endregion-->
+
+            <!--#region 3- Nascimento / Idade-->
+            <StackLayout Orientation="Horizontal" Spacing="8">
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Vertical"
+                    Spacing="6">
+                    <Label Style="{StaticResource labelPadraoWhite}" Text="Data de nascimento :" />
+                    <Frame Style="{StaticResource EstiloFrameInfos}">
+                        <Label x:Name="lblNascimento" Style="{StaticResource labelInfos}" />
+                    </Frame>
+                </StackLayout>
+
+                <StackLayout
+                    Orientation="Vertical"
+                    Spacing="6"
+                    WidthRequest="80">
+                    <Label Style="{StaticResource labelPadraoWhite}" Text="Idade :" />
+                    <Frame Style="{StaticResource EstiloFrameInfos}">
+                        <Label
+                            x:Name="lblIdade"
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{StaticResource labelInfos}" />
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+
+            <!--#endregion-->
+
+            <!--#region 4- CPF-->
+            <Label Style="{StaticResource labelPadraoWhite}" Text="CPF :" />
+            <Frame Style="{StaticResource EstiloFrameInfos}">
+                <Label x:Name="lblCPF" Style="{StaticResource labelInfos}" />
+            </Frame>
+            <!--#endregion-->
+
+            <!--#region 5- RG-->
+            <Label Style="{StaticResource labelPadraoWhite}" Text="RG :" />
+            <Frame Style="{StaticResource EstiloFrameInfos}">
+                <Label x:Name="lblRG" Style="{StaticResource labelInfos}" />
+            </Frame>
+            <!--#endregion-->
+
+            <!--#region 6- Telefone-->
+            <Label Style="{StaticResource labelPadraoWhite}" Text="Telefone :" />
+            <Frame Style="{StaticResource EstiloFrameInfos}">
+                <Label x:Name="lblTelefone" Style="{StaticResource labelInfos}" />
+            </Frame>
+            <!--#endregion-->
+
+            <!--#region 7- Endereço-->
+            <Label Style="{StaticResource labelPadraoWhite}" Text="Endereço :" />
+            <Frame Style="{StaticResource EstiloFrameInfos}">
+                <Label x:Name="lblEndereco" Style="{StaticResource labelInfos}" />
+            </Frame>
+            <!--#endregion-->
+
+            <!--#region 8- Bairro / Numero-->
+            <StackLayout Orientation="Horizontal" Spacing="8">
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Vertical"
+                    Spacing="6">
+                    <Label Style="{StaticResource labelPadraoWhite}" Text="Bairro :" />
+                    <Frame Style="{StaticResource EstiloFrameInfos}">
+                        <Label x:Name="lblBairro" Style="{StaticResource labelInfos}" />
+                    </Frame>
+                </StackLayout>
+
+                <StackLayout
+                    Orientation="Vertical"
+                    Spacing="6"
+                    WidthRequest="80">
+                    <Label Style="{StaticResource labelPadraoWhite}" Text="N° :" />
+                    <Frame Style="{StaticResource EstiloFrameInfos}">
+                        <Label
+                            x:Name="lblNumEnd"
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{StaticResource labelInfos}" />
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+
+            <!--#endregion-->
+
+            <!--#region 9- Botão-->
+            <StackLayout
+                Orientation="Horizontal"
+                Spacing="8"
+                VerticalOptions="End">
+                <Button
+                    x:Name="btnVoltar"
+                    Clicked="btnVoltar_Clicked"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource btnCardRed}"
+                    Text="Voltar"
+                    VerticalOptions="FillAndExpand" />
+                <Button
+                    x:Name="btnProximo"
+                    Clicked="btnProximo_Clicked"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource btnCardYellow}"
+                    Text="Próximo"
+                    VerticalOptions="FillAndExpand" />
+            </StackLayout>
+            <!--#endregion-->
+
+        </StackLayout>
+
+    </Grid>
+</ContentPage>

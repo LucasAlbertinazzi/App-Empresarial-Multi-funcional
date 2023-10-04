@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppMarciusMagazine.Views.Cobranca.VInfoClienteQuatro"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VInfoClienteQuatro"
+    Loaded="ContentPage_Loaded">
+    <Grid>
+        <Image
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            Source="background1.png"
+            VerticalOptions="Fill" />
+        <ActivityIndicator
+            x:Name="LoadingIndicator"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="False"
+            IsVisible="False"
+            VerticalOptions="CenterAndExpand"
+            Color="White" />
+
+        <Grid Margin="15">
+            <StackLayout
+                Margin="0,0,0,10"
+                Orientation="Vertical"
+                Spacing="8">
+                <Label Style="{StaticResource labelPadraoWhite}" Text="Atenuentes :" />
+                <Frame
+                    x:Name="frameAtenuentes"
+                    MinimumHeightRequest="150"
+                    Style="{StaticResource EstiloCardOcorrencia}">
+                    <ScrollView Padding="5" HorizontalScrollBarVisibility="Never">
+                        <Label
+                            x:Name="lblAtenuentes"
+                            HorizontalTextAlignment="Start"
+                            LineBreakMode="CharacterWrap"
+                            Style="{StaticResource labelInfos}"
+                            VerticalTextAlignment="Start" />
+                    </ScrollView>
+                </Frame>
+                <Label Style="{StaticResource labelPadraoWhite}" Text="Agravantes :" />
+                <Frame
+                    x:Name="frameAgravantes"
+                    MinimumHeightRequest="150"
+                    Style="{StaticResource EstiloCardOcorrencia}">
+                    <ScrollView Padding="5" HorizontalScrollBarVisibility="Never">
+                        <Label
+                            x:Name="lblAgravantes"
+                            HorizontalTextAlignment="Start"
+                            LineBreakMode="CharacterWrap"
+                            Style="{StaticResource labelInfos}"
+                            VerticalTextAlignment="Start" />
+                    </ScrollView>
+                </Frame>
+            </StackLayout>
+
+            <StackLayout
+                Margin="0,5,0,0"
+                Orientation="Horizontal"
+                Spacing="8"
+                VerticalOptions="EndAndExpand">
+                <Button
+                    x:Name="btnVoltar"
+                    Clicked="btnVoltar_Clicked"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource btnCardRed}"
+                    Text="Voltar"
+                    VerticalOptions="FillAndExpand" />
+                <Button
+                    x:Name="btnInicio"
+                    Clicked="btnInicio_Clicked"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource btnCardYellow}"
+                    Text="Início"
+                    VerticalOptions="FillAndExpand" />
+            </StackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

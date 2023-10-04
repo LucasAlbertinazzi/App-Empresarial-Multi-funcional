@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppMarciusMagazine.Views.Cobranca.VOcorrencia"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VOcorrencia"
+    Loaded="ContentPage_Loaded">
+    <Grid>
+
+        <Image
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            Source="background1.png"
+            VerticalOptions="Fill" />
+        <ActivityIndicator
+            x:Name="LoadingIndicator"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="False"
+            IsVisible="False"
+            VerticalOptions="CenterAndExpand"
+            Color="White" />
+
+        <RefreshView
+            x:Name="refreshView"
+            Margin="15,10"
+            Command="{Binding RefreshCommand}"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <Grid x:Name="GridPrincipal">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label
+                    HorizontalOptions="Start"
+                    Style="{StaticResource labelPadraoWhite}"
+                    Text="Clientes:"
+                    VerticalOptions="Center" />
+                <Label
+                    Margin="0,0,5,0"
+                    HorizontalOptions="End"
+                    Style="{StaticResource labelPadraoWhite}"
+                    Text="Loja:"
+                    VerticalOptions="Center" />
+
+                <CollectionView
+                    x:Name="cardOcorrencias"
+                    Grid.Row="1"
+                    ItemsSource="{Binding infoOcorrencias}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="50" />
+                                </Grid.ColumnDefinitions>
+                                <Frame
+                                    Grid.Column="0"
+                                    Margin="0,0,5,0"
+                                    HeightRequest="125"
+                                    Style="{StaticResource EstiloCardInfoPedidos}">
+                                    <SwipeView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                        <!--  Definição das ações de deslizamento  -->
+                                        <SwipeView.LeftItems>
+                                            <SwipeItems Mode="Execute">
+                                                <SwipeItemView
+                                                    x:Name="swNegar"
+                                                    BackgroundColor="Transparent"
+                                                    Command="{Binding DenyCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Invoked="swNegar_Clicked">
+                                                    <Frame
+                                                        BackgroundColor="Red"
+                                                        BorderColor="Red"
+                                                        CornerRadius="6"
+                                                        HasShadow="True">
+                                                        <Label
+                                                            HorizontalOptions="Center"
+                                                            Style="{StaticResource labelPadraoWhite}"
+                                                            Text="Negar"
+                                                            VerticalOptions="Center" />
+                                                    </Frame>
+                                                </SwipeItemView>
+                                            </SwipeItems>
+                                        </SwipeView.LeftItems>
+                                        <SwipeView.RightItems>
+                                            <SwipeItems Mode="Execute">
+                                                <SwipeItemView
+                                                    x:Name="swValidar"
+                                                    BackgroundColor="Transparent"
+                                                    Command="{Binding ValidateCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    Invoked="swValidar_Clicked">
+                                                    <Frame
+                                                        BackgroundColor="Green"
+                                                        BorderColor="Green"
+                                                        CornerRadius="6"
+                                                        HasShadow="True">
+                                                        <Label
+                                                            HorizontalOptions="Center"
+                                                            Style="{StaticResource labelPadraoWhite}"
+                                                            Text="Aprovar"
+                                                            VerticalOptions="Center" />
+                                                    </Frame>
+                                                </SwipeItemView>
+                                            </SwipeItems>
+                                        </SwipeView.RightItems>
+                                        <!--  Conteúdo principal do SwipeView  -->
+                                        <StackLayout Orientation="Vertical" Spacing="-20">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnFrameTapped" />
+                                            </StackLayout.GestureRecognizers>
+                                            <StackLayout
+                                                HorizontalOptions="StartAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="-10"
+                                                VerticalOptions="StartAndExpand">
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    Style="{StaticResource labelInfos}"
+                                                    Text="{Binding Codcliente}" />
+                                                <Label Style="{StaticResource labelInfos}" Text=" - " />
+                                                <Label Style="{StaticResource labelInfos}" Text="{Binding NomeCliente}" />
+                                            </StackLayout>
+                                            <StackLayout
+                                                HorizontalOptions="StartAndExpand"
+                                                Orientation="Vertical"
+                                                Spacing="-10"
+                                                VerticalOptions="EndAndExpand">
+                                                <Label
+                                                    FontAttributes="Bold"
+                                                    Style="{StaticResource labelInfos}"
+                                                    Text="Observação :" />
+                                                <Label Style="{StaticResource labelInfos}" Text="{Binding Obs}" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </SwipeView>
+                                </Frame>
+                                <Frame
+                                    Grid.Column="1"
+                                    HeightRequest="125"
+                                    Style="{StaticResource EstiloCardInfoPedidos}">
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        Style="{StaticResource labelInfos}"
+                                        Text="{Binding CodLoja}" />
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Grid>
+        </RefreshView>
+
+        <Grid x:Name="GridSecundario" IsVisible="false">
+            <Label
+                FontSize="28"
+                HorizontalOptions="CenterAndExpand"
+                Style="{StaticResource labelPadraoWhite}"
+                Text="Não existem ocorrências"
+                VerticalOptions="CenterAndExpand" />
+        </Grid>
+
+        <Grid x:Name="ComentarioPopupGrid" IsVisible="False">
+            <Grid BackgroundColor="Black" Opacity="0.5">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackgroundTapped" />
+                </Grid.GestureRecognizers>
+            </Grid>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Frame
+                    x:Name="ComentarioPopupFrame"
+                    Padding="15"
+                    BackgroundColor="White">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="44" />
+                        </Grid.RowDefinitions>
+                        <Label Style="{StaticResource labelInfos}" Text="Adicione seu comentário:" />
+                        <Frame
+                            Grid.Row="1"
+                            Margin="0,8"
+                            Padding="5"
+                            BorderColor="#333"
+                            CornerRadius="6"
+                            VerticalOptions="Fill">
+                            <Editor
+                                x:Name="ComentarioEntry"
+                                HorizontalTextAlignment="Start"
+                                IsTextPredictionEnabled="True"
+                                Placeholder="Digite aqui..." />
+                        </Frame>
+                        <StackLayout
+                            Grid.Row="2"
+                            Orientation="Horizontal"
+                            Spacing="8"
+                            VerticalOptions="EndAndExpand">
+                            <Button
+                                Clicked="OnCancelarClicked"
+                                HorizontalOptions="FillAndExpand"
+                                Style="{StaticResource btnCardRed}"
+                                Text="Cancelar" />
+                            <Button
+                                Clicked="OnSalvarClicked"
+                                HorizontalOptions="FillAndExpand"
+                                Style="{StaticResource btnCardYellow}"
+                                Text="Salvar" />
+                        </StackLayout>
+                    </Grid>
+
+                </Frame>
+            </StackLayout>
+        </Grid>
+
+    </Grid>
+</ContentPage>

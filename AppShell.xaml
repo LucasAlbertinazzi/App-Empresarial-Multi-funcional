@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="AppMarciusMagazine.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:AppMarciusMagazine.Views.Principal"
+    FlyoutBackgroundColor="{StaticResource Nona}"
+    Loaded="Shell_Loaded"
+    Style="{StaticResource shellPadrao}">
+
+    <Shell.FlyoutHeader>
+        <Grid
+            x:Name="menuLateral"
+            Padding="5"
+            VerticalOptions="Fill">
+            <StackLayout
+                Orientation="Vertical"
+                Spacing="10"
+                VerticalOptions="Start">
+                <Button
+                    BackgroundColor="Transparent"
+                    Clicked="OnHomeClicked"
+                    HorizontalOptions="Center"
+                    ImageSource="home.svg" />
+                <Button
+                    BackgroundColor="Transparent"
+                    Clicked="OnOcorrenciaClicked"
+                    HorizontalOptions="Center"
+                    ImageSource="ocorrlateral.svg" />
+            </StackLayout>
+
+            <StackLayout
+                Orientation="Vertical"
+                Spacing="10"
+                VerticalOptions="End">
+                <Button
+                    BackgroundColor="Transparent"
+                    Clicked="OnSettingsCliked"
+                    HorizontalOptions="Center"
+                    ImageSource="settings.svg" />
+                <Button
+                    Margin="10,0,0,0"
+                    BackgroundColor="Transparent"
+                    Clicked="OnLogoutClicked"
+                    HorizontalOptions="Center"
+                    ImageSource="logout.svg" />
+            </StackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:LoginView}" Route="LoginView" />
+    </FlyoutItem>
+
+    <FlyoutItem FlyoutItemIsVisible="False">
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:VMenuPrincipal}"
+            Route="VMenuPrincipal" />
+    </FlyoutItem>
+
+</Shell>

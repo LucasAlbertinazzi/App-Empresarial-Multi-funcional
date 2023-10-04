@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppMarciusMagazine.Views.Cobranca.VInfoClienteDois"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VInfoClienteDois"
+    Loaded="ContentPage_Loaded">
+    <Grid>
+        <Image
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            Source="background1.png"
+            VerticalOptions="Fill" />
+        <ActivityIndicator
+            x:Name="LoadingIndicator"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="False"
+            IsVisible="False"
+            VerticalOptions="CenterAndExpand"
+            Color="White" />
+
+        <RefreshView
+            x:Name="refreshView"
+            Margin="15,10"
+            Command="{Binding RefreshCommand}"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+
+            <Grid>
+                <Grid x:Name="GridPrincipal">
+                    <StackLayout Orientation="Vertical" Spacing="8">
+
+                        <!--#region 1- Pedido / Total pedido-->
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Vertical"
+                                Spacing="5">
+                                <Label Style="{StaticResource labelPadraoWhite}" Text="N° do pré-pedido :" />
+                                <Frame Style="{StaticResource EstiloFrameInfos}">
+                                    <Label
+                                        x:Name="lblNPedido"
+                                        HorizontalOptions="StartAndExpand"
+                                        Style="{StaticResource labelInfos}" />
+                                </Frame>
+                            </StackLayout>
+
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Vertical"
+                                Spacing="5">
+                                <Label Style="{StaticResource labelPadraoWhite}" Text="Total pedido (R$) :" />
+                                <Frame Style="{StaticResource EstiloFrameInfos}">
+                                    <Label
+                                        x:Name="lblTotalPedido"
+                                        HorizontalOptions="StartAndExpand"
+                                        Style="{StaticResource labelInfos}" />
+                                </Frame>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <!--#endregion-->
+
+                        <!--#region 2- Desconto(%) / Desconto(R$)-->
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Vertical"
+                                Spacing="5">
+                                <Label Style="{StaticResource labelPadraoWhite}" Text="Desconto (%) :" />
+                                <Frame Style="{StaticResource EstiloFrameInfos}">
+                                    <Label
+                                        x:Name="lblDescPorcent"
+                                        HorizontalOptions="StartAndExpand"
+                                        Style="{StaticResource labelInfos}" />
+                                </Frame>
+                            </StackLayout>
+
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Vertical"
+                                Spacing="5">
+                                <Label Style="{StaticResource labelPadraoWhite}" Text="Desconto (R$) :" />
+                                <Frame Style="{StaticResource EstiloFrameInfos}">
+                                    <Label
+                                        x:Name="lblDescValor"
+                                        HorizontalOptions="StartAndExpand"
+                                        Style="{StaticResource labelInfos}" />
+                                </Frame>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <!--#endregion-->
+
+                        <!--#region 3- Informaçoes do pedido-->
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Vertical"
+                                Spacing="5">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label
+                                        HorizontalOptions="StartAndExpand"
+                                        Style="{StaticResource labelPadraoWhite}"
+                                        Text="Pedido :" />
+                                    <Label
+                                        x:Name="lblQtdParcelas"
+                                        HorizontalOptions="EndAndExpand"
+                                        Style="{StaticResource labelPadraoWhite}" />
+                                </StackLayout>
+                                <ScrollView
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="200"
+                                    HorizontalScrollBarVisibility="Never"
+                                    VerticalScrollBarVisibility="Always">
+                                    <CollectionView x:Name="cardInfoPedidos" ItemsSource="{Binding infoParcelas}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Frame Margin="0,0,0,10" Style="{StaticResource EstiloCardInfoPedidos}">
+                                                    <StackLayout Margin="5" Orientation="Vertical">
+
+                                                        <!--#region 1- Primeira linha-->
+                                                        <StackLayout
+                                                            HorizontalOptions="FillAndExpand"
+                                                            Orientation="Horizontal"
+                                                            VerticalOptions="CenterAndExpand">
+                                                            <StackLayout Orientation="Horizontal">
+                                                                <Label
+                                                                    FontAttributes="Bold"
+                                                                    Style="{StaticResource labelInfos}"
+                                                                    Text="Valor :" />
+                                                                <Label Style="{StaticResource labelInfos}" Text="{Binding Valor, StringFormat='R$ {0:N2}'}" />
+                                                            </StackLayout>
+                                                            <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                                                                <Label
+                                                                    FontAttributes="Bold"
+                                                                    Style="{StaticResource labelInfos}"
+                                                                    Text="Forma :" />
+                                                                <Label Style="{StaticResource labelInfos}" Text="{Binding Forma}" />
+                                                            </StackLayout>
+                                                        </StackLayout>
+                                                        <!--#endregion-->
+
+                                                        <!--#region 2- Segunda linha-->
+                                                        <StackLayout
+                                                            HorizontalOptions="FillAndExpand"
+                                                            Orientation="Horizontal"
+                                                            VerticalOptions="CenterAndExpand">
+                                                            <StackLayout HorizontalOptions="Start" Orientation="Horizontal">
+                                                                <Label
+                                                                    FontAttributes="Bold"
+                                                                    Style="{StaticResource labelInfos}"
+                                                                    Text="Parcela :" />
+                                                                <Label Style="{StaticResource labelInfos}" Text="{Binding Parc}" />
+                                                            </StackLayout>
+                                                            <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                                                                <Label
+                                                                    FontAttributes="Bold"
+                                                                    Style="{StaticResource labelInfos}"
+                                                                    Text="Vencimento :" />
+                                                                <Label Style="{StaticResource labelInfos}" Text="{Binding Vencimento, StringFormat='{0:dd/MM/yyyy}'}" />
+                                                            </StackLayout>
+                                                        </StackLayout>
+                                                        <!--#endregion-->
+
+                                                    </StackLayout>
+                                                </Frame>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </ScrollView>
+                            </StackLayout>
+
+                        </StackLayout>
+                        <!--#endregion-->
+
+                        <!--#region 4- Produtos do pedido-->
+
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Vertical"
+                                Spacing="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        HorizontalOptions="FillAndExpand"
+                                        Style="{StaticResource labelPadraoWhite}"
+                                        Text="Produtos :" />
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="FillAndExpand"
+                                        Style="{StaticResource labelPadraoWhite}"
+                                        Text="Un :" />
+                                </Grid>
+
+                                <ScrollView
+                                    x:Name="listadeprodutos"
+                                    BackgroundColor="Transparent"
+                                    HorizontalScrollBarVisibility="Never"
+                                    VerticalOptions="FillAndExpand"
+                                    VerticalScrollBarVisibility="Always">
+                                    <CollectionView x:Name="cardInfoProdutos" ItemsSource="{Binding infoProdutos}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="0,0,0,10">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="5*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Frame Margin="0,0,5,0" Style="{StaticResource EstiloCardOcorrencia}">
+                                                        <Label
+                                                            LineBreakMode="TailTruncation"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Descricao}" />
+                                                    </Frame>
+
+                                                    <Frame Grid.Column="1" Style="{StaticResource EstiloCardOcorrencia}">
+                                                        <Label
+                                                            HorizontalOptions="Center"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding QuantVendido}" />
+                                                    </Frame>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </ScrollView>
+                            </StackLayout>
+
+                        </StackLayout>
+
+                        <!--#endregion-->
+
+                    </StackLayout>
+                </Grid>
+
+                <Grid x:Name="GridSecundario" IsVisible="false">
+                    <Label
+                        FontSize="28"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource labelPadraoWhite}"
+                        Text="Pedido não encontrado"
+                        VerticalOptions="CenterAndExpand" />
+                </Grid>
+
+                <!--#region Botão-->
+                <StackLayout
+                    Margin="0,5,0,0"
+                    Orientation="Horizontal"
+                    Spacing="5"
+                    VerticalOptions="EndAndExpand">
+                    <Button
+                        x:Name="btnVoltar"
+                        Clicked="btnVoltar_Clicked"
+                        HorizontalOptions="FillAndExpand"
+                        Style="{StaticResource btnCardRed}"
+                        Text="Voltar"
+                        VerticalOptions="FillAndExpand" />
+                    <Button
+                        x:Name="btnProximo"
+                        Clicked="btnProximo_Clicked"
+                        HorizontalOptions="FillAndExpand"
+                        Style="{StaticResource btnCardYellow}"
+                        Text="Próximo"
+                        VerticalOptions="FillAndExpand" />
+                </StackLayout>
+                <!--#endregion-->
+
+            </Grid>
+
+
+        </RefreshView>
+
+    </Grid>
+</ContentPage>

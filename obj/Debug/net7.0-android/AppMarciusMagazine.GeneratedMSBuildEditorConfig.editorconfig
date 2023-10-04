@@ -1,0 +1,87 @@
+is_global = true
+build_property.TargetFramework = net7.0-android
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = true
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.RootNamespace = AppMarciusMagazine
+build_property.ProjectDir = G:\Marcius\APP\AppMarcius\
+
+[G:/Marcius/APP/AppMarcius/App.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.App.xaml
+build_metadata.AdditionalFiles.TargetPath = App.xaml
+build_metadata.AdditionalFiles.RelativePath = App.xaml
+
+[G:/Marcius/APP/AppMarcius/AppShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.AppShell.xaml
+build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
+build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
+
+[G:/Marcius/APP/AppMarcius/Resources/Styles/Colors.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Resources.Styles.Colors.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
+
+[G:/Marcius/APP/AppMarcius/Resources/Styles/Styles.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Resources.Styles.Styles.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
+
+[G:/Marcius/APP/AppMarcius/Views/Cobranca/VInfoCliente.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VInfoCliente.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VInfoCliente.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VInfoCliente.xaml
+
+[G:/Marcius/APP/AppMarcius/Views/Cobranca/VInfoClienteDois.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VInfoClienteDois.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VInfoClienteDois.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VInfoClienteDois.xaml
+
+[G:/Marcius/APP/AppMarcius/Views/Cobranca/VInfoClienteHistorico.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VInfoClienteHistorico.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VInfoClienteHistorico.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VInfoClienteHistorico.xaml
+
+[G:/Marcius/APP/AppMarcius/Views/Cobranca/VInfoClienteQuatro.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VInfoClienteQuatro.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VInfoClienteQuatro.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VInfoClienteQuatro.xaml
+
+[G:/Marcius/APP/AppMarcius/Views/Cobranca/VInfoClienteTres.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VInfoClienteTres.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VInfoClienteTres.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VInfoClienteTres.xaml
+
+[G:/Marcius/APP/AppMarcius/Views/Cobranca/VOcorrencia.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VOcorrencia.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VOcorrencia.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VOcorrencia.xaml
+
+[G:/Marcius/APP/AppMarcius/Views/Principal/LoginView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Principal.LoginView.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Principal\LoginView.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Principal\LoginView.xaml
+
+[G:/Marcius/APP/AppMarcius/Views/Principal/VMenuPrincipal.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Principal.VMenuPrincipal.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Principal\VMenuPrincipal.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Principal\VMenuPrincipal.xaml

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppMarciusMagazine.Views.Cobranca.VInfoClienteTres"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VInfoClienteTres"
+    Loaded="ContentPage_Loaded">
+    <Grid>
+        <Image
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            Source="background1.png"
+            VerticalOptions="Fill" />
+        <ActivityIndicator
+            x:Name="LoadingIndicator"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="False"
+            IsVisible="False"
+            VerticalOptions="CenterAndExpand"
+            Color="White" />
+
+        <StackLayout
+            x:Name="PrincipalView"
+            Margin="15"
+            Orientation="Vertical"
+            Spacing="8">
+
+            <StackLayout Orientation="Vertical" Spacing="8">
+                <Label
+                    HorizontalOptions="Start"
+                    Style="{StaticResource labelPadraoWhite}"
+                    Text="Restrições:"
+                    VerticalOptions="Center" />
+                <ScrollView
+                    BackgroundColor="Transparent"
+                    HorizontalScrollBarVisibility="Never"
+                    VerticalScrollBarVisibility="Always">
+                    <CollectionView x:Name="cardRestricoes" ItemsSource="{Binding infoRestricoes}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame
+                                    Margin="0,0,0,10"
+                                    Padding="5"
+                                    BackgroundColor="{Binding Cor}"
+                                    BorderColor="{Binding Cor}"
+                                    Style="{StaticResource EstiloCardHistorico}">
+                                    <StackLayout Orientation="Vertical" Spacing="-5">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            HorizontalOptions="StartAndExpand"
+                                            Style="{StaticResource labelInfos}"
+                                            Text="Motivo :" />
+                                        <Label
+                                            FontSize="16"
+                                            HorizontalOptions="StartAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            Style="{StaticResource labelInfos}"
+                                            Text="{Binding Motivo}" />
+                                        <Label
+                                            FontAttributes="Bold"
+                                            HorizontalOptions="StartAndExpand"
+                                            Style="{StaticResource labelInfos}"
+                                            Text="Detalhe :" />
+                                        <Label
+                                            FontSize="16"
+                                            HorizontalOptions="StartAndExpand"
+                                            LineBreakMode="TailTruncation"
+                                            Style="{StaticResource labelInfos}"
+                                            Text="{Binding Detalhe}" />
+                                    </StackLayout>
+
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+            </StackLayout>
+
+            <!--#region Linha 7-->
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical"
+                Spacing="8">
+                <Label Style="{StaticResource labelPadraoWhite}" Text="Campo negado :" />
+                <Frame x:Name="frameCampoNegado" Style="{StaticResource EstiloFrameInfos}">
+                    <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Always">
+                        <Label
+                            x:Name="lblCampoNegado"
+                            LineBreakMode="CharacterWrap"
+                            Style="{StaticResource labelInfos}"
+                            VerticalTextAlignment="Start" />
+                    </ScrollView>
+                </Frame>
+            </StackLayout>
+            <!--#endregion-->
+
+            <!--#region Linha 8-->
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical"
+                Spacing="8"
+                VerticalOptions="EndAndExpand">
+                <Label Style="{StaticResource labelPadraoWhite}" Text="Selecione o tipo :" />
+                <Frame Style="{StaticResource EstiloCardOcorrencia}">
+                    <Picker
+                        x:Name="cmbTipo"
+                        Title=""
+                        BackgroundColor="White"
+                        HorizontalOptions="FillAndExpand"
+                        HorizontalTextAlignment="Start"
+                        SelectedIndex="0"
+                        TextColor="Black"
+                        VerticalOptions="FillAndExpand"
+                        VerticalTextAlignment="Center">
+                        <Picker.Items>
+                            <x:String>TITULAR</x:String>
+                            <x:String>CÔNJUGE</x:String>
+                        </Picker.Items>
+                    </Picker>
+
+                </Frame>
+            </StackLayout>
+            <!--#endregion-->
+
+            <!--#region Linha 9-->
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical"
+                Spacing="8"
+                VerticalOptions="EndAndExpand">
+                <Label Style="{StaticResource labelPadraoWhite}" Text="" />
+                <Button
+                    x:Name="btnConsultaScore"
+                    Clicked="btnConsultaScore_Clicked"
+                    HeightRequest="52"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource btnCardYellow}"
+                    Text="Consultar SCORE Boa Vista"
+                    VerticalOptions="CenterAndExpand" />
+            </StackLayout>
+            <!--#endregion-->
+
+            <!--#region 9- Botão-->
+            <StackLayout
+                Margin="0,5,0,0"
+                Orientation="Horizontal"
+                Spacing="8"
+                VerticalOptions="EndAndExpand">
+                <Button
+                    x:Name="btnVoltar"
+                    Clicked="btnVoltar_Clicked"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource btnCardRed}"
+                    Text="Voltar"
+                    VerticalOptions="FillAndExpand" />
+                <Button
+                    x:Name="btnProximo"
+                    Clicked="btnProximo_Clicked"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource btnCardYellow}"
+                    Text="Próximo"
+                    VerticalOptions="FillAndExpand" />
+            </StackLayout>
+            <!--#endregion-->
+
+        </StackLayout>
+
+    </Grid>
+</ContentPage>
