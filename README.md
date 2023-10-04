@@ -3,7 +3,7 @@
 Um aplicativo mobile desenvolvido em .NET MAUI destinado a oferecer uma série de funcionalidades para otimizar e facilitar operações empresariais. Atualmente, o app conta com um sistema de liberação de pedidos para indivíduos com restrições financeiras, como score baixo, dívidas, entre outros. No entanto, estão planejadas diversas outras funcionalidades para futuras atualizações.
 
 ## Funcionalidades Atuais:
-- **Liberação de Pedidos**: Facilita a aprovação de pedidos para usuários com diferentes níveis de restrições financeiras.
+- **Liberação de Pedidos**: Facilita a aprovação de pedidos para clientes com diferentes níveis de restrições financeiras.
 
 ## Funcionalidades Planejadas:
 - **Consulta de Clientes**: Pesquisa e visualização de informações de clientes.
