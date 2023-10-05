@@ -33,7 +33,7 @@ namespace AppMarciusMagazine.Services.Cobranca
 
         public APIClientes()
         {
-            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 10) };
+            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 30) };
         }
 
         public async Task<ClientesClass> BuscaInfoClientes(long codCliente)

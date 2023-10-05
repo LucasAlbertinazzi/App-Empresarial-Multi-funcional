@@ -12,10 +12,10 @@ public partial class VInfoClienteTres : ContentPage
     APIScore apiScore = new APIScore();
     APIOcorrencia apiOcorrencia = new APIOcorrencia();
     OcorrenciaClass ocorrencia = new OcorrenciaClass();
-    
+
     public VInfoClienteTres(ClientesClass lista, OcorrenciaClass _ocorrencia)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         listasuporte = lista;
         ocorrencia = _ocorrencia;
     }
@@ -62,12 +62,25 @@ public partial class VInfoClienteTres : ContentPage
 
     private async Task CarregaRestricoes()
     {
+        GridPrincipal.MinimumHeightRequest = ResponsiveAuto.Height(2.4);
+        GridSecundario.MinimumHeightRequest = ResponsiveAuto.Height(2.4);
+
         List<RestricaoOcorrencias> infoRestricoes = await apiOcorrencia.BuscaRestricoesOcorrencia(ocorrencia.Codigo);
         SenhaNegada infoNegada = await apiOcorrencia.BuscaSenhaNegada(ocorrencia.Codcliente);
 
         if (infoRestricoes != null && infoRestricoes.Count > 0)
         {
-            cardRestricoes.ItemsSource = DefinecaoListaRestricao(infoRestricoes);
+            List<RestricaoOcorrencias> lista = DefinecaoListaRestricao(infoRestricoes);
+
+            GridPrincipal.IsVisible = false;
+            GridSecundario.IsVisible = true;
+
+            if (lista != null && lista.Count > 0)
+            {
+                cardRestricoes.ItemsSource = lista;
+                GridPrincipal.IsVisible = true;
+                GridSecundario.IsVisible = false;
+            }
 
             frameCampoNegado.HeightRequest = ResponsiveAuto.Height(8);
 
@@ -77,6 +90,12 @@ public partial class VInfoClienteTres : ContentPage
             {
                 lblCampoNegado.Text = infoNegada.Usuario + " - " + infoNegada.Motivo + " - " + infoNegada.Data.ToString();
             }
+        }
+        else
+        {
+            lblCampoNegado.Text = "Não há restrições de senha";
+            GridPrincipal.IsVisible = false;
+            GridSecundario.IsVisible = true;
         }
     }
 
@@ -142,5 +161,5 @@ public partial class VInfoClienteTres : ContentPage
         await Navigation.PushAsync(new VInfoClienteQuatro(listasuporte, ocorrencia));
     }
 
-   
+
 }

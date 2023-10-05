@@ -34,13 +34,13 @@ public partial class VInfoCliente : ContentPage
 
     private async Task BuscaCodigoTipo(string tipo)
     {
-        if(tipo == "FIADOR")
+        if (tipo == "FIADOR")
         {
             codCliente = codFiador;
         }
         else
         {
-
+            codCliente = ocorrencia.Codcliente;
         }
     }
 
@@ -83,26 +83,42 @@ public partial class VInfoCliente : ContentPage
     {
         try
         {
-            
+            if (tipo == "CONJUGE")
+            {
+                lblNome.Text = lista.Cliente.Conjuge ?? lblNome.Text;
+                lblNascimento.Text = (lista.Cliente.ConjNascimento != null) ? lista.Cliente.ConjNascimento.Value.ToString("dd/MM/yyyy") : lblNascimento.Text;
+                lblIdade.Text = (lista.Cliente.ConjNascimento != null) ? CalcularIdade(lista.Cliente.ConjNascimento.Value, DateTime.Today).ToString() : lblIdade.Text;
+                lblCPF.Text = lista.Cliente.ConjCpf ?? lblCPF.Text;
+                lblRG.Text = FormatarRG(lista.Cliente.ConjRg) ?? lblRG.Text;
+                lblTelefone.Text = lista.Cliente.ConjCelular ?? lblTelefone.Text;
+                lblEndereco.Text = lista.Cliente.Endereco ?? lblEndereco.Text;
+                lblBairro.Text = lista.BairroCliente ?? lblBairro.Text;
+                lblNumEnd.Text = lista.Cliente.EnderecoNum ?? lblNumEnd.Text;
+
+                FotoCliente.Source = await apiClientes.BuscaFotoCliente(Convert.ToInt64(lista.Cliente.Codcliente), "CONJUGE");
+            }
+            else
+            {
                 lblNome.Text = lista.Cliente.Nome ?? lblNome.Text;
-                lblNascimento.Text = lista.Cliente.Nascimento.ToString("dd/MM/yyyy") ?? lblNascimento.Text;
-                lblIdade.Text = (lista.Cliente.Nascimento != null) ? CalcularIdade(lista.Cliente.Nascimento, DateTime.Today).ToString() : lblIdade.Text;
+                lblNascimento.Text = (lista.Cliente.Nascimento != null) ? lista.Cliente.Nascimento.Value.ToString("dd/MM/yyyy") : lblNascimento.Text;
+                lblIdade.Text = (lista.Cliente.Nascimento != null) ? CalcularIdade(lista.Cliente.Nascimento.Value, DateTime.Today).ToString() : lblIdade.Text;
                 lblCPF.Text = lista.Cliente.Cpf ?? lblCPF.Text;
                 lblRG.Text = FormatarRG(lista.Cliente.Rg) ?? lblRG.Text;
                 lblTelefone.Text = lista.Cliente.Celular ?? lblTelefone.Text;
                 lblEndereco.Text = lista.Cliente.Endereco ?? lblEndereco.Text;
                 lblBairro.Text = lista.BairroCliente ?? lblBairro.Text;
                 lblNumEnd.Text = lista.Cliente.EnderecoNum ?? lblNumEnd.Text;
-            
 
-            FotoCliente.Source = await apiClientes.BuscaFotoCliente(Convert.ToInt64(lista.Cliente.Codcliente), "TITULAR");
+                FotoCliente.Source = await apiClientes.BuscaFotoCliente(Convert.ToInt64(lista.Cliente.Codcliente), "TITULAR");
+            }
+            
         }
         catch (Exception ex)
         {
             string erro = ex.Message;
             return;
         }
-        
+
     }
 
     private int CalcularIdade(DateTime dataNascimento, DateTime dataAtual)
@@ -173,9 +189,9 @@ public partial class VInfoCliente : ContentPage
 
     private async void FiadorInvoked(object sender, EventArgs e)
     {
-        if(listasuporte.Cliente.Codfiador > 0)
+        if (listasuporte.Cliente.Codfiador > 0)
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new VInfoCliente(ocorrencia, "FIADOR",Convert.ToInt64(listasuporte.Cliente.Codfiador)));
+            await Application.Current.MainPage.Navigation.PushAsync(new VInfoCliente(ocorrencia, "FIADOR", Convert.ToInt64(listasuporte.Cliente.Codfiador)));
         }
         else
         {
@@ -187,7 +203,7 @@ public partial class VInfoCliente : ContentPage
     {
         if (!string.IsNullOrEmpty(listasuporte.Cliente.Conjuge))
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new VInfoCliente(ocorrencia, "CONJUGE",0));
+            await Application.Current.MainPage.Navigation.PushAsync(new VInfoCliente(ocorrencia, "CONJUGE", 0));
         }
         else
         {
@@ -197,12 +213,25 @@ public partial class VInfoCliente : ContentPage
 
     private async void btnProximo_Clicked(object sender, EventArgs e)
     {
-        
-        await Navigation.PushAsync(new VInfoClienteHistorico(listasuporte, ocorrencia));
+        if (tipo == "CONJUGE")
+        {
+            await Navigation.PushAsync(new VInfoClienteHistorico(listasuporte, ocorrencia, true));
+        }
+        else
+        {
+            await Navigation.PushAsync(new VInfoClienteHistorico(listasuporte, ocorrencia, false));
+        }
     }
 
     private async void btnVoltar_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VOcorrencia());
+        if(tipo == "CONJUGE" || tipo == "FIADOR")
+        {
+            await Navigation.PushAsync(new VInfoCliente(ocorrencia));
+        }
+        else
+        {
+            await Navigation.PushAsync(new VOcorrencia());
+        }
     }
 }

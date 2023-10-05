@@ -23,7 +23,7 @@ public partial class VInfoClienteDois : ContentPage
 
     private async void btnVoltar_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VInfoClienteHistorico(listasuporte, ocorrencia));
+        await Navigation.PushAsync(new VInfoClienteHistorico(listasuporte, ocorrencia, false));
     }
     
     private async void btnProximo_Clicked(object sender, EventArgs e)
@@ -59,11 +59,11 @@ public partial class VInfoClienteDois : ContentPage
             if (infoPedidos != null && infoPedidos.Count > 0)
             {
                 lblNPedido.Text = ocorrencia.Codigo.ToString();
-                lblTotalPedido.Text = string.Format("R$ {0:N2}", infoPedidos[0].TotalVenda);
+                lblTotalPedido.Text = string.Format("R$ {0:N2}", infoPedidos[0].TotalPagar);
 
-                Decimal? totalVenda = infoPedidos[0].TotalVenda;
+                Decimal? totalProd = infoPedidos[0].TotalProduto;
                 Decimal? desconto = infoPedidos[0].Desconto;
-                Decimal? porcentagemDesconto = (desconto / totalVenda) * 100;
+                Decimal? porcentagemDesconto = (desconto / totalProd) * 100;
                 lblDescPorcent.Text = string.Format("{0:N2}%", porcentagemDesconto);
                 lblDescValor.Text = string.Format("R$ {0:N2}", infoPedidos[0].Desconto);
 

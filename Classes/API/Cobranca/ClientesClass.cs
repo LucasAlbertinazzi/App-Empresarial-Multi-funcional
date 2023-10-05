@@ -31,7 +31,7 @@ namespace AppMarciusMagazine.Classes.API.Cobranca
 
         public string? Mae { get; set; }
 
-        public DateTime Nascimento { get; set; }
+        public DateTime? Nascimento { get; set; }
 
         public string? Ctps { get; set; }
 
@@ -83,7 +83,7 @@ namespace AppMarciusMagazine.Classes.API.Cobranca
 
         public string? Conjuge { get; set; }
 
-        public DateOnly? ConjNascimento { get; set; }
+        public DateTime? ConjNascimento { get; set; }
 
         public string? ConjCpf { get; set; }
 
@@ -300,5 +300,6 @@ namespace AppMarciusMagazine.Classes.API.Cobranca
         public int? qtdpedido { get; set; }
         public Decimal? valorgasto { get; set; }
         public Decimal? valorpago { get; set; }
+        public string? nomecliente { get; set; }
     }
 }

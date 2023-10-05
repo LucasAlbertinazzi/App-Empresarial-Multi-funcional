@@ -74,6 +74,22 @@
                     Text="Início"
                     VerticalOptions="FillAndExpand" />
             </StackLayout>
+
+            <StackLayout
+                HorizontalOptions="FillAndExpand"
+                Orientation="Vertical"
+                Spacing="8"
+                VerticalOptions="EndAndExpand">
+                <Label Style="{StaticResource labelPadraoWhite}" Text="" />
+                <Button
+                    x:Name="btnSolicitaContrato"
+                    Clicked="btnSolicitaContrato_Clicked"
+                    HeightRequest="52"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource btnCardYellow}"
+                    Text="Consultar SCORE Boa Vista"
+                    VerticalOptions="CenterAndExpand" />
+            </StackLayout>
         </Grid>
     </Grid>
 </ContentPage>

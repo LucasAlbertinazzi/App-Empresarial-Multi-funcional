@@ -13,21 +13,21 @@ public partial class VInfoClienteQuatro : ContentPage
     APIOcorrencia apiOcorrencia = new APIOcorrencia();
 
     public VInfoClienteQuatro(ClientesClass lista, OcorrenciaClass _ocorrencia)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         listacliente = lista;
         ocorrencia = _ocorrencia;
     }
 
     private async void ContentPage_Loaded(object sender, EventArgs e)
     {
-		await Metodos();
+        await Metodos();
     }
 
-	private async Task Metodos()
-	{
-		frameAtenuentes.HeightRequest = ResponsiveAuto.Height(2.8);
-		frameAgravantes.HeightRequest = ResponsiveAuto.Height(2.8);
+    private async Task Metodos()
+    {
+        frameAtenuentes.HeightRequest = ResponsiveAuto.Height(2.8);
+        frameAgravantes.HeightRequest = ResponsiveAuto.Height(2.8);
 
         ScoreHist scoreHist = await apiOcorrencia.BuscaScoreHist(ocorrencia.Codigo);
 
@@ -39,7 +39,7 @@ public partial class VInfoClienteQuatro : ContentPage
             lblAgravantes.Text = scoreHist.Agravantes.ToUpper();
             lblAtenuentes.Text = scoreHist.Atenuentes.ToUpper();
         }
-	}
+    }
 
     private async void btnInicio_Clicked(object sender, EventArgs e)
     {
@@ -48,6 +48,11 @@ public partial class VInfoClienteQuatro : ContentPage
 
     private async void btnVoltar_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VInfoClienteTres(listacliente,ocorrencia));
+        await Navigation.PushAsync(new VInfoClienteTres(listacliente, ocorrencia));
+    }
+
+    private async void btnSolicitaContrato_Clicked(object sender, EventArgs e)
+    {
+        await DisplayAlert("AVISO", "No momento a função SOLICITAR CONTRATO está desativada, faça a solicitação pelo sistema", "OK");
     }
 }

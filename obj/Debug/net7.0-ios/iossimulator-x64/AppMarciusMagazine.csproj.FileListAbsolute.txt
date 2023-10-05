@@ -49,6 +49,9 @@ G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\ma
 G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\ocorrencia.png
 G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\ocorrencia@2x.png
 G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\ocorrencia@3x.png
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\ocorrlateral.png
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\ocorrlateral@2x.png
+G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\ocorrlateral@3x.png
 G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\procurar.png
 G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\procurar@2x.png
 G:\Marcius\APP\AppMarcius\obj\Debug\net7.0-ios\iossimulator-x64\resizetizer\r\procurar@3x.png

@@ -59,6 +59,7 @@
                                     Margin="0,0,5,0"
                                     HeightRequest="125"
                                     Style="{StaticResource EstiloCardInfoPedidos}">
+
                                     <SwipeView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                                         <!--  Definição das ações de deslizamento  -->
                                         <SwipeView.LeftItems>
@@ -106,32 +107,40 @@
                                             </SwipeItems>
                                         </SwipeView.RightItems>
                                         <!--  Conteúdo principal do SwipeView  -->
-                                        <StackLayout Orientation="Vertical" Spacing="-20">
+                                        <StackLayout Orientation="Vertical">
                                             <StackLayout.GestureRecognizers>
                                                 <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnFrameTapped" />
                                             </StackLayout.GestureRecognizers>
                                             <StackLayout
-                                                HorizontalOptions="StartAndExpand"
+                                                HorizontalOptions="FillAndExpand"
                                                 Orientation="Horizontal"
-                                                Spacing="-10"
-                                                VerticalOptions="StartAndExpand">
-                                                <Label
-                                                    FontAttributes="Bold"
-                                                    Style="{StaticResource labelInfos}"
-                                                    Text="{Binding Codcliente}" />
-                                                <Label Style="{StaticResource labelInfos}" Text=" - " />
-                                                <Label Style="{StaticResource labelInfos}" Text="{Binding NomeCliente}" />
+                                                VerticalOptions="Fill">
+                                                <StackLayout
+                                                    Orientation="Horizontal"
+                                                    Spacing="-10"
+                                                    VerticalOptions="Center">
+                                                    <Label
+                                                        FontAttributes="Bold"
+                                                        Style="{StaticResource labelInfos}"
+                                                        Text="{Binding Codcliente}" />
+                                                    <Label Style="{StaticResource labelInfos}" Text=" - " />
+                                                    <Label Style="{StaticResource labelInfos}" Text="{Binding NomeCliente}" />
+                                                </StackLayout>
                                             </StackLayout>
+
                                             <StackLayout
-                                                HorizontalOptions="StartAndExpand"
+                                                HorizontalOptions="Start"
                                                 Orientation="Vertical"
                                                 Spacing="-10"
-                                                VerticalOptions="EndAndExpand">
+                                                VerticalOptions="FillAndExpand">
                                                 <Label
                                                     FontAttributes="Bold"
                                                     Style="{StaticResource labelInfos}"
                                                     Text="Observação :" />
-                                                <Label Style="{StaticResource labelInfos}" Text="{Binding Obs}" />
+                                                <Label
+                                                    LineBreakMode="WordWrap"
+                                                    Style="{StaticResource labelInfos}"
+                                                    Text="{Binding Obs}" />
                                             </StackLayout>
                                         </StackLayout>
                                     </SwipeView>

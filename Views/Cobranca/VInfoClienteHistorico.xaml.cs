@@ -7,17 +7,20 @@ namespace AppMarciusMagazine.Views.Cobranca;
 public partial class VInfoClienteHistorico : ContentPage
 {
     APIClientes apiCliente = new APIClientes();
+    APIPedidos apiPedidos = new APIPedidos();
     ClientesClass listasuporte = new ClientesClass();
     OcorrenciaClass ocorrencia = new OcorrenciaClass();
 
+    bool conjuge = false;
+
     private CancellationTokenSource _cancellationTokenSource;
 
-    public VInfoClienteHistorico(ClientesClass clientesClasses, OcorrenciaClass _ocorrencia)
+    public VInfoClienteHistorico(ClientesClass clientesClasses, OcorrenciaClass _ocorrencia, bool _conjuge)
     {
         InitializeComponent();
         listasuporte = clientesClasses;
         ocorrencia = _ocorrencia;
-
+        conjuge = _conjuge;
         refreshView.Command = new Command(async () => await AtualizarPagina());
     }
 
@@ -94,27 +97,74 @@ public partial class VInfoClienteHistorico : ContentPage
                         pago = status,
                         qtdpedido = item.qtdpedido,
                         valorgasto = item.valorgasto,
-                        valorpago = item.valorpago
+                        valorpago = item.valorpago,
+                        nomecliente = item.nomecliente
                     });
                 }
 
-                cardInfoHistorico.ItemsSource = infoHistoricoNovo;
-
-                Decimal? valorgasto = infoHistoricoNovo[0].valorgasto;
-
-                lblValorGasto.Text = "R$ 0,00";
-
-                if (valorgasto.HasValue)
+                if (conjuge)
                 {
-                    lblValorGasto.Text = valorgasto.Value.ToString("C", new CultureInfo("pt-BR"));
+                    List<InfoHistoricoCliente> infoHistoricoConj = new List<InfoHistoricoCliente>();
+
+                    infoHistoricoConj.AddRange(infoHistorico.Where(x => x.nomecliente == listasuporte.Cliente.Conjuge));
+
+                    if (infoHistoricoConj != null && infoHistoricoConj.Count > 0)
+                    {
+                        cardInfoHistorico.ItemsSource = infoHistoricoConj;
+
+                        Decimal? valorgasto = 0;
+                        int qtd = 0;
+                        contVencidas = 0;
+
+                        foreach (var item in infoHistoricoConj)
+                        {
+                            valorgasto += item.valorgasto;
+                            qtd++;
+
+                            if (item.pago == "N" && item.vencimento <= DateOnly.FromDateTime(DateTime.Now.Date))
+                            {
+                                contVencidas++;
+                            }
+                        }
+
+                        lblValorGasto.Text = "R$ 0,00";
+
+                        if (valorgasto.HasValue)
+                        {
+                            lblValorGasto.Text = valorgasto.Value.ToString("C", new CultureInfo("pt-BR"));
+                        }
+
+                        lblQtdPedido.Text = qtd.ToString();
+                        lblVencidos.Text = contVencidas.ToString();
+                    }
+                    else
+                    {
+                        LoadingIndicator.IsVisible = false;
+                        LoadingIndicator.IsRunning = false;
+                        GridPrincipal.IsVisible = false;
+                        GridSecundario.IsVisible = true;
+                    }
                 }
+                else
+                {
+                    cardInfoHistorico.ItemsSource = infoHistoricoNovo;
 
-                lblQtdPedido.Text = infoHistoricoNovo[0].qtdpedido.ToString();
-                lblVencidos.Text = contVencidas.ToString();
+                    Decimal? valorgasto = infoHistoricoNovo[0].valorgasto;
 
-                LoadingIndicator.IsVisible = false;
-                LoadingIndicator.IsRunning = false;
-                GridPrincipal.IsVisible = true;
+                    lblValorGasto.Text = "R$ 0,00";
+
+                    if (valorgasto.HasValue)
+                    {
+                        lblValorGasto.Text = valorgasto.Value.ToString("C", new CultureInfo("pt-BR"));
+                    }
+
+                    lblQtdPedido.Text = infoHistoricoNovo[0].qtdpedido.ToString();
+                    lblVencidos.Text = contVencidas.ToString();
+
+                    LoadingIndicator.IsVisible = false;
+                    LoadingIndicator.IsRunning = false;
+                    GridPrincipal.IsVisible = true;
+                }
             }
             else
             {

@@ -44,22 +44,6 @@ public partial class AppShell : Shell
 
     #region 3- METODOS
 
-    private async Task<double> DefineEspaco()
-    {
-        try
-        {
-            double screenHeight = DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
-            double espaconHeight = screenHeight / 1.5;
-
-            return espaconHeight;
-        }
-        catch (Exception ex)
-        {
-            await MetodoErroLog(ex);
-            return 0;
-        }
-    }
-
     private async Task MetodoErroLog(Exception ex)
     {
         var erroLog = new ErrorLogClass

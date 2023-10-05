@@ -32,6 +32,7 @@
                     Text="Restrições:"
                     VerticalOptions="Center" />
                 <ScrollView
+                    x:Name="GridPrincipal"
                     BackgroundColor="Transparent"
                     HorizontalScrollBarVisibility="Never"
                     VerticalScrollBarVisibility="Always">
@@ -74,6 +75,19 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </ScrollView>
+
+                <Frame
+                    x:Name="GridSecundario"
+                    BackgroundColor="White"
+                    CornerRadius="6"
+                    IsVisible="false">
+                    <Label
+                        FontSize="28"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource labelInfos}"
+                        Text="Não há restrições"
+                        VerticalOptions="CenterAndExpand" />
+                </Frame>
             </StackLayout>
 
             <!--#region Linha 7-->
