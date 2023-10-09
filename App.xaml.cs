@@ -1,11 +1,16 @@
-﻿using AppMarciusMagazine.Classes.API.Principal;
+﻿using AppMarciusMagazine.Classes.API.Cobranca;
+using AppMarciusMagazine.Classes.API.Principal;
+using AppMarciusMagazine.Classes.Globais;
+using AppMarciusMagazine.Services.Cobranca;
 using AppMarciusMagazine.Services.Principal;
+using AppMarciusMagazine.Views.Cobranca;
 
 namespace AppMarciusMagazine;
 
 public partial class App : Application
 {
-    APIErroLog error = new();
+    APIErroLog error = new APIErroLog();
+    APIOcorrencia api_ocorrencia = new APIOcorrencia();
 
     public App()
     {
@@ -64,6 +69,5 @@ public partial class App : Application
     }
 
     #region 4- EVENTOS DE CONTROLE
-
     #endregion
 }

@@ -220,11 +220,8 @@ namespace AppMarciusMagazine.Services.Principal
                 #endregion
 
                 #region URL - Desenvolvimento
-                if (Debugger.IsAttached)
-                {
-                    InfoGlobal.apiApp = "http://192.168.10.94:5000/api";
-                    InfoGlobal.apiCobranca = "http://192.168.10.94:6000/api";
-                }
+                InfoGlobal.apiApp = "http://192.168.10.94:5000/api";
+                InfoGlobal.apiCobranca = "http://192.168.10.94:6000/api";
                 #endregion
             }
 

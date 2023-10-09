@@ -15,16 +15,12 @@ public partial class AppShell : Shell
 {
     #region 1- VARIAVEIS
     APIErroLog error = new();
-    APIOcorrencia api_ocorrencia = new APIOcorrencia();
-
     #endregion
 
     #region 2- METODOS CONSTRUTORES
     public AppShell()
     {
         InitializeComponent();
-
-        api_ocorrencia.OcorrenciasAltered += OnOcorrenciasAltered;
     }
 
     private async void Shell_Loaded(object sender, EventArgs e)
@@ -63,19 +59,6 @@ public partial class AppShell : Shell
     #endregion
 
     #region 4- EVENTOS DE CONTROLE
-
-    [Obsolete]
-    private void OnOcorrenciasAltered(List<OcorrenciaClass> ocorrenciasAlteradas)
-    {
-        Device.InvokeOnMainThreadAsync(async () =>
-        {
-            if (ocorrenciasAlteradas.Any(x => x.Codsolicitacao == InfoGlobal.CodOcorrencia))
-            {
-                await DisplayAlert("AVISO", "Essa ocorrência acaba de ser finalizada! Você irá retornar para a página de ocorrências!", "OK");
-                await Application.Current.MainPage.Navigation.PushAsync(new VOcorrencia());
-            }
-        });
-    }
 
     private async void OnLogoutClicked(object sender, EventArgs e)
     {

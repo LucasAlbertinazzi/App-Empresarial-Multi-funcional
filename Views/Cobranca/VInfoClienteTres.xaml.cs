@@ -101,54 +101,143 @@ public partial class VInfoClienteTres : ContentPage
 
     private async void btnConsultaScore_Clicked(object sender, EventArgs e)
     {
-        await DisplayAlert("AVISO", "No momento a função CONSULTA SCORE está desativada, faça a consulta pelo sistema", "OK");
 
-        //int piker = cmbTipo.SelectedIndex;
+        int piker = cmbTipo.SelectedIndex;
 
-        //ScoreClass scoreClass = new ScoreClass();
+        ScoreClass scoreClass = new ScoreClass();
 
-        //if (piker == 0)
-        //{
-        //    scoreClass = new ScoreClass
-        //    {
-        //        codusuario = InfoGlobal.codusuario.ToString(),
-        //        codcliente = listasuporte[0].Codcliente.ToString(),
-        //        tipos = "TITULAR",
-        //        cpf = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte[0].Cpf.ToString()),
-        //        rg = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte[0].Rg.ToString()),
-        //        nome = listasuporte[0].Nome.ToUpper(),
-        //        uf = listasuporte[0].Uf.ToUpper(),
-        //        nascimento = ScoreOptions.FormatDate(listasuporte[0].Nascimento.ToString()),
-        //    };
-        //}
-        //else
-        //{
-        //    scoreClass = new ScoreClass
-        //    {
-        //        codusuario = InfoGlobal.codusuario.ToString(),
-        //        codcliente = listasuporte[0].Codcliente.ToString(),
-        //        tipos = "CONJUGE",
-        //        cpf = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte[0].ConjCpf.ToString()),
-        //        rg = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte[0].ConjRg.ToString()),
-        //        nome = listasuporte[0].Conjuge.ToUpper(),
-        //        uf = listasuporte[0].UfC.ToUpper(),
-        //        nascimento = ScoreOptions.FormatDate(listasuporte[0].ConjNascimento.ToString()),
-        //    };
-        //}
+        if (piker == 0)
+        {
+            var last = await apiScore.ObterUltimoScore(listasuporte.Cliente.Codcliente, "TITULAR");
 
-        //var result = await apiScore.BuscaScore(scoreClass);
+            if (last != null)
+            {
+                DateTime dataAtual = DateTime.Now;
 
-        //if (string.IsNullOrEmpty(result))
-        //{
-        //    await DisplayAlert("Aviso", "Não foi possível encontrar o score do cliente. Verifique as informações ou tente novamente mais tarde.", "OK");
-        //    return;
-        //}
+                DateTime dataConsulta = last.Dataconsulta;
 
-        //if(!await ScoreOptions.CarregaPDF(result, scoreClass.codcliente))
-        //{
-        //    await DisplayAlert("Aviso", "Não foi possível visualizar o PDF, tente novamente mais tarde.", "OK");
-        //    return;
-        //}
+                DateTime dataLimite = dataConsulta.AddDays(60);
+
+                if (dataAtual < dataLimite)
+                {
+
+                    await DisplayAlert("AVISO", $"A consulta a ser exibida a seguir, é referente a data {last.Dataconsulta.ToShortDateString()}.", "OK");
+
+                    if (!await ScoreOptions.CarregaPDF(last.Pdflast, listasuporte.Cliente.Codcliente.ToString()))
+                    {
+                        await DisplayAlert("Aviso", "Não foi possível visualizar o PDF, tente novamente mais tarde.", "OK");
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    scoreClass = new ScoreClass
+                    {
+                        codusuario = InfoGlobal.codusuario.ToString(),
+                        codcliente = listasuporte.Cliente.Codcliente.ToString(),
+                        tipos = "TITULAR",
+                        cpf = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Cpf.ToString()),
+                        rg = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Rg.ToString()),
+                        nome = listasuporte.Cliente.Nome.ToUpper(),
+                        uf = listasuporte.Cliente.Uf.ToUpper(),
+                        nascimento = ScoreOptions.FormatDate(listasuporte.Cliente.Nascimento.ToString()),
+                    };
+                }
+            }
+            else
+            {
+                scoreClass = new ScoreClass
+                {
+                    codusuario = InfoGlobal.codusuario.ToString(),
+                    codcliente = listasuporte.Cliente.Codcliente.ToString(),
+                    tipos = "TITULAR",
+                    cpf = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Cpf.ToString()),
+                    rg = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Rg.ToString()),
+                    nome = listasuporte.Cliente.Nome.ToUpper(),
+                    uf = listasuporte.Cliente.Uf.ToUpper(),
+                    nascimento = ScoreOptions.FormatDate(listasuporte.Cliente.Nascimento.ToString()),
+                };
+            }
+        }
+        else if (piker == 1)
+        {
+            var last = await apiScore.ObterUltimoScore(listasuporte.Cliente.Codcliente, "CONJUGE");
+
+            if (last != null)
+            {
+                DateTime dataAtual = DateTime.Now;
+
+                DateTime dataConsulta = last.Dataconsulta;
+
+                DateTime dataLimite = dataConsulta.AddDays(60);
+
+                if (dataAtual < dataLimite)
+                {
+                    await DisplayAlert("AVISO", $"A consulta a ser exibida a seguir, é referente a data {last.Dataconsulta.ToShortDateString()}.", "OK");
+
+                    if (!await ScoreOptions.CarregaPDF(last.Pdflast, listasuporte.Cliente.Codcliente.ToString()))
+                    {
+                        await DisplayAlert("Aviso", "Não foi possível visualizar o PDF, tente novamente mais tarde.", "OK");
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    scoreClass = new ScoreClass
+                    {
+                        codusuario = InfoGlobal.codusuario.ToString(),
+                        codcliente = listasuporte.Cliente.Codcliente.ToString(),
+                        tipos = "CONJUGE",
+                        cpf = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Cpf.ToString()),
+                        rg = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Rg.ToString()),
+                        nome = listasuporte.Cliente.Nome.ToUpper(),
+                        uf = listasuporte.Cliente.Uf.ToUpper(),
+                        nascimento = ScoreOptions.FormatDate(listasuporte.Cliente.Nascimento.ToString()),
+                    };
+                }
+            }
+            else
+            {
+                scoreClass = new ScoreClass
+                {
+                    codusuario = InfoGlobal.codusuario.ToString(),
+                    codcliente = listasuporte.Cliente.Codcliente.ToString(),
+                    tipos = "CONJUGE",
+                    cpf = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Cpf.ToString()),
+                    rg = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Rg.ToString()),
+                    nome = listasuporte.Cliente.Nome.ToUpper(),
+                    uf = listasuporte.Cliente.Uf.ToUpper(),
+                    nascimento = ScoreOptions.FormatDate(listasuporte.Cliente.Nascimento.ToString()),
+                };
+            }
+        }
+        else
+        {
+            await DisplayAlert("AVISO", "Selecione o tipo de cliente!", "OK");
+            return;
+        }
+
+        var result = await apiScore.BuscaScore(scoreClass);
+
+        if (string.IsNullOrEmpty(result))
+        {
+            await DisplayAlert("Aviso", "Não foi possível encontrar o score do cliente. Verifique as informações ou tente novamente mais tarde.", "OK");
+            return;
+        }
+
+        if (!await ScoreOptions.CarregaPDF(result, scoreClass.codcliente))
+        {
+            await DisplayAlert("Aviso", "Não foi possível visualizar o PDF, tente novamente mais tarde.", "OK");
+            return;
+        }
     }
 
     private async void btnVoltar_Clicked(object sender, EventArgs e)

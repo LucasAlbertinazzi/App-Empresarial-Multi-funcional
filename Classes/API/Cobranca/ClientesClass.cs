@@ -61,7 +61,7 @@ namespace AppMarciusMagazine.Classes.API.Cobranca
 
         public string? Empresa { get; set; }
 
-        public DateOnly? Admissao { get; set; }
+        public DateTime? Admissao { get; set; }
 
         public string? EmpEndereco { get; set; }
 

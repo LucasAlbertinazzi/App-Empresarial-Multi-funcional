@@ -19,39 +19,45 @@
             VerticalOptions="CenterAndExpand"
             Color="White" />
 
-        <Grid Margin="15">
-            <StackLayout
-                Margin="0,0,0,10"
-                Orientation="Vertical"
-                Spacing="8">
-                <Label Style="{StaticResource labelPadraoWhite}" Text="Atenuentes :" />
-                <Frame
-                    x:Name="frameAtenuentes"
-                    MinimumHeightRequest="150"
-                    Style="{StaticResource EstiloCardOcorrencia}">
-                    <ScrollView Padding="5" HorizontalScrollBarVisibility="Never">
-                        <Label
-                            x:Name="lblAtenuentes"
-                            HorizontalTextAlignment="Start"
-                            LineBreakMode="CharacterWrap"
-                            Style="{StaticResource labelInfos}"
-                            VerticalTextAlignment="Start" />
-                    </ScrollView>
-                </Frame>
-                <Label Style="{StaticResource labelPadraoWhite}" Text="Agravantes :" />
-                <Frame
-                    x:Name="frameAgravantes"
-                    MinimumHeightRequest="150"
-                    Style="{StaticResource EstiloCardOcorrencia}">
-                    <ScrollView Padding="5" HorizontalScrollBarVisibility="Never">
-                        <Label
-                            x:Name="lblAgravantes"
-                            HorizontalTextAlignment="Start"
-                            LineBreakMode="CharacterWrap"
-                            Style="{StaticResource labelInfos}"
-                            VerticalTextAlignment="Start" />
-                    </ScrollView>
-                </Frame>
+        <StackLayout
+            Margin="15"
+            HorizontalOptions="FillAndExpand"
+            Orientation="Vertical"
+            Spacing="8"
+            VerticalOptions="FillAndExpand">
+
+            <Label Style="{StaticResource labelPadraoWhite}" Text="Atenuentes :" />
+            <Frame x:Name="frameAtenuentes" Style="{StaticResource EstiloCardOcorrencia}">
+                <ScrollView Padding="5" HorizontalScrollBarVisibility="Never">
+                    <Label
+                        x:Name="lblAtenuentes"
+                        HorizontalTextAlignment="Start"
+                        LineBreakMode="CharacterWrap"
+                        Style="{StaticResource labelInfos}"
+                        VerticalTextAlignment="Start" />
+                </ScrollView>
+            </Frame>
+            <Label Style="{StaticResource labelPadraoWhite}" Text="Agravantes :" />
+            <Frame x:Name="frameAgravantes" Style="{StaticResource EstiloCardOcorrencia}">
+                <ScrollView Padding="5" HorizontalScrollBarVisibility="Never">
+                    <Label
+                        x:Name="lblAgravantes"
+                        HorizontalTextAlignment="Start"
+                        LineBreakMode="CharacterWrap"
+                        Style="{StaticResource labelInfos}"
+                        VerticalTextAlignment="Start" />
+                </ScrollView>
+            </Frame>
+
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Vertical">
+                <Button
+                    x:Name="btnSolicitaContrato"
+                    Clicked="btnSolicitaContrato_Clicked"
+                    HeightRequest="52"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource btnCardYellow}"
+                    Text="Solicitar contrato"
+                    VerticalOptions="CenterAndExpand" />
             </StackLayout>
 
             <StackLayout
@@ -74,22 +80,6 @@
                     Text="Início"
                     VerticalOptions="FillAndExpand" />
             </StackLayout>
-
-            <StackLayout
-                HorizontalOptions="FillAndExpand"
-                Orientation="Vertical"
-                Spacing="8"
-                VerticalOptions="EndAndExpand">
-                <Label Style="{StaticResource labelPadraoWhite}" Text="" />
-                <Button
-                    x:Name="btnSolicitaContrato"
-                    Clicked="btnSolicitaContrato_Clicked"
-                    HeightRequest="52"
-                    HorizontalOptions="FillAndExpand"
-                    Style="{StaticResource btnCardYellow}"
-                    Text="Consultar SCORE Boa Vista"
-                    VerticalOptions="CenterAndExpand" />
-            </StackLayout>
-        </Grid>
+        </StackLayout>
     </Grid>
 </ContentPage>

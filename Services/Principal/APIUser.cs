@@ -56,6 +56,7 @@ namespace AppMarciusMagazine.Services.Principal
 
                     InfoGlobal.statusCode = true;
                     InfoGlobal.usuario = resposta.Usuario;
+                    InfoGlobal.senha = resposta.Email;
                     InfoGlobal.funcao = resposta.Codfuncao;
                     InfoGlobal.departamento = resposta.Coddep;
                     InfoGlobal.codusuario = resposta.Codusuario;

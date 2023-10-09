@@ -263,4 +263,16 @@ namespace AppMarciusMagazine.Classes.API.Cobranca
         public string? Agravantes { get; set; }
     }
 
+    public class SenhaPedido
+    {
+        public string Senha2 { get; set; }
+        public DateTime Horasenha2 { get; set; }
+        public string Senha2obs { get; set; }
+        public int Codprepedido { get; set; }
+        public int Codcliente { get; set; }
+        public int Codusuario { get; set; }
+        public bool Identifica { get; set; }
+        public int Codsolicitacao { get; set; }
+    }
+
 }

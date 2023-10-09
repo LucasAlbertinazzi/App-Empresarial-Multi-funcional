@@ -82606,13 +82606,13 @@
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "1.4.0",
     "restore": {
-      "projectUniqueName": "G:\\Marcius\\APP\\AppMarcius\\AppMarciusMagazine.csproj",
+      "projectUniqueName": "G:\\Marcius\\APP\\APP_MARCIUS\\AppMarciusMagazine.csproj",
       "projectName": "AppMarciusMagazine",
-      "projectPath": "G:\\Marcius\\APP\\AppMarcius\\AppMarciusMagazine.csproj",
+      "projectPath": "G:\\Marcius\\APP\\APP_MARCIUS\\AppMarciusMagazine.csproj",
       "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-      "outputPath": "G:\\Marcius\\APP\\AppMarcius\\obj\\",
+      "outputPath": "G:\\Marcius\\APP\\APP_MARCIUS\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [

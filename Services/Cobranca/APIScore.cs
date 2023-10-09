@@ -38,7 +38,7 @@ namespace AppMarciusMagazine.Services.Cobranca
 
         public APIScore()
         {
-            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 10) };
+            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 30) };
         }
 
         public async Task<Stream> CarregaPdfScore(string resultado)
@@ -93,6 +93,33 @@ namespace AppMarciusMagazine.Services.Cobranca
                 return string.Empty;
             }
         }
+
+        public async Task<ScoreLastClass> ObterUltimoScore(int codCliente, string tipo)
+        {
+            try
+            {
+                string url = $"{InfoGlobal.apiCobranca}/ScoreBoaVista/last-score?codcliente={codCliente}&tipo={tipo}";
+
+                HttpResponseMessage response = await _httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var resultado = JsonConvert.DeserializeObject<ScoreLastClass>(responseContent);
+
+                    return resultado;
+                }
+
+                return null;
+               
+            }
+            catch (Exception ex)
+            {
+                // Tratar exceção aqui, se necessário
+                return null;
+            }
+        }
+
 
 
         #endregion

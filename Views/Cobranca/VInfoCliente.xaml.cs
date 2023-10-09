@@ -95,6 +95,19 @@ public partial class VInfoCliente : ContentPage
                 lblBairro.Text = lista.BairroCliente ?? lblBairro.Text;
                 lblNumEnd.Text = lista.Cliente.EnderecoNum ?? lblNumEnd.Text;
 
+                lblEmpresa.Text = lista.Cliente.ConjEmpresa ?? lblEmpresa.Text;
+                lblFoneEmp.Text = lista.Cliente.ConjEmpFone ?? lblEmpresa.Text;
+                lblTipoEmp.Text = lista.Cliente.Tipoempregoconj ?? lblEmpresa.Text;
+                lblAdmissaoEmp.Text = (lista.Cliente.ConjAdmissao != null) ? lista.Cliente.ConjAdmissao.Value.ToString("dd/MM/yyyy") : lblEmpresa.Text;
+                lblFuncEmp.Text = lista.Cliente.ConjCargo ?? lblEmpresa.Text;
+
+                int codCidade = lista.Cliente.CodcidadeC ?? 0;
+                lblCidadeEmp.Text = await apiClientes.BuscaCidade(codCidade);
+
+                decimal renda = lista.Cliente.ConjRendaliquida ?? 0;
+                string rendaFormatada = renda.ToString("C");
+                lblRendaEmp.Text = rendaFormatada;
+
                 FotoCliente.Source = await apiClientes.BuscaFotoCliente(Convert.ToInt64(lista.Cliente.Codcliente), "CONJUGE");
             }
             else
@@ -108,6 +121,19 @@ public partial class VInfoCliente : ContentPage
                 lblEndereco.Text = lista.Cliente.Endereco ?? lblEndereco.Text;
                 lblBairro.Text = lista.BairroCliente ?? lblBairro.Text;
                 lblNumEnd.Text = lista.Cliente.EnderecoNum ?? lblNumEnd.Text;
+
+                lblEmpresa.Text = lista.Cliente.Empresa ?? lblEmpresa.Text;
+                lblFoneEmp.Text = lista.Cliente.EmpFone ?? lblEmpresa.Text;
+                lblTipoEmp.Text = lista.Cliente.Tipoemprego ?? lblEmpresa.Text;
+                lblAdmissaoEmp.Text = (lista.Cliente.Admissao != null) ? lista.Cliente.Admissao.Value.ToString("dd/MM/yyyy") : lblEmpresa.Text;
+                lblFuncEmp.Text = lista.Cliente.Cargo ?? lblEmpresa.Text;
+
+                int codCidade = lista.Cliente.EmpreCodcidade ?? 0;
+                lblCidadeEmp.Text = await apiClientes.BuscaCidade(codCidade);
+
+                decimal renda = lista.Cliente.Rendaliquida ?? 0;
+                string rendaFormatada = renda.ToString("C");
+                lblRendaEmp.Text = rendaFormatada;
 
                 FotoCliente.Source = await apiClientes.BuscaFotoCliente(Convert.ToInt64(lista.Cliente.Codcliente), "TITULAR");
             }

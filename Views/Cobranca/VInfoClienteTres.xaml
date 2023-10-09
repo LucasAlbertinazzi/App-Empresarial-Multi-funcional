@@ -44,6 +44,7 @@
                                     Padding="5"
                                     BackgroundColor="{Binding Cor}"
                                     BorderColor="{Binding Cor}"
+                                    HeightRequest="150"
                                     Style="{StaticResource EstiloCardHistorico}">
                                     <StackLayout Orientation="Vertical" Spacing="-5">
                                         <Label
@@ -65,9 +66,10 @@
                                         <Label
                                             FontSize="16"
                                             HorizontalOptions="StartAndExpand"
-                                            LineBreakMode="TailTruncation"
+                                            LineBreakMode="WordWrap"
                                             Style="{StaticResource labelInfos}"
-                                            Text="{Binding Detalhe}" />
+                                            Text="{Binding Detalhe}"
+                                            VerticalOptions="FillAndExpand" />
                                     </StackLayout>
 
                                 </Frame>

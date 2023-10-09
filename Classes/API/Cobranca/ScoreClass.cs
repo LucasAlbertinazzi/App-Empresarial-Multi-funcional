@@ -24,4 +24,14 @@ namespace AppMarciusMagazine.Classes.API.Cobranca
         public string? informante { get; set; }
         public string? negativado { get; set; }
     }
+
+    public class ScoreLastClass
+    {
+        public long Codigo { get; set; }
+        public string Informante { get; set; }
+        public string Situacao { get; set; }
+        public string Usuario { get; set; }
+        public DateTime Dataconsulta { get; set; }
+        public string Pdflast { get; set; }
+    }
 }

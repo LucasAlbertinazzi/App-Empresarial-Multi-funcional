@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Marcius\\APP\\AppMarcius\\AppMarciusMagazine.csproj": {}
+    "G:\\Marcius\\APP\\APP_MARCIUS\\AppMarciusMagazine.csproj": {}
   },
   "projects": {
-    "G:\\Marcius\\APP\\AppMarcius\\AppMarciusMagazine.csproj": {
-      "version": "1.0.0",
+    "G:\\Marcius\\APP\\APP_MARCIUS\\AppMarciusMagazine.csproj": {
+      "version": "1.4.0",
       "restore": {
-        "projectUniqueName": "G:\\Marcius\\APP\\AppMarcius\\AppMarciusMagazine.csproj",
+        "projectUniqueName": "G:\\Marcius\\APP\\APP_MARCIUS\\AppMarciusMagazine.csproj",
         "projectName": "AppMarciusMagazine",
-        "projectPath": "G:\\Marcius\\APP\\AppMarcius\\AppMarciusMagazine.csproj",
+        "projectPath": "G:\\Marcius\\APP\\APP_MARCIUS\\AppMarciusMagazine.csproj",
         "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-        "outputPath": "G:\\Marcius\\APP\\AppMarcius\\obj\\",
+        "outputPath": "G:\\Marcius\\APP\\APP_MARCIUS\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [

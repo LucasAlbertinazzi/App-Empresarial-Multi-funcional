@@ -89,7 +89,7 @@ namespace AppMarciusMagazine.Services.Cobranca
             }
         }
 
-        public async Task<string?> BuscaCodPedido(string codprepedido)
+        public async Task<string> BuscaCodPedido(string codprepedido)
         {
             try
             {

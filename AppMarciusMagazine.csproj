@@ -31,25 +31,25 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
 	  <RunAOTCompilation>False</RunAOTCompilation>
 	  <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
-	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	  <DebugSymbols>True</DebugSymbols>
 	  <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
@@ -57,15 +57,15 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
-	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
-	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+	  <ApplicationDisplayVersion>1.4</ApplicationDisplayVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

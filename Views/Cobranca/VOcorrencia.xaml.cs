@@ -15,6 +15,9 @@ public partial class VOcorrencia : ContentPage
     #region 2- VARIAVEIS
     ObservableCollection<OcorrenciaClass> infoOcorrencias = new ObservableCollection<OcorrenciaClass>();
     APIOcorrencia api_ocorrencia = new APIOcorrencia();
+    APIClientes apiCliente = new APIClientes();
+
+    SenhaPedido senhaPedido = new SenhaPedido();
     #endregion
 
     #region 3- CLASSES
@@ -276,24 +279,56 @@ public partial class VOcorrencia : ContentPage
         }
     }
 
-    private void swNegar_Clicked(object sender, EventArgs e)
+    private async void swNegar_Clicked(object sender, EventArgs e)
     {
+        senhaPedido = new SenhaPedido();
+
         var swipeItem = sender as SwipeItemView;
         var ocorrencia = swipeItem.CommandParameter as OcorrenciaClass;
 
-        ComentarioPopupFrame.HeightRequest = ResponsiveAuto.Height(3);
-        ComentarioPopupFrame.WidthRequest = ResponsiveAuto.Width(1.4);
-        ComentarioPopupGrid.IsVisible = true;
+        if(ocorrencia != null)
+        {
+            senhaPedido.Codcliente = Convert.ToInt32(ocorrencia.Codcliente);
+            senhaPedido.Codprepedido = Convert.ToInt32(ocorrencia.Codigo);
+            senhaPedido.Codusuario = InfoGlobal.codusuario;
+            senhaPedido.Identifica = false;
+            senhaPedido.Horasenha2 = DateTime.Now;
+            senhaPedido.Codsolicitacao = ocorrencia.Codsolicitacao;
+
+            ComentarioPopupFrame.HeightRequest = ResponsiveAuto.Height(3);
+            ComentarioPopupFrame.WidthRequest = ResponsiveAuto.Width(1.4);
+            ComentarioPopupGrid.IsVisible = true;
+        }
+        else
+        {
+            await DisplayAlert("ERRO", "Ocorreu um erro ao executar essa ação, reinicei o APP e tente novamente!", "OK");
+        }
     }
 
-    private void swValidar_Clicked(object sender, EventArgs e)
+    private async void swValidar_Clicked(object sender, EventArgs e)
     {
+        senhaPedido = new SenhaPedido();
+
         var swipeItem = sender as SwipeItemView;
         var ocorrencia = swipeItem.CommandParameter as OcorrenciaClass;
 
-        ComentarioPopupFrame.HeightRequest = ResponsiveAuto.Height(3);
-        ComentarioPopupFrame.WidthRequest = ResponsiveAuto.Width(1.4);
-        ComentarioPopupGrid.IsVisible = true;
+        if (ocorrencia != null)
+        {
+            senhaPedido.Codcliente = Convert.ToInt32(ocorrencia.Codcliente);
+            senhaPedido.Codprepedido = Convert.ToInt32(ocorrencia.Codigo);
+            senhaPedido.Codusuario = InfoGlobal.codusuario;
+            senhaPedido.Identifica = true;
+            senhaPedido.Horasenha2 = DateTime.Now;
+            senhaPedido.Codsolicitacao = ocorrencia.Codsolicitacao;
+
+            ComentarioPopupFrame.HeightRequest = ResponsiveAuto.Height(3);
+            ComentarioPopupFrame.WidthRequest = ResponsiveAuto.Width(1.4);
+            ComentarioPopupGrid.IsVisible = true;
+        }
+        else
+        {
+            await DisplayAlert("ERRO", "Ocorreu um erro ao executar essa ação, reinicie o APP e tente novamente!", "OK");
+        }
     }
 
     private void OnCancelarClicked(object sender, EventArgs e)
@@ -306,10 +341,56 @@ public partial class VOcorrencia : ContentPage
         ComentarioPopupGrid.IsVisible = false;
     }
 
-    private void OnSalvarClicked(object sender, EventArgs e)
+    private async void OnSalvarClicked(object sender, EventArgs e)
     {
-        var comentario = ComentarioEntry.Text;
-        ComentarioPopupGrid.IsVisible = false;
+        if (!await api_ocorrencia.VerificaOcorrencia(senhaPedido.Codsolicitacao))
+        {
+            if (!string.IsNullOrEmpty(ComentarioEntry.Text))
+            {
+                senhaPedido.Senha2obs = ComentarioEntry.Text;
+
+                if (senhaPedido.Identifica)
+                {
+                    if (await api_ocorrencia.AprovaPedido(senhaPedido))
+                    {
+                        await DisplayAlert("AVISO", "Pedido APROVADO com sucesso!", "OK");
+                    }
+                    else
+                    {
+                        await DisplayAlert("ERRO", "Ocorreu um erro ao salvar as informações, reinicie o APP e tente novamente!", "OK");
+                    }
+
+                    await CarregaOcorrenciasIniciais();
+                    ComentarioEntry.Text = string.Empty;
+                }
+                else
+                {
+                    if (await api_ocorrencia.NegarPedido(senhaPedido))
+                    {
+                        await DisplayAlert("AVISO", "Pedido NEGADO com sucesso!", "OK");
+                    }
+                    else
+                    {
+                        await DisplayAlert("ERRO", "Ocorreu um erro ao salvar as informações, reinicie o APP e tente novamente!", "OK");
+                    }
+
+                    await CarregaOcorrenciasIniciais();
+                    ComentarioEntry.Text = string.Empty;
+                }
+
+                ComentarioPopupGrid.IsVisible = false;
+                ComentarioEntry.Text = string.Empty;
+            }
+            else
+            {
+                await DisplayAlert("AVISO", "Observação necessária!", "OK");
+            }
+        }
+        else
+        {
+            await DisplayAlert("AVISO", "Essa ocorrência ja foi finalizada!", "OK");
+            return;
+        }
     }
 
     #endregion

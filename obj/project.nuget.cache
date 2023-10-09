@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "A6V0sIHAvHm84fUrj6/cMSDY3JJ0MFcnt6z0VKb/5qVhZwjxXTj/1FHG/M5SLiA1tTrXQ0B6SqoMEWqxRg+ozw==",
+  "dgSpecHash": "i7NVEzhx9xmRkcLFIIZh8N+MfgS2kHqg9MnG9jp12BEuSmTg8TWZ8a05PFgaTJ1rolujQu8aWuU/U3D3LEL6ZQ==",
   "success": true,
-  "projectFilePath": "G:\\Marcius\\APP\\AppMarcius\\AppMarciusMagazine.csproj",
+  "projectFilePath": "G:\\Marcius\\APP\\APP_MARCIUS\\AppMarciusMagazine.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lucas\\.nuget\\packages\\googlegson\\2.9.1.1\\googlegson.2.9.1.1.nupkg.sha512",
     "C:\\Users\\lucas\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.9\\microsoft.aspnet.webapi.client.5.2.9.nupkg.sha512",

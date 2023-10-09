@@ -4,6 +4,7 @@ using AppMarciusMagazine.Classes.Globais;
 using AppMarciusMagazine.Services.Principal;
 using AppMarciusMagazine.Suporte;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace AppMarciusMagazine.Services.Cobranca
 {
@@ -170,6 +171,83 @@ namespace AppMarciusMagazine.Services.Cobranca
             }
         }
 
+        public async Task<bool> AprovaPedido(SenhaPedido senhaPedido)
+        {
+            try
+            {
+                string url = InfoGlobal.apiCobranca + "/Ocorrencias/aprova-pedido";
+
+                // Converte o objeto para JSON
+                var jsonContent = JsonConvert.SerializeObject(senhaPedido);
+                HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _httpClient.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<bool>(responseContent);
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Trata a exceção, se necessário
+                return false;
+            }
+        }
+
+        public async Task<bool> NegarPedido(SenhaPedido senhaPedido)
+        {
+            try
+            {
+                string url = InfoGlobal.apiCobranca + "/Ocorrencias/negar-pedido";
+
+                // Converte o objeto para JSON
+                var jsonContent = JsonConvert.SerializeObject(senhaPedido);
+                HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _httpClient.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<bool>(responseContent);
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Trata a exceção, se necessário
+                return false;
+            }
+        }
+
+        public async Task<bool> VerificaOcorrencia(int codocorrencia)
+        {
+            try
+            {
+                string uri = InfoGlobal.apiCobranca + "/Ocorrencias/verifica-ocorrencia?codocorrencia=" + codocorrencia + "";
+
+                HttpResponseMessage response = await _httpClient.GetAsync(uri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+
+                    return JsonConvert.DeserializeObject<bool>(responseContent);
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return false;
+            }
+        }
 
         //----------------------------------------------------------------------------------------------
 

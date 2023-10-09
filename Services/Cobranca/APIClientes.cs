@@ -92,7 +92,6 @@ namespace AppMarciusMagazine.Services.Cobranca
             }
         }
 
-
         public async Task<string> BuscaFotoCliente(long cod, string tipo)
         {
             try
@@ -121,7 +120,6 @@ namespace AppMarciusMagazine.Services.Cobranca
             }
         }
 
-
         private async Task<string> SalvaImgLocalAsync(byte[] imageBytes, string itemName)
         {
             try
@@ -140,6 +138,53 @@ namespace AppMarciusMagazine.Services.Cobranca
             {
                 await MetodoErroLog(ex);
                 return "figura.svg";
+            }
+        }
+
+        public async Task<int> SolicitaContrato(int codprepedido)
+        {
+            try
+            {
+                string url = InfoGlobal.apiCobranca + $"/Clientes/solicita-contrato?codprepedido={codprepedido}";
+
+                // Faça a requisição POST
+                HttpResponseMessage response = await _httpClient.PostAsync(url, null);
+
+                // Verifique se a requisição foi bem-sucedida (status code 200-299)
+                if (response.IsSuccessStatusCode)
+                {
+                    // O contrato foi solicitado com sucesso
+                    return await response.Content.ReadAsAsync<int>();
+                }
+
+                return 0;
+               
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
+        public async Task<string> BuscaCidade(int codcidade)
+        {
+            try
+            {
+                string uri = InfoGlobal.apiCobranca + "/Clientes/busca-cidade?codcidade=" + codcidade + "";
+
+                HttpResponseMessage response = await _httpClient.GetAsync(uri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return null;
             }
         }
 

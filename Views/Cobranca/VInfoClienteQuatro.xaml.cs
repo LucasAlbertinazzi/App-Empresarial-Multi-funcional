@@ -11,6 +11,7 @@ public partial class VInfoClienteQuatro : ContentPage
     OcorrenciaClass ocorrencia = new OcorrenciaClass();
 
     APIOcorrencia apiOcorrencia = new APIOcorrencia();
+    APIClientes apiCliente = new APIClientes();
 
     public VInfoClienteQuatro(ClientesClass lista, OcorrenciaClass _ocorrencia)
     {
@@ -26,8 +27,8 @@ public partial class VInfoClienteQuatro : ContentPage
 
     private async Task Metodos()
     {
-        frameAtenuentes.HeightRequest = ResponsiveAuto.Height(2.8);
-        frameAgravantes.HeightRequest = ResponsiveAuto.Height(2.8);
+        frameAtenuentes.HeightRequest = ResponsiveAuto.Height(3);
+        frameAgravantes.HeightRequest = ResponsiveAuto.Height(3);
 
         ScoreHist scoreHist = await apiOcorrencia.BuscaScoreHist(ocorrencia.Codigo);
 
@@ -53,6 +54,20 @@ public partial class VInfoClienteQuatro : ContentPage
 
     private async void btnSolicitaContrato_Clicked(object sender, EventArgs e)
     {
-        await DisplayAlert("AVISO", "No momento a função SOLICITAR CONTRATO está desativada, faça a solicitação pelo sistema", "OK");
+        bool resposta = await DisplayAlert("AVISO", "Deseja solicitar a impressão do contrato de venda desse pedido?", "SIM", "NÃO");
+
+        if (resposta)
+        {
+            int iRetorno = await apiCliente.SolicitaContrato(Convert.ToInt32(ocorrencia.Codigo));
+
+            if (iRetorno > 0)
+            {
+                await DisplayAlert("AVISO", "Contrato solicitado com sucesso!", "OK");
+            }
+            else
+            {
+                await DisplayAlert("AVISO", "Erro ao solicitar contrato!", "OK");
+            }
+        }
     }
 }
