@@ -1,39 +1,107 @@
 using AppMarciusMagazine.Classes.API.Cobranca;
+using AppMarciusMagazine.Classes.API.Principal;
 using AppMarciusMagazine.Services.Cobranca;
+using AppMarciusMagazine.Services.Principal;
 using System.Globalization;
 
 namespace AppMarciusMagazine.Views.Cobranca;
 
 public partial class VInfoClienteHistorico : ContentPage
 {
+    #region 1- LOG
+    APIErroLog error = new();
+
+    private async Task MetodoErroLog(Exception ex)
+    {
+        var erroLog = new ErrorLogClass
+        {
+            Erro = ex.Message, // Obtém a mensagem de erro
+            Metodo = ex.TargetSite.Name, // Obtém o nome do método que gerou o erro
+            Dispositivo = DeviceInfo.Model, // Obtém o nome do dispositivo em execução
+            Versao = DeviceInfo.Version.ToString(), // Obtém a versão do dispostivo
+            Plataforma = DeviceInfo.Platform.ToString(), // Obtém o sistema operacional do dispostivo
+            TelaClasse = GetType().FullName, // Obtém o nome da tela/classe
+            Data = DateTime.Now,
+        };
+
+        await error.LogErro(erroLog);
+    }
+    #endregion
+
+    #region 1- VARIAVEIS
     APIClientes apiCliente = new APIClientes();
-    APIPedidos apiPedidos = new APIPedidos();
     ClientesClass listasuporte = new ClientesClass();
     OcorrenciaClass ocorrencia = new OcorrenciaClass();
 
     bool conjuge = false;
+    int tipoPagina = 0;
 
     private CancellationTokenSource _cancellationTokenSource;
+    #endregion
 
-    public VInfoClienteHistorico(ClientesClass clientesClasses, OcorrenciaClass _ocorrencia, bool _conjuge)
+    #region 2- CLASSES
+
+    #endregion
+
+    #region 3- METODOS CONSTRUTORES
+    public VInfoClienteHistorico(ClientesClass clientesClasses, OcorrenciaClass _ocorrencia, bool _conjuge, int _tipoPagina)
     {
-        InitializeComponent();
-        listasuporte = clientesClasses;
-        ocorrencia = _ocorrencia;
-        conjuge = _conjuge;
-        refreshView.Command = new Command(async () => await AtualizarPagina());
+        try
+        {
+            InitializeComponent();
+            listasuporte = clientesClasses;
+            ocorrencia = _ocorrencia;
+            conjuge = _conjuge;
+            tipoPagina = _tipoPagina;
+
+            refreshView.Command = new Command(async () => await AtualizarPagina());
+        }
+        catch (Exception ex)
+        {
+            MetodoErroLog(ex);
+            return;
+        }
     }
 
     private async void ContentPage_Loaded(object sender, EventArgs e)
     {
-        await CarregaListas();
+        try
+        {
+            if(tipoPagina == 1)
+            {
+                linha0.Height = 120;
+                cmbPeriodo.SelectedIndex = 0;
+                frPeriodo.IsVisible = true;
+                btnProximo.IsVisible = false;
+            }
+            else
+            {
+                await CarregaListas();
+            }
+        }
+        catch (Exception ex)
+        {
+            await MetodoErroLog(ex);
+            return;
+        }
     }
+    #endregion
+
+    #region 4- METODOS
 
     private async Task AtualizarPagina()
     {
-        await CarregaListas();
+        try
+        {
+            await CarregaListas();
 
-        refreshView.IsRefreshing = false;
+            refreshView.IsRefreshing = false;
+        }
+        catch (Exception ex)
+        {
+            await MetodoErroLog(ex);
+            return;
+        }
     }
 
     private async Task CarregaListas()
@@ -47,7 +115,19 @@ public partial class VInfoClienteHistorico : ContentPage
             LoadingIndicator.IsVisible = true;
             LoadingIndicator.IsRunning = true;
 
-            List<InfoHistoricoCliente> infoHistorico = await apiCliente.HistoricoPedidosCliente(listasuporte.Cliente.Codcliente, _cancellationTokenSource.Token);
+            string tipoCliente = cmbPeriodo.SelectedItem.ToString();
+
+            List<InfoHistoricoCliente> infoHistorico = new List<InfoHistoricoCliente>();
+
+            if (!string.IsNullOrEmpty(tipoCliente))
+            {
+               infoHistorico = await apiCliente.HistoricoPedidosClientePeriodo(listasuporte.Cliente.Codcliente, tipoCliente, _cancellationTokenSource.Token);
+            }
+            else
+            {
+                infoHistorico = await apiCliente.HistoricoPedidosCliente(listasuporte.Cliente.Codcliente, _cancellationTokenSource.Token);
+            }
+
             List<InfoHistoricoCliente> infoHistoricoNovo = new List<InfoHistoricoCliente>();
 
             int contVencidas = 0;
@@ -98,7 +178,8 @@ public partial class VInfoClienteHistorico : ContentPage
                         qtdpedido = item.qtdpedido,
                         valorgasto = item.valorgasto,
                         valorpago = item.valorpago,
-                        nomecliente = item.nomecliente
+                        nomecliente = item.nomecliente,
+                        prepedido = item.prepedido
                     });
                 }
 
@@ -180,22 +261,66 @@ public partial class VInfoClienteHistorico : ContentPage
         }
         catch (Exception ex)
         {
-            // trate outros tipos de exceções conforme necessário
+            await MetodoErroLog(ex);
+            return;
+        }
+    }
+    #endregion
+
+    #region 5- EVENTOS DE CONTROLE
+    private async void btnVoltar_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            if(tipoPagina != 1)
+            {
+                _cancellationTokenSource?.Cancel(); // cancela qualquer operação em andamento
+                await Navigation.PushAsync(new VInfoCliente(ocorrencia));
+            }
+            else
+            {
+                _cancellationTokenSource?.Cancel(); // cancela qualquer operação em andamento
+                await Navigation.PushAsync(new VInfoCliente(Convert.ToInt32(listasuporte.Cliente.Codcliente),1, listasuporte.TipoCliente));
+            }
+        }
+        catch (Exception ex)
+        {
+            await MetodoErroLog(ex);
             return;
         }
     }
 
-    private async void btnVoltar_Clicked(object sender, EventArgs e)
-    {
-        _cancellationTokenSource?.Cancel(); // cancela qualquer operação em andamento
-        await Navigation.PushAsync(new VInfoCliente(ocorrencia));
-    }
-
     private async void btnProximo_Clicked(object sender, EventArgs e)
     {
-        _cancellationTokenSource?.Cancel(); // cancela qualquer operação em andamento
-        await Navigation.PushAsync(new VInfoClienteDois(listasuporte, ocorrencia));
+        try
+        {
+            _cancellationTokenSource?.Cancel(); // cancela qualquer operação em andamento
+            await Navigation.PushAsync(new VInfoClienteDois(listasuporte, ocorrencia, 0, 0));
+        }
+        catch (Exception ex)
+        {
+            await MetodoErroLog(ex);
+            return;
+        }
+    }
+    #endregion
+
+    private async void cmbPeriodo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        await CarregaListas();
     }
 
-    
+    private async void OnFrameTapped(object sender, TappedEventArgs e)
+    {
+        if(tipoPagina == 1)
+        {
+            var frameSelecionado = sender as Frame;
+            InfoHistoricoCliente selecionado = frameSelecionado?.BindingContext as InfoHistoricoCliente;
+
+            if (selecionado != null)
+            {
+                await Navigation.PushAsync(new VInfoClienteDois(listasuporte, ocorrencia, 1, selecionado.prepedido));
+            }
+        }
+    }
 }

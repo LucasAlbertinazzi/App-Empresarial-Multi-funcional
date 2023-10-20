@@ -23,10 +23,12 @@
                     HorizontalOptions="Center"
                     ImageSource="home.svg" />
                 <Button
+                    x:Name="btnOcorrencia"
                     BackgroundColor="Transparent"
                     Clicked="OnOcorrenciaClicked"
                     HorizontalOptions="Center"
-                    ImageSource="ocorrlateral.svg" />
+                    ImageSource="ocorrlateral.svg"
+                    IsVisible="False" />
             </StackLayout>
 
             <StackLayout
@@ -34,10 +36,12 @@
                 Spacing="10"
                 VerticalOptions="End">
                 <Button
+                    x:Name="btnConfig"
                     BackgroundColor="Transparent"
                     Clicked="OnSettingsCliked"
                     HorizontalOptions="Center"
-                    ImageSource="settings.svg" />
+                    ImageSource="settings.svg"
+                    IsVisible="False" />
                 <Button
                     Margin="10,0,0,0"
                     BackgroundColor="Transparent"

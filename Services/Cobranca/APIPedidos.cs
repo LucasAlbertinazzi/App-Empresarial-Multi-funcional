@@ -3,11 +3,6 @@ using AppMarciusMagazine.Classes.API.Principal;
 using AppMarciusMagazine.Classes.Globais;
 using AppMarciusMagazine.Services.Principal;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppMarciusMagazine.Services.Cobranca
 {
@@ -38,7 +33,7 @@ namespace AppMarciusMagazine.Services.Cobranca
 
         public APIPedidos()
         {
-            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 10) };
+            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 60) };
         }
 
         public async Task<List<PedidosClass>> BuscaInfoPedido(string codigo)
@@ -136,8 +131,6 @@ namespace AppMarciusMagazine.Services.Cobranca
                 return null;
             }
         }
-
-
         #endregion
     }
 }

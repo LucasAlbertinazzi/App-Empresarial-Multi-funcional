@@ -5,11 +5,6 @@ using AppMarciusMagazine.Views.Principal;
 using Plugin.LocalNotification;
 using Plugin.LocalNotification.AndroidOption;
 using Plugin.LocalNotification.EventArgs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppMarciusMagazine.Suporte
 {
@@ -43,19 +38,27 @@ namespace AppMarciusMagazine.Suporte
             LocalNotificationCenter.Current.NotificationActionTapped += OnNotificationTapped;
         }
 
-        private void OnNotificationTapped(NotificationActionEventArgs e)
+        private async void OnNotificationTapped(NotificationActionEventArgs e)
         {
-            var tela = e.Request.ReturningData;
+            try
+            {
+                var tela = e.Request.ReturningData;
 
-            if (string.IsNullOrEmpty(tela))
-            {
-                // Navegue para a tela VMenuPrincipal se não houver nome de tela especificado
-                Application.Current.MainPage.Navigation.PushAsync(new VMenuPrincipal());
+                if (string.IsNullOrEmpty(tela))
+                {
+                    // Navegue para a tela VMenuPrincipal se não houver nome de tela especificado
+                    await Application.Current.MainPage.Navigation.PushAsync(new VMenuPrincipal());
+                }
+                else if (tela == "VOcorrencia")
+                {
+                    // Navegue para a tela especificada usando o valor de 'tela'
+                    await Application.Current.MainPage.Navigation.PushAsync(new VOcorrencia());
+                }
             }
-            else if(tela == "VOcorrencia")
+            catch (Exception ex)
             {
-                // Navegue para a tela especificada usando o valor de 'tela'
-                Application.Current.MainPage.Navigation.PushAsync(new VOcorrencia());
+                await MetodoErroLog(ex);
+                return;
             }
         }
 

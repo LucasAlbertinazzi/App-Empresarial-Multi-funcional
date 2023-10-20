@@ -133,7 +133,6 @@
                             <x:String>CÔNJUGE</x:String>
                         </Picker.Items>
                     </Picker>
-
                 </Frame>
             </StackLayout>
             <!--#endregion-->

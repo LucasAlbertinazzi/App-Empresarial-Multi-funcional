@@ -30,7 +30,7 @@
 
                 <Grid x:Name="GridPrincipal">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="60" />
+                        <RowDefinition x:Name="linha0" Height="60" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="48" />
@@ -59,6 +59,7 @@
                             </StackLayout>
 
                         </StackLayout>
+
                         <StackLayout Orientation="Horizontal" Spacing="8">
                             <Label
                                 HorizontalOptions="Start"
@@ -70,7 +71,43 @@
                                 HorizontalOptions="Start"
                                 Style="{StaticResource labelPadraoWhite}"
                                 VerticalOptions="Center" />
+                        </StackLayout>
 
+                        <StackLayout
+                            x:Name="frPeriodo"
+                            Margin="0,15,0,0"
+                            IsVisible="false"
+                            Orientation="Horizontal"
+                            Spacing="8"
+                            VerticalOptions="Center">
+                            <Label
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelPadraoWhite}"
+                                Text="Período :" />
+                            <Frame Style="{StaticResource EstiloCardOcorrencia}">
+                                <Picker
+                                    x:Name="cmbPeriodo"
+                                    Title=""
+                                    BackgroundColor="White"
+                                    HorizontalOptions="FillAndExpand"
+                                    HorizontalTextAlignment="Start"
+                                    SelectedIndex="0"
+                                    SelectedIndexChanged="cmbPeriodo_SelectedIndexChanged"
+                                    TextColor="Black">
+                                    <Picker.Items>
+                                        <x:String>1 ANO</x:String>
+                                        <x:String>2 ANOS</x:String>
+                                        <x:String>3 ANOS</x:String>
+                                        <x:String>4 ANOS</x:String>
+                                        <x:String>5 ANOS</x:String>
+                                        <x:String>6 ANOS</x:String>
+                                        <x:String>7 ANOS</x:String>
+                                        <x:String>8 ANOS</x:String>
+                                        <x:String>9 ANOS</x:String>
+                                        <x:String>10 ANOS</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </Frame>
                         </StackLayout>
                     </StackLayout>
                     <Label
@@ -94,8 +131,10 @@
                                         BackgroundColor="{Binding CorBack}"
                                         BorderColor="{Binding CorBorder}"
                                         Style="{StaticResource EstiloCardHistorico}">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnFrameTapped" />
+                                        </Frame.GestureRecognizers>
                                         <StackLayout Margin="5" Orientation="Vertical">
-
                                             <!--#region 1- Primeira linha-->
                                             <StackLayout Orientation="Horizontal">
                                                 <Label

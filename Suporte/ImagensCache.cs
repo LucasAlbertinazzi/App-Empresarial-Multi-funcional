@@ -1,11 +1,6 @@
 ﻿using AppMarciusMagazine.Classes.API.Principal;
 using AppMarciusMagazine.Classes.Globais;
 using AppMarciusMagazine.Services.Principal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppMarciusMagazine.Suporte
 {

@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppMarciusMagazine.Views.Cobranca.VCobrancaContato"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VCobrancaContato"
+    Loaded="ContentPage_Loaded">
+    <Grid>
+        <Image
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            Source="background1.png"
+            VerticalOptions="Fill" />
+        <ActivityIndicator
+            x:Name="LoadingIndicator"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="False"
+            IsVisible="False"
+            VerticalOptions="CenterAndExpand"
+            Color="White" />
+
+        <StackLayout
+            x:Name="Prncipal"
+            Margin="15"
+            Orientation="Vertical"
+            Spacing="15">
+
+            <ScrollView VerticalOptions="FillAndExpand">
+                <Frame
+                    Margin="0"
+                    Padding="0"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    VerticalOptions="FillAndExpand">
+                    <StackLayout Spacing="8">
+
+                        <!--#region 1 - Contas em atraso-->
+                        <StackLayout Orientation="Vertical" Spacing="8">
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    HorizontalOptions="Start"
+                                    Style="{StaticResource labelPadraoWhite}"
+                                    Text="Contas em atraso :"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    x:Name="lblAtraso"
+                                    HorizontalOptions="EndAndExpand"
+                                    Style="{StaticResource labelPadraoWhite}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+
+                            <ScrollView
+                                x:Name="GridAtrasoPrinc"
+                                BackgroundColor="Transparent"
+                                HeightRequest="190"
+                                HorizontalScrollBarVisibility="Never"
+                                VerticalScrollBarVisibility="Always">
+                                <CollectionView x:Name="cardAtrasos" ItemsSource="{Binding infoAtrasos}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame
+                                                Margin="0,0,0,10"
+                                                HeightRequest="80"
+                                                Style="{StaticResource EstiloCardOcorrencia}">
+                                                <StackLayout
+                                                    Orientation="Vertical"
+                                                    Spacing="0"
+                                                    VerticalOptions="CenterAndExpand">
+                                                    <StackLayout Orientation="Horizontal" Spacing="0">
+                                                        <Label
+                                                            FontSize="16"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            LineBreakMode="TailTruncation"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Codpedido}" />
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            HorizontalOptions="End"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="Dias :" />
+                                                        <Label
+                                                            FontSize="16"
+                                                            HorizontalOptions="End"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Dias}"
+                                                            VerticalOptions="FillAndExpand" />
+                                                    </StackLayout>
+
+                                                    <StackLayout Orientation="Horizontal" Spacing="0">
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            HorizontalOptions="Start"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="Vencimento :" />
+                                                        <Label
+                                                            FontSize="16"
+                                                            HorizontalOptions="Start"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Vencimento}"
+                                                            VerticalOptions="FillAndExpand" />
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            HorizontalOptions="EndAndExpand"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="Valor :" />
+                                                        <Label
+                                                            FontSize="16"
+                                                            HorizontalOptions="End"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Valor, StringFormat='R$ {0:N2}'}"
+                                                            VerticalOptions="FillAndExpand" />
+                                                    </StackLayout>
+                                                </StackLayout>
+
+                                            </Frame>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </ScrollView>
+                            <Frame
+                                x:Name="GridAtrasoSec"
+                                BackgroundColor="White"
+                                CornerRadius="6"
+                                IsVisible="false">
+                                <Label
+                                    FontSize="26"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Style="{StaticResource labelInfos}"
+                                    Text="Não há conta em atraso"
+                                    VerticalOptions="CenterAndExpand" />
+                            </Frame>
+                        </StackLayout>
+                        <!--#endregion-->
+
+                        <Line
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center" />
+
+                        <!--#region 2 - Contas a vencer-->
+                        <StackLayout Orientation="Vertical" Spacing="8">
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    HorizontalOptions="Start"
+                                    Style="{StaticResource labelPadraoWhite}"
+                                    Text="Contas a vencer :"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    x:Name="lblVencer"
+                                    HorizontalOptions="EndAndExpand"
+                                    Style="{StaticResource labelPadraoWhite}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+
+                            <ScrollView
+                                x:Name="GridVencerPrinc"
+                                BackgroundColor="Transparent"
+                                HeightRequest="190"
+                                HorizontalScrollBarVisibility="Never"
+                                VerticalScrollBarVisibility="Always">
+                                <CollectionView x:Name="cardVencer" ItemsSource="{Binding infoVencer}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame
+                                                Margin="0,0,0,10"
+                                                HeightRequest="80"
+                                                Style="{StaticResource EstiloCardOcorrencia}">
+                                                <StackLayout
+                                                    Orientation="Vertical"
+                                                    Spacing="0"
+                                                    VerticalOptions="CenterAndExpand">
+                                                    <StackLayout Orientation="Horizontal" Spacing="0">
+                                                        <Label
+                                                            FontSize="16"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            LineBreakMode="TailTruncation"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Codpedido}" />
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            HorizontalOptions="End"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="Dias :" />
+                                                        <Label
+                                                            FontSize="16"
+                                                            HorizontalOptions="End"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Dias}"
+                                                            VerticalOptions="FillAndExpand" />
+                                                    </StackLayout>
+
+                                                    <StackLayout Orientation="Horizontal" Spacing="0">
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            HorizontalOptions="Start"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="Vencimento :" />
+                                                        <Label
+                                                            FontSize="16"
+                                                            HorizontalOptions="Start"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Vencimento}"
+                                                            VerticalOptions="FillAndExpand" />
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            HorizontalOptions="EndAndExpand"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="Valor :" />
+                                                        <Label
+                                                            FontSize="16"
+                                                            HorizontalOptions="End"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Valor, StringFormat='R$ {0:N2}'}"
+                                                            VerticalOptions="FillAndExpand" />
+                                                    </StackLayout>
+                                                </StackLayout>
+
+                                            </Frame>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </ScrollView>
+                            <Frame
+                                x:Name="GridVencerSec"
+                                BackgroundColor="White"
+                                CornerRadius="6"
+                                IsVisible="false">
+                                <Label
+                                    FontSize="26"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Style="{StaticResource labelInfos}"
+                                    Text="Não há conta a vencer"
+                                    VerticalOptions="CenterAndExpand" />
+                            </Frame>
+                        </StackLayout>
+                        <!--#endregion-->
+
+                        <Line
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center" />
+
+                        <!--#region 3 - Historico contato-->
+                        <StackLayout Orientation="Vertical" Spacing="8">
+                            <Label
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelPadraoWhite}"
+                                Text="Histórico de contato :"
+                                VerticalOptions="Center" />
+                            <ScrollView
+                                x:Name="GridHistContPrinc"
+                                BackgroundColor="Transparent"
+                                HeightRequest="260"
+                                HorizontalScrollBarVisibility="Never"
+                                VerticalScrollBarVisibility="Always">
+                                <CollectionView x:Name="cardHist" ItemsSource="{Binding infoHist}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame
+                                                Margin="0,0,0,10"
+                                                HeightRequest="150"
+                                                Style="{StaticResource EstiloCardOcorrencia}">
+                                                <StackLayout Orientation="Vertical">
+                                                    <StackLayout.GestureRecognizers>
+                                                        <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ClickHistDescricao" />
+                                                    </StackLayout.GestureRecognizers>
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            HorizontalOptions="Start"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="Data contato :" />
+                                                        <Label
+                                                            FontSize="16"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Datacontato}" />
+                                                    </StackLayout>
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            HorizontalOptions="Start"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="Descrição :" />
+                                                        <Label
+                                                            FontSize="16"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            LineBreakMode="TailTruncation"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Descricao}" />
+                                                    </StackLayout>
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            HorizontalOptions="Start"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="Usuário :" />
+                                                        <Label
+                                                            FontSize="16"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Usuario}" />
+                                                    </StackLayout>
+                                                    <StackLayout Orientation="Horizontal">
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            HorizontalOptions="Start"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="Processado :" />
+                                                        <Label
+                                                            FontSize="16"
+                                                            HorizontalOptions="StartAndExpand"
+                                                            Style="{StaticResource labelInfos}"
+                                                            Text="{Binding Process}" />
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </Frame>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </ScrollView>
+                            <Frame
+                                x:Name="GridHistContSec"
+                                BackgroundColor="White"
+                                CornerRadius="6"
+                                IsVisible="false">
+                                <Label
+                                    FontSize="28"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Style="{StaticResource labelInfos}"
+                                    Text="Não há históricos de contato"
+                                    VerticalOptions="CenterAndExpand" />
+                            </Frame>
+                        </StackLayout>
+                        <!--#endregion-->
+
+                        <Line
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center" />
+
+                        <!--#region 4 - Desc contato cliente-->
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Vertical"
+                            Spacing="8">
+                            <Label Style="{StaticResource labelPadraoWhite}" Text="Descrição do contato com o(a) Cliente :" />
+                            <Frame
+                                x:Name="frameDescContatoCiente"
+                                HeightRequest="120"
+                                Style="{StaticResource EstiloFrameInfos}">
+                                <Entry
+                                    x:Name="txbDescricao"
+                                    HeightRequest="120"
+                                    HorizontalTextAlignment="Start"
+                                    IsSpellCheckEnabled="True"
+                                    IsTextPredictionEnabled="True"
+                                    Style="{StaticResource entryLogin}"
+                                    VerticalTextAlignment="Start" />
+                            </Frame>
+                        </StackLayout>
+                        <!--#endregion-->
+
+                        <!--#region 5 - Check e Piker-->
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Vertical"
+                                Spacing="8">
+                                <Label Style="{StaticResource labelPadraoWhite}" Text="Cliente processado :" />
+                                <Frame Style="{StaticResource EstiloCardOcorrencia}">
+                                    <Picker
+                                        x:Name="cmbProcesso"
+                                        Title=""
+                                        BackgroundColor="White"
+                                        HorizontalOptions="FillAndExpand"
+                                        HorizontalTextAlignment="Start"
+                                        SelectedIndex="0"
+                                        TextColor="Black"
+                                        VerticalOptions="FillAndExpand"
+                                        VerticalTextAlignment="Center">
+                                        <Picker.Items>
+                                            <x:String>NÃO</x:String>
+                                            <x:String>SIM</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                </Frame>
+                            </StackLayout>
+
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Vertical"
+                                Spacing="8">
+                                <Label
+                                    HorizontalOptions="StartAndExpand"
+                                    Style="{StaticResource labelPadraoWhite}"
+                                    Text="Pometido para :" />
+                                <Frame Style="{StaticResource frameLogin}">
+                                    <Entry
+                                        x:Name="txbDataPrometido"
+                                        HorizontalTextAlignment="Start"
+                                        PlaceholderColor="#ccc"
+                                        Style="{StaticResource entryLogin}" />
+                                </Frame>
+                            </StackLayout>
+
+                        </StackLayout>
+                        <!--#endregion-->
+
+                        <!--#region 6 - Botao para salvar-->
+                        <Button
+                            x:Name="btnSalvar"
+                            Clicked="btnSalvar_Clicked"
+                            HeightRequest="52"
+                            HorizontalOptions="FillAndExpand"
+                            Style="{StaticResource btnCardYellow}"
+                            Text="Salvar contato"
+                            VerticalOptions="CenterAndExpand" />
+                        <!--#endregion-->
+
+                    </StackLayout>
+                </Frame>
+            </ScrollView>
+        </StackLayout>
+
+        <Grid x:Name="ComentarioPopupGrid" IsVisible="False">
+            <Grid BackgroundColor="Black" Opacity="0.5">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackgroundTapped" />
+                </Grid.GestureRecognizers>
+            </Grid>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Frame
+                    x:Name="ComentarioPopupFrame"
+                    Padding="15"
+                    BackgroundColor="White">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="44" />
+                        </Grid.RowDefinitions>
+                        <Label Style="{StaticResource labelInfos}" Text="Descrição :" />
+                        <Frame
+                            Grid.Row="1"
+                            Margin="0,8"
+                            Padding="2"
+                            BackgroundColor="Transparent"
+                            BorderColor="{StaticResource Terceira}"
+                            CornerRadius="6">
+                            <ScrollView VerticalOptions="FillAndExpand">
+                                <Label
+                                    x:Name="lblViewDescricao"
+                                    HorizontalOptions="StartAndExpand"
+                                    Style="{StaticResource labelInfos}"
+                                    VerticalTextAlignment="Start" />
+                            </ScrollView>
+                        </Frame>
+
+                        <Button
+                            Grid.Row="2"
+                            Clicked="OnOkClicked"
+                            HorizontalOptions="FillAndExpand"
+                            Style="{StaticResource btnCardYellow}"
+                            Text="Ok" />
+                    </Grid>
+
+                </Frame>
+            </StackLayout>
+        </Grid>
+
+    </Grid>
+</ContentPage>

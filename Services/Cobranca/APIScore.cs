@@ -3,11 +3,7 @@ using AppMarciusMagazine.Classes.API.Principal;
 using AppMarciusMagazine.Classes.Globais;
 using AppMarciusMagazine.Services.Principal;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AppMarciusMagazine.Services.Cobranca
 {
@@ -115,7 +111,7 @@ namespace AppMarciusMagazine.Services.Cobranca
             }
             catch (Exception ex)
             {
-                // Tratar exceção aqui, se necessário
+                await MetodoErroLog(ex);
                 return null;
             }
         }

@@ -15,7 +15,7 @@ namespace AppMarciusMagazine.Services.Principal
 
         public APIErroLog()
         {
-            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 2) };
+            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 30) };
         }
 
         public async Task<bool> LogErro(ErrorLogClass erro)

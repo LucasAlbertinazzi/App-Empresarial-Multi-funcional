@@ -33,7 +33,7 @@ namespace AppMarciusMagazine.Services.Cobranca
 
         public APIClientes()
         {
-            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 30) };
+            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 40) };
         }
 
         public async Task<ClientesClass> BuscaInfoClientes(long codCliente)
@@ -60,11 +60,67 @@ namespace AppMarciusMagazine.Services.Cobranca
             }
         }
 
+        public async Task<ClientesClass> BuscaInfoClientesTipo(string texto, string tipo, string tipoCliente)
+        {
+            try
+            {
+                string uri = InfoGlobal.apiCobranca + $"/Clientes/busca-cliente-tipo?texto={texto}&tipo={tipo}&tipoCliente={tipoCliente}";
+
+                HttpResponseMessage response = await _httpClient.GetAsync(uri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+
+                    return JsonConvert.DeserializeObject<ClientesClass>(responseContent);
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return null;
+            }
+        }
+
         public async Task<List<InfoHistoricoCliente>> HistoricoPedidosCliente(long codCliente, CancellationToken cancellationToken)
         {
             try
             {
                 string uri = InfoGlobal.apiCobranca + "/Pedidos/historico-pedidos?codcliente=" + codCliente + "";
+
+                HttpResponseMessage response = await _httpClient.GetAsync(uri, cancellationToken);
+
+                // Verificar se o cancelamento foi solicitado
+                cancellationToken.ThrowIfCancellationRequested();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync(cancellationToken); // Passar o token aqui também, se possível.
+
+                    return JsonConvert.DeserializeObject<List<InfoHistoricoCliente>>(responseContent);
+                }
+
+                return null;
+            }
+            catch (OperationCanceledException)
+            {
+                // O método foi cancelado, não precisa registrar erro
+                return null;
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return null;
+            }
+        }
+
+        public async Task<List<InfoHistoricoCliente>> HistoricoPedidosClientePeriodo(long codCliente, string periodo, CancellationToken cancellationToken)
+        {
+            try
+            {
+                string uri = InfoGlobal.apiCobranca + $"/Pedidos/historico-pedidos-periodo?codcliente={codCliente}&periodo={periodo}";
 
                 HttpResponseMessage response = await _httpClient.GetAsync(uri, cancellationToken);
 
@@ -162,6 +218,7 @@ namespace AppMarciusMagazine.Services.Cobranca
             }
             catch (Exception ex)
             {
+                await MetodoErroLog(ex);
                 return 0;
             }
         }
@@ -188,8 +245,29 @@ namespace AppMarciusMagazine.Services.Cobranca
             }
         }
 
+        public async Task<bool> ClienteProcessado(long codcliente)
+        {
+            try
+            {
+                string uri = InfoGlobal.apiCobranca + "/Clientes/busca-cliente-prcessado?codcliente=" + codcliente + "";
+
+                HttpResponseMessage response = await _httpClient.GetAsync(uri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = await response.Content.ReadAsStringAsync();
+                    return bool.Parse(result);
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return false;
+            }
+        }
 
         #endregion
-
     }
 }

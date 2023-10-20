@@ -24,7 +24,7 @@
             Orientation="Vertical"
             Spacing="6">
 
-            <!--#region 1- Foto-->
+            <!--#region 0- Foto-->
             <SwipeView x:Name="swPrincipal">
                 <!--  Conteúdo central  -->
                 <SwipeView.Content>
@@ -127,6 +127,34 @@
                     BorderColor="Transparent"
                     VerticalOptions="FillAndExpand">
                     <StackLayout Spacing="5">
+
+                        <!--#region 1- Processado-->
+                        <StackLayout
+                            x:Name="gridProcessado"
+                            IsVisible="false"
+                            Orientation="Vertical"
+                            Spacing="5">
+                            <Label Style="{StaticResource labelPadraoWhite}" Text="Cliente processado :" />
+                            <Frame BackgroundColor="#EB5757" Style="{StaticResource EstiloFrameInfos}">
+                                <Label x:Name="lblProcesso" Style="{StaticResource labelInfos}" />
+                            </Frame>
+                        </StackLayout>
+
+                        <!--#endregion-->
+
+                        <!--#region 1.1- Promessa-->
+                        <StackLayout
+                            x:Name="gridPromessa"
+                            IsVisible="false"
+                            Orientation="Vertical"
+                            Spacing="5">
+                            <Label Style="{StaticResource labelPadraoWhite}" Text="Promessa para :" />
+                            <Frame BackgroundColor="#EB5757" Style="{StaticResource EstiloFrameInfos}">
+                                <Label x:Name="lblPromessaPara" Style="{StaticResource labelInfos}" />
+                            </Frame>
+                        </StackLayout>
+
+                        <!--#endregion-->
 
                         <!--#region 2- Nome-->
                         <Label Style="{StaticResource labelPadraoWhite}" Text="Nome :" />

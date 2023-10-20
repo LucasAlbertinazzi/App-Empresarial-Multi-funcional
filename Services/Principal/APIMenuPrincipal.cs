@@ -1,11 +1,6 @@
 ﻿using AppMarciusMagazine.Classes.API.Principal;
 using AppMarciusMagazine.Classes.Globais;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static MenuPrincipalClass;
 
 namespace AppMarciusMagazine.Services.Principal

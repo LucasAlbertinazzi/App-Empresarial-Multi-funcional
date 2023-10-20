@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppMarciusMagazine.Views.Cobranca.VBscClientes"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VBscClientes">
+    <Grid>
+        <Image
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            Source="background1.png"
+            VerticalOptions="Fill" />
+        <ActivityIndicator
+            x:Name="LoadingIndicator"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="False"
+            IsVisible="False"
+            VerticalOptions="CenterAndExpand"
+            Color="White" />
+
+        <StackLayout
+            Margin="15"
+            Orientation="Vertical"
+            Spacing="10">
+            <Label Style="{StaticResource labelPadraoWhite}" Text="Tipo de cliente :" />
+            <Frame Style="{StaticResource EstiloCardOcorrencia}">
+                <Picker
+                    x:Name="cmbTipoCliente"
+                    Title=""
+                    BackgroundColor="White"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Start"
+                    SelectedIndex="0"
+                    TextColor="Black"
+                    VerticalOptions="FillAndExpand"
+                    VerticalTextAlignment="Center">
+                    <Picker.Items>
+                        <x:String>TITULAR</x:String>
+                        <x:String>CONJUGÊ</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Frame>
+            <Label Style="{StaticResource labelPadraoWhite}" Text="Tipo de busca :" />
+            <Frame Style="{StaticResource EstiloCardOcorrencia}">
+                <Picker
+                    x:Name="cmbTipo"
+                    Title=""
+                    BackgroundColor="White"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Start"
+                    SelectedIndex="0"
+                    SelectedIndexChanged="cmbTipo_SelectedIndexChanged"
+                    TextColor="Black"
+                    VerticalOptions="FillAndExpand"
+                    VerticalTextAlignment="Center">
+                    <Picker.Items>
+                        <x:String>NOME COMPLETO</x:String>
+                        <x:String>CÓDIGO</x:String>
+                        <x:String>CPF</x:String>
+                        <x:String>CNPJ</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Frame>
+            <Label
+                HorizontalOptions="Start"
+                Style="{StaticResource labelPadraoWhite}"
+                Text="Consultar clientes :" />
+            <Frame Style="{StaticResource frameLogin}">
+                <Entry
+                    x:Name="txbBusca"
+                    PlaceholderColor="#ccc"
+                    Style="{StaticResource entryLogin}" />
+            </Frame>
+            <Button
+                x:Name="btnBuscar"
+                Clicked="btnBuscar_Clicked"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource btnCardYellow}"
+                Text="Consultar"
+                VerticalOptions="EndAndExpand" />
+            <Button
+                x:Name="btnBuscarCobranca"
+                Clicked="btnBuscarCobranca_Clicked"
+                HorizontalOptions="FillAndExpand"
+                IsVisible="false"
+                Style="{StaticResource btnCardYellow}"
+                Text="Consultar cobrança"
+                VerticalOptions="EndAndExpand" />
+        </StackLayout>
+    </Grid>
+</ContentPage>

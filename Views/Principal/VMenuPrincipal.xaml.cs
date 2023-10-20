@@ -10,12 +10,30 @@ namespace AppMarciusMagazine.Views.Principal;
 
 public partial class VMenuPrincipal : ContentPage
 {
+    #region 1- LOG
+    APIErroLog error = new();
+
+    private async Task MetodoErroLog(Exception ex)
+    {
+        var erroLog = new ErrorLogClass
+        {
+            Erro = ex.Message, // Obtém a mensagem de erro
+            Metodo = ex.TargetSite.Name, // Obtém o nome do método que gerou o erro
+            Dispositivo = DeviceInfo.Model, // Obtém o nome do dispositivo em execução
+            Versao = DeviceInfo.Version.ToString(), // Obtém a versão do dispostivo
+            Plataforma = DeviceInfo.Platform.ToString(), // Obtém o sistema operacional do dispostivo
+            TelaClasse = GetType().FullName, // Obtém o nome da tela/classe
+            Data = DateTime.Now,
+        };
+
+        await error.LogErro(erroLog);
+    }
+    #endregion
+
     #region 1- VARIAVEIS
 
     MenuPrincipalVModel menuPrincipalModels = new MenuPrincipalVModel();
     APIMenuPrincipal aPIMenuPrincipal = new APIMenuPrincipal();
-
-    APIErroLog error = new();
 
     #endregion
 
@@ -49,23 +67,6 @@ public partial class VMenuPrincipal : ContentPage
     #endregion
 
     #region 3- METODOS
-
-    private async Task MetodoErroLog(Exception ex)
-    {
-        var erroLog = new ErrorLogClass
-        {
-            Erro = ex.Message, // Obtém a mensagem de erro
-            Metodo = ex.TargetSite.Name, // Obtém o nome do método que gerou o erro
-            Dispositivo = DeviceInfo.Model, // Obtém o nome do dispositivo em execução
-            Versao = DeviceInfo.Version.ToString(), // Obtém a versão do dispostivo
-            Plataforma = DeviceInfo.Platform.ToString(), // Obtém o sistema operacional do dispostivo
-            TelaClasse = GetType().FullName, // Obtém o nome da tela/classe
-            Data = DateTime.Now,
-        };
-
-        await error.LogErro(erroLog);
-    }
-
     private async Task Inicializa()
     {
         try
@@ -73,6 +74,8 @@ public partial class VMenuPrincipal : ContentPage
             App.Current.MainPage.SetValue(Shell.FlyoutBehaviorProperty, FlyoutBehavior.Flyout);
             NavigationPage.SetHasNavigationBar(this, false);
             InfoGlobal.isMenuOpen = true;
+
+            
         }
         catch (Exception ex)
         {
@@ -218,7 +221,6 @@ public partial class VMenuPrincipal : ContentPage
     #endregion
 
     #region 4- EVENTOS DE CONTROLE
-
     private async void MenuItem_Clicked(object sender, EventArgs e)
     {
         try

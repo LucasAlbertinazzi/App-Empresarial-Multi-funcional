@@ -2,11 +2,6 @@
 using AppMarciusMagazine.Classes.Globais;
 using AppMarciusMagazine.Services.Principal;
 using AppMarciusMagazine.Views.Cobranca;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppMarciusMagazine.ViewModels.Principal
 {
@@ -59,16 +54,47 @@ namespace AppMarciusMagazine.ViewModels.Principal
         #endregion
 
         #region 4- EVENTOS DE CONTROLE
+
+        public async void BuscaContatoCobranca()
+        {
+            try
+            {
+                InfoGlobal.isMenuOpen = true;
+                await Application.Current.MainPage.Navigation.PushAsync(new VBscClientes(1));
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return;
+            }
+        }
+
         public async void ConsultaClientes()
         {
-            InfoGlobal.isMenuOpen = true;
-            //await Application.Current.MainPage.Navigation.PushAsync(new VContagens());
+            try
+            {
+                InfoGlobal.isMenuOpen = true;
+                await Application.Current.MainPage.Navigation.PushAsync(new VBscClientes(0));
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return;
+            }
         }
 
         public async void BuscaOcorrencias()
         {
-            InfoGlobal.isMenuOpen = true;
-            await Application.Current.MainPage.Navigation.PushAsync(new VOcorrencia());
+            try
+            {
+                InfoGlobal.isMenuOpen = true;
+                await Application.Current.MainPage.Navigation.PushAsync(new VOcorrencia());
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return;
+            }
         }
         #endregion
     }

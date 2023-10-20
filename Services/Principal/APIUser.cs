@@ -1,11 +1,7 @@
 ﻿using AppMarciusMagazine.Classes.API.Principal;
 using AppMarciusMagazine.Classes.Globais;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AppMarciusMagazine.Services.Principal
 {
@@ -36,7 +32,7 @@ namespace AppMarciusMagazine.Services.Principal
 
         public APIUser()
         {
-            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 2) };
+            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 10) };
         }
 
         public async Task<bool> ValidaUser(Login login)

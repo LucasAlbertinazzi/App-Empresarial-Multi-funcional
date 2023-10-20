@@ -7,6 +7,12 @@
     <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
   </PropertyGroup>
   <ItemGroup>
+    <MauiXaml Update="Views\Cobranca\VBscClientes.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Views\Cobranca\VCobrancaContato.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Views\Cobranca\VInfoClienteDois.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

@@ -1,16 +1,14 @@
-﻿using AppMarciusMagazine.Classes.API.Cobranca;
-using AppMarciusMagazine.Classes.API.Principal;
+﻿using AppMarciusMagazine.Classes.API.Principal;
 using AppMarciusMagazine.Classes.Globais;
-using AppMarciusMagazine.Services.Cobranca;
 using AppMarciusMagazine.Services.Principal;
-using AppMarciusMagazine.Views.Cobranca;
+using System.Diagnostics;
 
 namespace AppMarciusMagazine;
 
 public partial class App : Application
 {
     APIErroLog error = new APIErroLog();
-    APIOcorrencia api_ocorrencia = new APIOcorrencia();
+    APIVersaoApp api_versao = new APIVersaoApp();
 
     public App()
     {
@@ -39,10 +37,12 @@ public partial class App : Application
     {
         base.OnStart();
 
-        VerificarConexaoInternet();
+        Task.Run(async () => await VerificaInicial());
+        Task.Run(async () => await VerificarConexaoInternet());
+        Task.Run(async () => await VerificaVersaoAPP());
     }
 
-    public async Task VerificarConexaoInternet()
+    private async Task VerificarConexaoInternet()
     {
         try
         {
@@ -58,13 +58,78 @@ public partial class App : Application
                 }
 
                 // Aguarda um intervalo de tempo antes de verificar novamente
-                await Task.Delay(5000); // Verificar a cada 5 segundos (você pode ajustar o intervalo conforme necessário)
+                await Task.Delay(15000); // Verificar a cada 15 segundos (você pode ajustar o intervalo conforme necessário)
             }
         }
         catch (Exception ex)
         {
             await MetodoErroLog(ex);
             return;
+        }
+    }
+
+    private async Task VerificaVersaoAPP()
+    {
+        try
+        {
+            while (true)
+            {
+                await api_versao.VerificaIp();
+
+                if (!await api_versao.VerificarVersaoInstalada())
+                {
+                    if (Debugger.IsAttached)
+                    {
+                        await api_versao.SalvaVersao();
+                    }
+                    else
+                    {
+                        // Exibir mensagem de atualização
+                        await Application.Current.MainPage.DisplayAlert("Atualização Disponível", "Uma nova versão do aplicativo está disponível. Por favor, atualize para continuar.", "OK");
+
+                        // Abrir a URL de atualização
+                        await Launcher.OpenAsync(InfoGlobal.apk);
+                    }
+                }
+
+                // Aguarda um intervalo de tempo antes de verificar novamente
+                await Task.Delay(100000); // Verificar a cada 1 min (você pode ajustar o intervalo conforme necessário)
+            }
+        }
+        catch (Exception ex)
+        {
+            await MetodoErroLog(ex);
+            return;
+        }
+    }
+
+    private async Task VerificaInicial()
+    {
+        // Verifica o estado da conectividade
+        var current = Connectivity.NetworkAccess;
+
+        if (current != NetworkAccess.Internet)
+        {
+            // Não há conexão com a internet, exiba uma mensagem ao usuário
+            await Application.Current.MainPage.DisplayAlert("Sem internet", "Reconecte a internet para continuar usando o APP", "OK");
+        }
+
+        await api_versao.VerificaIp();
+
+        if (!await api_versao.VerificarVersaoInstalada())
+        {
+            if (Debugger.IsAttached)
+            {
+                await api_versao.SalvaVersao();
+            }
+            else
+            {
+                // Exibir mensagem de atualização
+                await Application.Current.MainPage.DisplayAlert("Atualização Disponível", "Uma nova versão do aplicativo está disponível. Por favor, atualize para continuar.", "OK");
+
+                // Abrir a URL de atualização
+                await Launcher.OpenAsync(InfoGlobal.apk);
+            }
         }
     }
 

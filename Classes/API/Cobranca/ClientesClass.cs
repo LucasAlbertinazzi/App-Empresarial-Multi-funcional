@@ -286,8 +286,8 @@ namespace AppMarciusMagazine.Classes.API.Cobranca
         public string CidadeConjuje { get; set; }
         public string BairroCorrespondencia { get; set; }
         public string CidadeCorrespondencia { get; set; }
+        public string TipoCliente { get; set; }
     }
-
     public class InfoHistoricoCliente
     {
         public Color CorBack { get; set; }
@@ -301,5 +301,11 @@ namespace AppMarciusMagazine.Classes.API.Cobranca
         public Decimal? valorgasto { get; set; }
         public Decimal? valorpago { get; set; }
         public string? nomecliente { get; set; }
+        public long? prepedido { get; set; }
+    }
+    public class BuscaCliente
+    {
+        public string cliente { get; set; }
+        public string tipo { get; set; }
     }
 }

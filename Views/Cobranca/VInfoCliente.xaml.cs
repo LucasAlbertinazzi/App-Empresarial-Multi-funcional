@@ -1,89 +1,212 @@
 using AppMarciusMagazine.Classes.API.Cobranca;
+using AppMarciusMagazine.Classes.API.Principal;
 using AppMarciusMagazine.Classes.Globais;
 using AppMarciusMagazine.Services.Cobranca;
+using AppMarciusMagazine.Services.Principal;
 
 namespace AppMarciusMagazine.Views.Cobranca;
 
 public partial class VInfoCliente : ContentPage
 {
+    #region 1- LOG
+    APIErroLog error = new();
+
+    private async Task MetodoErroLog(Exception ex)
+    {
+        var erroLog = new ErrorLogClass
+        {
+            Erro = ex.Message, // Obtém a mensagem de erro
+            Metodo = ex.TargetSite.Name, // Obtém o nome do método que gerou o erro
+            Dispositivo = DeviceInfo.Model, // Obtém o nome do dispositivo em execução
+            Versao = DeviceInfo.Version.ToString(), // Obtém a versão do dispostivo
+            Plataforma = DeviceInfo.Platform.ToString(), // Obtém o sistema operacional do dispostivo
+            TelaClasse = GetType().FullName, // Obtém o nome da tela/classe
+            Data = DateTime.Now,
+        };
+
+        await error.LogErro(erroLog);
+    }
+    #endregion
+
+    #region 1- VARIAVEIS
     long codCliente;
     long codFiador;
     string tipo;
+    int tipoPagina = 0;
     APIClientes apiClientes = new APIClientes();
-
     ClientesClass listasuporte = new ClientesClass();
     OcorrenciaClass ocorrencia = new OcorrenciaClass();
+    #endregion
 
+    #region 2- CLASSES
+
+    #endregion
+
+    #region 3- METODOS CONSTRUTORES
     public VInfoCliente(OcorrenciaClass _ocorrencia)
     {
-        InitializeComponent();
-        codCliente = _ocorrencia.Codcliente;
-        ocorrencia = _ocorrencia;
-        InfoGlobal.CodOcorrencia = ocorrencia.Codsolicitacao;
+        try
+        {
+            InitializeComponent();
+            codCliente = _ocorrencia.Codcliente;
+            ocorrencia = _ocorrencia;
+            InfoGlobal.CodOcorrencia = ocorrencia.Codsolicitacao;
+        }
+        catch (Exception ex)
+        {
+            MetodoErroLog(ex);
+            return;
+        }
+    }
+
+    public VInfoCliente(int codcliente, int _tipo, string tipoCliente)
+    {
+        try
+        {
+            InitializeComponent();
+            codCliente = codcliente;
+            tipoPagina = _tipo;
+            tipo = tipoCliente;
+            ocorrencia = null;
+            swPrincipal.IsEnabled = false;
+        }
+        catch (Exception ex)
+        {
+            MetodoErroLog(ex);
+            return;
+        }
     }
 
     public VInfoCliente(OcorrenciaClass _ocorrencia, string _tipo, long _codFiador)
     {
-        InitializeComponent();
-        ocorrencia = _ocorrencia;
-        InfoGlobal.CodOcorrencia = ocorrencia.Codsolicitacao;
-        tipo = _tipo;
-        codFiador = _codFiador;
-        swPrincipal.IsEnabled = false;
+        try
+        {
+            InitializeComponent();
+            ocorrencia = _ocorrencia;
+            InfoGlobal.CodOcorrencia = ocorrencia.Codsolicitacao;
+            tipo = _tipo;
+            codFiador = _codFiador;
+            swPrincipal.IsEnabled = false;
+        }
+        catch (Exception ex)
+        {
+            MetodoErroLog(ex);
+            return;
+        }
     }
 
+    protected override async void OnAppearing()
+    {
+        try
+        {
+            base.OnAppearing();
+
+            if (!string.IsNullOrEmpty(tipo))
+            {
+                BuscaCodigoTipo(tipo);
+            }
+            await Inicializa();
+        }
+        catch (Exception ex)
+        {
+            MetodoErroLog(ex);
+            return;
+        }
+    }
+    #endregion
+
+    #region 4- METODOS
     private async Task BuscaCodigoTipo(string tipo)
     {
-        if (tipo == "FIADOR")
+        try
         {
-            codCliente = codFiador;
+            if (tipo == "FIADOR")
+            {
+                codCliente = codFiador;
+            }
+            else
+            {
+                codCliente = ocorrencia.Codcliente;
+            }
         }
-        else
+        catch (Exception ex)
         {
-            codCliente = ocorrencia.Codcliente;
+            await MetodoErroLog(ex);
+            return;
         }
     }
 
     private async Task Inicializa()
     {
-        PrincipalView.IsVisible = false;
-        LoadingIndicator.IsVisible = true;
-        LoadingIndicator.IsRunning = true;
-
-        var lista = await BuscaInfo();
-
-        if (lista != null)
+        try
         {
-            await PreencheInfo(lista);
-        }
+            PrincipalView.IsVisible = false;
+            LoadingIndicator.IsVisible = true;
+            LoadingIndicator.IsRunning = true;
 
-        LoadingIndicator.IsVisible = false;
-        LoadingIndicator.IsRunning = false;
-        PrincipalView.IsVisible = true;
+            var lista = await BuscaInfo();
+
+            if (lista != null)
+            {
+                await PreencheInfo(lista);
+            }
+
+            LoadingIndicator.IsVisible = false;
+            LoadingIndicator.IsRunning = false;
+            PrincipalView.IsVisible = true;
+        }
+        catch (Exception ex)
+        {
+            await MetodoErroLog(ex);
+            return;
+        }
     }
 
     private async Task<ClientesClass> BuscaInfo()
     {
-        if (codCliente > 0)
+        try
         {
-            ClientesClass lista = await apiClientes.BuscaInfoClientes(codCliente);
-
-            listasuporte = new ClientesClass();
-
-            if (lista != null)
+            if (codCliente > 0)
             {
-                listasuporte = lista;
-                return lista;
+                ClientesClass lista = await apiClientes.BuscaInfoClientes(codCliente);
+
+                listasuporte = new ClientesClass();
+
+                if (lista != null)
+                {
+                    listasuporte = lista;
+                    return lista;
+                }
             }
+            return null;
         }
-        return null;
+        catch (Exception ex)
+        {
+            await MetodoErroLog(ex);
+            return null;
+        }
     }
 
     private async Task PreencheInfo(ClientesClass lista)
     {
         try
         {
-            if (tipo == "CONJUGE")
+            gridProcessado.IsVisible = false;
+            gridPromessa.IsVisible = false;
+
+            if (await apiClientes.ClienteProcessado(codCliente))
+            {
+                gridProcessado.IsVisible = true;
+                lblProcesso.Text = "SIM";
+            }
+
+            if (lista.Cliente.Pgtopara != null)
+            {
+                gridPromessa.IsVisible = true;
+                lblPromessaPara.Text = lista.Cliente.Pgtopara.Value.ToString("dd/MM/yyyy");
+            }
+
+            if (tipo == "CONJUGE" || tipo == "CONJUGÊ")
             {
                 lblNome.Text = lista.Cliente.Conjuge ?? lblNome.Text;
                 lblNascimento.Text = (lista.Cliente.ConjNascimento != null) ? lista.Cliente.ConjNascimento.Value.ToString("dd/MM/yyyy") : lblNascimento.Text;
@@ -137,127 +260,175 @@ public partial class VInfoCliente : ContentPage
 
                 FotoCliente.Source = await apiClientes.BuscaFotoCliente(Convert.ToInt64(lista.Cliente.Codcliente), "TITULAR");
             }
-            
         }
         catch (Exception ex)
         {
-            string erro = ex.Message;
+            await MetodoErroLog(ex);
             return;
         }
-
     }
 
     private int CalcularIdade(DateTime dataNascimento, DateTime dataAtual)
     {
-        int idade = dataAtual.Year - dataNascimento.Year;
-
-        if (dataNascimento.Date > dataAtual.AddYears(-idade))
+        try
         {
-            idade--;
-        }
+            int idade = dataAtual.Year - dataNascimento.Year;
 
-        return idade;
+            if (dataNascimento.Date > dataAtual.AddYears(-idade))
+            {
+                idade--;
+            }
+
+            return idade;
+        }
+        catch (Exception ex)
+        {
+            MetodoErroLog(ex);
+            return 0;
+        }
     }
 
     private string FormatarRG(string rg)
     {
-        string newrg = rg.Replace(".", "");
-        newrg = newrg.Replace("-", "");
-
-        if (newrg.Length == 8)
+        try
         {
-            string part0 = newrg.Substring(0, 2);
-            string part1 = newrg.Substring(2, 3);
-            string part2 = newrg.Substring(5, 3);
+            string newrg = rg.Replace(".", "");
+            newrg = newrg.Replace("-", "");
 
-            string RG = $"{newrg.Substring(0, 2)}.{newrg.Substring(2, 3)}.{newrg.Substring(5, 3)}";
-            return RG;
+            if (newrg.Length == 8)
+            {
+                string part0 = newrg.Substring(0, 2);
+                string part1 = newrg.Substring(2, 3);
+                string part2 = newrg.Substring(5, 3);
+
+                string RG = $"{newrg.Substring(0, 2)}.{newrg.Substring(2, 3)}.{newrg.Substring(5, 3)}";
+                return RG;
+            }
+            else if (newrg.Length == 9)
+            {
+                string part0 = newrg.Substring(0, 2);
+                string part1 = newrg.Substring(2, 3);
+                string part2 = newrg.Substring(5, 3);
+                string part3 = newrg.Substring(8, 1);
+
+                string RG = $"{newrg.Substring(0, 2)}.{newrg.Substring(2, 3)}.{newrg.Substring(5, 3)}-{newrg.Substring(8, 1)}";
+                return RG;
+            }
+            else if (newrg.Length == 10)
+            {
+                string part0 = newrg.Substring(0, 2);
+                string part1 = newrg.Substring(2, 3);
+                string part2 = newrg.Substring(5, 3);
+                string part3 = newrg.Substring(8, 2);
+
+                string RG = $"{newrg.Substring(0, 2)}.{newrg.Substring(2, 3)}.{newrg.Substring(5, 3)}-{newrg.Substring(8, 2)}";
+                return RG;
+            }
+
+            return string.Empty;
         }
-        else if (newrg.Length == 9)
+        catch (Exception ex)
         {
-            string part0 = newrg.Substring(0, 2);
-            string part1 = newrg.Substring(2, 3);
-            string part2 = newrg.Substring(5, 3);
-            string part3 = newrg.Substring(8, 1);
-
-            string RG = $"{newrg.Substring(0, 2)}.{newrg.Substring(2, 3)}.{newrg.Substring(5, 3)}-{newrg.Substring(8, 1)}";
-            return RG;
+            MetodoErroLog(ex);
+            return string.Empty;
         }
-        else if (newrg.Length == 10)
-        {
-            string part0 = newrg.Substring(0, 2);
-            string part1 = newrg.Substring(2, 3);
-            string part2 = newrg.Substring(5, 3);
-            string part3 = newrg.Substring(8, 2);
-
-            string RG = $"{newrg.Substring(0, 2)}.{newrg.Substring(2, 3)}.{newrg.Substring(5, 3)}-{newrg.Substring(8, 2)}";
-            return RG;
-        }
-
-        return string.Empty;
     }
 
     protected override bool OnBackButtonPressed()
     {
         return true;
     }
+    #endregion
 
-    protected override async void OnAppearing()
-    {
-        base.OnAppearing();
-
-        if (!string.IsNullOrEmpty(tipo))
-        {
-            BuscaCodigoTipo(tipo);
-        }
-        await Inicializa();
-    }
-
+    #region 5- EVENTOS DE CONTROLE
     private async void FiadorInvoked(object sender, EventArgs e)
     {
-        if (listasuporte.Cliente.Codfiador > 0)
+        try
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new VInfoCliente(ocorrencia, "FIADOR", Convert.ToInt64(listasuporte.Cliente.Codfiador)));
+            if (listasuporte.Cliente.Codfiador > 0)
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new VInfoCliente(ocorrencia, "FIADOR", Convert.ToInt64(listasuporte.Cliente.Codfiador)));
+            }
+            else
+            {
+                await DisplayAlert("AVISO", "O cliente não possui fiador", "OK");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            await DisplayAlert("AVISO", "O cliente não possui fiador", "OK");
+            await MetodoErroLog(ex);
+            return;
         }
     }
 
     private async void ConjugeInvoked(object sender, EventArgs e)
     {
-        if (!string.IsNullOrEmpty(listasuporte.Cliente.Conjuge))
+        try
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new VInfoCliente(ocorrencia, "CONJUGE", 0));
+            if (!string.IsNullOrEmpty(listasuporte.Cliente.Conjuge))
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new VInfoCliente(ocorrencia, "CONJUGE", 0));
+            }
+            else
+            {
+                await DisplayAlert("AVISO", "O cliente não possui cônjuge", "OK");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            await DisplayAlert("AVISO", "O cliente não possui cônjuge", "OK");
+            await MetodoErroLog(ex);
+            return;
         }
     }
 
     private async void btnProximo_Clicked(object sender, EventArgs e)
     {
-        if (tipo == "CONJUGE")
+        try
         {
-            await Navigation.PushAsync(new VInfoClienteHistorico(listasuporte, ocorrencia, true));
+            if (tipo == "CONJUGE" || tipo == "CONJUGÊ")
+            {
+                listasuporte.TipoCliente = "CONJUGE";
+                await Navigation.PushAsync(new VInfoClienteHistorico(listasuporte, ocorrencia, true, tipoPagina));
+            }
+            else
+            {
+                listasuporte.TipoCliente = "TITULAR";
+                await Navigation.PushAsync(new VInfoClienteHistorico(listasuporte, ocorrencia, false, tipoPagina));
+            }
         }
-        else
+        catch (Exception ex)
         {
-            await Navigation.PushAsync(new VInfoClienteHistorico(listasuporte, ocorrencia, false));
+            await MetodoErroLog(ex);
+            return;
         }
     }
 
     private async void btnVoltar_Clicked(object sender, EventArgs e)
     {
-        if(tipo == "CONJUGE" || tipo == "FIADOR")
+        try
         {
-            await Navigation.PushAsync(new VInfoCliente(ocorrencia));
+            if (tipoPagina != 1)
+            {
+                if (tipo == "CONJUGE" || tipo == "FIADOR")
+                {
+                    await Navigation.PushAsync(new VInfoCliente(ocorrencia));
+                }
+                else
+                {
+                    await Navigation.PushAsync(new VOcorrencia());
+                }
+            }
+            else
+            {
+                await Navigation.PushAsync(new VBscClientes(0));
+            }
+
         }
-        else
+        catch (Exception ex)
         {
-            await Navigation.PushAsync(new VOcorrencia());
+            await MetodoErroLog(ex);
+            return;
         }
     }
+    #endregion
 }

@@ -1,18 +1,46 @@
 using AppMarciusMagazine.Classes.API.Cobranca;
+using AppMarciusMagazine.Classes.API.Principal;
 using AppMarciusMagazine.Classes.Globais;
 using AppMarciusMagazine.Services.Cobranca;
+using AppMarciusMagazine.Services.Principal;
 using AppMarciusMagazine.Suporte;
-using System.Linq;
 
 namespace AppMarciusMagazine.Views.Cobranca;
 
 public partial class VInfoClienteTres : ContentPage
 {
+    #region 1- LOG
+    APIErroLog error = new();
+
+    private async Task MetodoErroLog(Exception ex)
+    {
+        var erroLog = new ErrorLogClass
+        {
+            Erro = ex.Message, // Obtém a mensagem de erro
+            Metodo = ex.TargetSite.Name, // Obtém o nome do método que gerou o erro
+            Dispositivo = DeviceInfo.Model, // Obtém o nome do dispositivo em execução
+            Versao = DeviceInfo.Version.ToString(), // Obtém a versão do dispostivo
+            Plataforma = DeviceInfo.Platform.ToString(), // Obtém o sistema operacional do dispostivo
+            TelaClasse = GetType().FullName, // Obtém o nome da tela/classe
+            Data = DateTime.Now,
+        };
+
+        await error.LogErro(erroLog);
+    }
+    #endregion
+
+    #region 1- VARIAVEIS
     ClientesClass listasuporte = new ClientesClass();
     APIScore apiScore = new APIScore();
     APIOcorrencia apiOcorrencia = new APIOcorrencia();
     OcorrenciaClass ocorrencia = new OcorrenciaClass();
+    #endregion
 
+    #region 2- CLASSES
+
+    #endregion
+
+    #region 3- METODOS CONSTRUTORES
     public VInfoClienteTres(ClientesClass lista, OcorrenciaClass _ocorrencia)
     {
         InitializeComponent();
@@ -24,12 +52,16 @@ public partial class VInfoClienteTres : ContentPage
     {
         await CarregaRestricoes();
     }
+    #endregion
 
+    #region 4- METODOS
     private List<RestricaoOcorrencias> DefinecaoListaRestricao(List<RestricaoOcorrencias> infoRestricoes)
     {
-        cardRestricoes.HeightRequest = ResponsiveAuto.Height(2.3);
+        try
+        {
+            cardRestricoes.HeightRequest = ResponsiveAuto.Height(2.3);
 
-        var mapeamentoCores = new Dictionary<int, string>
+            var mapeamentoCores = new Dictionary<int, string>
             {
                 { 3, "#ffbf00" }, // Amarelo
                 { 28, "#fb7800" }, // Laranja
@@ -43,94 +75,154 @@ public partial class VInfoClienteTres : ContentPage
                 { 2, "#ff322e" } // Vermelho
             };
 
-        foreach (var item in infoRestricoes)
-        {
-            if (mapeamentoCores.TryGetValue(item.CodOcorrencia, out var corHex))
+            foreach (var item in infoRestricoes)
             {
-                item.Cor = Color.FromHex(corHex);
+                if (mapeamentoCores.TryGetValue(item.CodOcorrencia, out var corHex))
+                {
+                    item.Cor = Color.FromHex(corHex);
+                }
+                else
+                {
+                    item.Cor = Color.FromHex("#ffffff"); // Branco
+                }
             }
-            else
-            {
-                item.Cor = Color.FromHex("#ffffff"); // Branco
-            }
+
+            var valoresPermitidos = new List<int> { 3, 9, 10, 30, 5, 23, 24, 6, 8, 28, 2 };
+
+            return infoRestricoes.Where(x => valoresPermitidos.Contains(x.CodOcorrencia)).ToList();
         }
-
-        var valoresPermitidos = new List<int> { 3, 9, 10, 30, 5, 23, 24, 6, 8, 28, 2 };
-
-        return infoRestricoes.Where(x => valoresPermitidos.Contains(x.CodOcorrencia)).ToList();
+        catch (Exception ex)
+        {
+            MetodoErroLog(ex);
+            return null;
+        }
     }
 
     private async Task CarregaRestricoes()
     {
-        GridPrincipal.MinimumHeightRequest = ResponsiveAuto.Height(2.4);
-        GridSecundario.MinimumHeightRequest = ResponsiveAuto.Height(2.4);
-
-        List<RestricaoOcorrencias> infoRestricoes = await apiOcorrencia.BuscaRestricoesOcorrencia(ocorrencia.Codigo);
-        SenhaNegada infoNegada = await apiOcorrencia.BuscaSenhaNegada(ocorrencia.Codcliente);
-
-        if (infoRestricoes != null && infoRestricoes.Count > 0)
+        try
         {
-            List<RestricaoOcorrencias> lista = DefinecaoListaRestricao(infoRestricoes);
+            GridPrincipal.MinimumHeightRequest = ResponsiveAuto.Height(2.4);
+            GridSecundario.MinimumHeightRequest = ResponsiveAuto.Height(2.4);
 
-            GridPrincipal.IsVisible = false;
-            GridSecundario.IsVisible = true;
+            List<RestricaoOcorrencias> infoRestricoes = await apiOcorrencia.BuscaRestricoesOcorrencia(ocorrencia.Codigo);
+            SenhaNegada infoNegada = await apiOcorrencia.BuscaSenhaNegada(ocorrencia.Codcliente);
 
-            if (lista != null && lista.Count > 0)
+            if (infoRestricoes != null && infoRestricoes.Count > 0)
             {
-                cardRestricoes.ItemsSource = lista;
-                GridPrincipal.IsVisible = true;
-                GridSecundario.IsVisible = false;
+                List<RestricaoOcorrencias> lista = DefinecaoListaRestricao(infoRestricoes);
+
+                GridPrincipal.IsVisible = false;
+                GridSecundario.IsVisible = true;
+
+                if (lista != null && lista.Count > 0)
+                {
+                    cardRestricoes.ItemsSource = lista;
+                    GridPrincipal.IsVisible = true;
+                    GridSecundario.IsVisible = false;
+                }
+
+                frameCampoNegado.HeightRequest = ResponsiveAuto.Height(8);
+
+                lblCampoNegado.Text = "Não há restrições de senha";
+
+                if (infoNegada != null)
+                {
+                    lblCampoNegado.Text = infoNegada.Usuario + " - " + infoNegada.Motivo + " - " + infoNegada.Data.ToString();
+                }
             }
-
-            frameCampoNegado.HeightRequest = ResponsiveAuto.Height(8);
-
-            lblCampoNegado.Text = "Não há restrições de senha";
-
-            if (infoNegada != null)
+            else
             {
-                lblCampoNegado.Text = infoNegada.Usuario + " - " + infoNegada.Motivo + " - " + infoNegada.Data.ToString();
+                lblCampoNegado.Text = "Não há restrições de senha";
+                GridPrincipal.IsVisible = false;
+                GridSecundario.IsVisible = true;
             }
         }
-        else
+        catch (Exception ex)
         {
-            lblCampoNegado.Text = "Não há restrições de senha";
-            GridPrincipal.IsVisible = false;
-            GridSecundario.IsVisible = true;
+            await MetodoErroLog(ex);
+            return;
         }
     }
+    #endregion
 
+    #region 5- EVENTOS DE CONTROLE
     private async void btnConsultaScore_Clicked(object sender, EventArgs e)
     {
-
-        int piker = cmbTipo.SelectedIndex;
-
-        ScoreClass scoreClass = new ScoreClass();
-
-        if (piker == 0)
+        try
         {
-            var last = await apiScore.ObterUltimoScore(listasuporte.Cliente.Codcliente, "TITULAR");
+            int piker = cmbTipo.SelectedIndex;
 
-            if (last != null)
+            ScoreClass scoreClass = new ScoreClass();
+
+            if (piker == 0)
             {
-                DateTime dataAtual = DateTime.Now;
+                var last = await apiScore.ObterUltimoScore(listasuporte.Cliente.Codcliente, "TITULAR");
 
-                DateTime dataConsulta = last.Dataconsulta;
-
-                DateTime dataLimite = dataConsulta.AddDays(60);
-
-                if (dataAtual < dataLimite)
+                if (last != null)
                 {
+                    DateTime dataAtual = DateTime.Now;
 
-                    await DisplayAlert("AVISO", $"A consulta a ser exibida a seguir, é referente a data {last.Dataconsulta.ToShortDateString()}.", "OK");
+                    DateTime dataConsulta = last.Dataconsulta;
 
-                    if (!await ScoreOptions.CarregaPDF(last.Pdflast, listasuporte.Cliente.Codcliente.ToString()))
+                    DateTime dataLimite = dataConsulta.AddDays(60);
+
+                    if (dataAtual < dataLimite)
                     {
-                        await DisplayAlert("Aviso", "Não foi possível visualizar o PDF, tente novamente mais tarde.", "OK");
-                        return;
+                        bool resposta = await DisplayAlert("AVISO", $"A ultima consulta foi em {last.Dataconsulta.ToShortDateString()} , deseja realizar uma nova consulta?", "SIM","NÃO");
+
+                        if (!resposta)
+                        {
+                            await DisplayAlert("AVISO", $"A conulta a seguir é referente a data de {last.Dataconsulta.ToShortDateString()}.", "OK");
+
+                            if (!await ScoreOptions.CarregaPDF(last.Pdflast, listasuporte.Cliente.Codcliente.ToString()))
+                            {
+                                await DisplayAlert("Aviso", "Não foi possível visualizar o PDF, tente novamente mais tarde.", "OK");
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            scoreClass = new ScoreClass
+                            {
+                                codusuario = InfoGlobal.codusuario.ToString(),
+                                codcliente = listasuporte.Cliente.Codcliente.ToString(),
+                                tipos = "TITULAR",
+                                cpf = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Cpf.ToString()),
+                                rg = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Rg.ToString()),
+                                nome = listasuporte.Cliente.Nome.ToUpper(),
+                                uf = listasuporte.Cliente.Uf.ToUpper(),
+                                nascimento = ScoreOptions.FormatDate(listasuporte.Cliente.Nascimento.ToString()),
+                            };
+
+                            var resultScore = await apiScore.BuscaScore(scoreClass);
+
+                            if (string.IsNullOrEmpty(resultScore))
+                            {
+                                await DisplayAlert("Aviso", "Não foi possível encontrar o score do cliente. Verifique as informações ou tente novamente mais tarde.", "OK");
+                                return;
+                            }
+
+                            if (!await ScoreOptions.CarregaPDF(resultScore, scoreClass.codcliente))
+                            {
+                                await DisplayAlert("Aviso", "Não foi possível visualizar o PDF, tente novamente mais tarde.", "OK");
+                                return;
+                            }
+                        }
                     }
                     else
                     {
-                        return;
+                        scoreClass = new ScoreClass
+                        {
+                            codusuario = InfoGlobal.codusuario.ToString(),
+                            codcliente = listasuporte.Cliente.Codcliente.ToString(),
+                            tipos = "TITULAR",
+                            cpf = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Cpf.ToString()),
+                            rg = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Rg.ToString()),
+                            nome = listasuporte.Cliente.Nome.ToUpper(),
+                            uf = listasuporte.Cliente.Uf.ToUpper(),
+                            nascimento = ScoreOptions.FormatDate(listasuporte.Cliente.Nascimento.ToString()),
+                        };
                     }
                 }
                 else
@@ -148,45 +240,74 @@ public partial class VInfoClienteTres : ContentPage
                     };
                 }
             }
-            else
+            else if (piker == 1)
             {
-                scoreClass = new ScoreClass
+                var last = await apiScore.ObterUltimoScore(listasuporte.Cliente.Codcliente, "CONJUGE");
+
+                if (last != null)
                 {
-                    codusuario = InfoGlobal.codusuario.ToString(),
-                    codcliente = listasuporte.Cliente.Codcliente.ToString(),
-                    tipos = "TITULAR",
-                    cpf = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Cpf.ToString()),
-                    rg = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Rg.ToString()),
-                    nome = listasuporte.Cliente.Nome.ToUpper(),
-                    uf = listasuporte.Cliente.Uf.ToUpper(),
-                    nascimento = ScoreOptions.FormatDate(listasuporte.Cliente.Nascimento.ToString()),
-                };
-            }
-        }
-        else if (piker == 1)
-        {
-            var last = await apiScore.ObterUltimoScore(listasuporte.Cliente.Codcliente, "CONJUGE");
+                    DateTime dataAtual = DateTime.Now;
 
-            if (last != null)
-            {
-                DateTime dataAtual = DateTime.Now;
+                    DateTime dataConsulta = last.Dataconsulta;
 
-                DateTime dataConsulta = last.Dataconsulta;
+                    DateTime dataLimite = dataConsulta.AddDays(60);
 
-                DateTime dataLimite = dataConsulta.AddDays(60);
-
-                if (dataAtual < dataLimite)
-                {
-                    await DisplayAlert("AVISO", $"A consulta a ser exibida a seguir, é referente a data {last.Dataconsulta.ToShortDateString()}.", "OK");
-
-                    if (!await ScoreOptions.CarregaPDF(last.Pdflast, listasuporte.Cliente.Codcliente.ToString()))
+                    if (dataAtual < dataLimite)
                     {
-                        await DisplayAlert("Aviso", "Não foi possível visualizar o PDF, tente novamente mais tarde.", "OK");
-                        return;
+                        bool resposta = await DisplayAlert("AVISO", $"A última consulta foi em {last.Dataconsulta.ToShortDateString()} , deseja realizar uma nova consulta?", "SIM", "NÃO");
+
+                        if (!resposta)
+                        {
+                            await DisplayAlert("AVISO", $"A conulta a seguir é referente a data de {last.Dataconsulta.ToShortDateString()}.", "OK");
+
+                            if (!await ScoreOptions.CarregaPDF(last.Pdflast, listasuporte.Cliente.Codcliente.ToString()))
+                            {
+                                await DisplayAlert("AVISO", "Não foi possível visualizar o PDF, tente novamente mais tarde.", "OK");
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            scoreClass = new ScoreClass
+                            {
+                                codusuario = InfoGlobal.codusuario.ToString(),
+                                codcliente = listasuporte.Cliente.Codcliente.ToString(),
+                                tipos = "TITULAR",
+                                cpf = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Cpf.ToString()),
+                                rg = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Rg.ToString()),
+                                nome = listasuporte.Cliente.Nome.ToUpper(),
+                                uf = listasuporte.Cliente.Uf.ToUpper(),
+                                nascimento = ScoreOptions.FormatDate(listasuporte.Cliente.Nascimento.ToString()),
+                            };
+
+                            var resultScore = await apiScore.BuscaScore(scoreClass);
+
+                            if (string.IsNullOrEmpty(resultScore))
+                            {
+                                await DisplayAlert("Aviso", "Não foi possível encontrar o score do cliente. Verifique as informações ou tente novamente mais tarde.", "OK");
+                                return;
+                            }
+
+                            if (!await ScoreOptions.CarregaPDF(resultScore, scoreClass.codcliente))
+                            {
+                                await DisplayAlert("Aviso", "Não foi possível visualizar o PDF, tente novamente mais tarde.", "OK");
+                                return;
+                            }
+                        }
                     }
                     else
                     {
-                        return;
+                        scoreClass = new ScoreClass
+                        {
+                            codusuario = InfoGlobal.codusuario.ToString(),
+                            codcliente = listasuporte.Cliente.Codcliente.ToString(),
+                            tipos = "CONJUGE",
+                            cpf = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Cpf.ToString()),
+                            rg = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Rg.ToString()),
+                            nome = listasuporte.Cliente.Nome.ToUpper(),
+                            uf = listasuporte.Cliente.Uf.ToUpper(),
+                            nascimento = ScoreOptions.FormatDate(listasuporte.Cliente.Nascimento.ToString()),
+                        };
                     }
                 }
                 else
@@ -206,49 +327,55 @@ public partial class VInfoClienteTres : ContentPage
             }
             else
             {
-                scoreClass = new ScoreClass
-                {
-                    codusuario = InfoGlobal.codusuario.ToString(),
-                    codcliente = listasuporte.Cliente.Codcliente.ToString(),
-                    tipos = "CONJUGE",
-                    cpf = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Cpf.ToString()),
-                    rg = ScoreOptions.RemoveAllCharactersAndSpaces(listasuporte.Cliente.Rg.ToString()),
-                    nome = listasuporte.Cliente.Nome.ToUpper(),
-                    uf = listasuporte.Cliente.Uf.ToUpper(),
-                    nascimento = ScoreOptions.FormatDate(listasuporte.Cliente.Nascimento.ToString()),
-                };
+                await DisplayAlert("AVISO", "Selecione o tipo de cliente!", "OK");
+                return;
+            }
+
+            var result = await apiScore.BuscaScore(scoreClass);
+
+            if (string.IsNullOrEmpty(result))
+            {
+                await DisplayAlert("Aviso", "Não foi possível encontrar o score do cliente. Verifique as informações ou tente novamente mais tarde.", "OK");
+                return;
+            }
+
+            if (!await ScoreOptions.CarregaPDF(result, scoreClass.codcliente))
+            {
+                await DisplayAlert("Aviso", "Não foi possível visualizar o PDF, tente novamente mais tarde.", "OK");
+                return;
             }
         }
-        else
+        catch (Exception ex)
         {
-            await DisplayAlert("AVISO", "Selecione o tipo de cliente!", "OK");
-            return;
-        }
-
-        var result = await apiScore.BuscaScore(scoreClass);
-
-        if (string.IsNullOrEmpty(result))
-        {
-            await DisplayAlert("Aviso", "Não foi possível encontrar o score do cliente. Verifique as informações ou tente novamente mais tarde.", "OK");
-            return;
-        }
-
-        if (!await ScoreOptions.CarregaPDF(result, scoreClass.codcliente))
-        {
-            await DisplayAlert("Aviso", "Não foi possível visualizar o PDF, tente novamente mais tarde.", "OK");
+            await MetodoErroLog(ex);
             return;
         }
     }
 
     private async void btnVoltar_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VInfoClienteDois(listasuporte, ocorrencia));
+        try
+        {
+            await Navigation.PushAsync(new VInfoClienteDois(listasuporte, ocorrencia,0,0));
+        }
+        catch (Exception ex)
+        {
+            await MetodoErroLog(ex);
+            return;
+        }
     }
 
     private async void btnProximo_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new VInfoClienteQuatro(listasuporte, ocorrencia));
+        try
+        {
+            await Navigation.PushAsync(new VInfoClienteQuatro(listasuporte, ocorrencia));
+        }
+        catch (Exception ex)
+        {
+            await MetodoErroLog(ex);
+            return;
+        }
     }
-
-
+    #endregion
 }

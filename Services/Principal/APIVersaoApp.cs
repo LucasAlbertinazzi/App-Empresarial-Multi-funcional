@@ -1,13 +1,8 @@
 ﻿using AppMarciusMagazine.Classes.API.Principal;
 using AppMarciusMagazine.Classes.Globais;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AppMarciusMagazine.Services.Principal
 {
@@ -68,7 +63,7 @@ namespace AppMarciusMagazine.Services.Principal
             }
         }
 
-        private async Task<bool> VerificarVersaoInstalada()
+        public async Task<bool> VerificarVersaoInstalada()
         {
             try
             {
@@ -210,48 +205,63 @@ namespace AppMarciusMagazine.Services.Principal
             }
         }
 
-        public async Task<bool> VerificaIp()
+        public async Task VerificaIp()
         {
-            if (GetIPAddress().Contains("10.10") || GetIPAddress().Contains("192.168"))
+            try
             {
-                #region URL - Produção
-                InfoGlobal.apiApp = "http://192.168.10.3:6162/api";
-                InfoGlobal.apiCobranca = "http://192.168.10.3:6163/api";
-                #endregion
+                if (GetIPAddress().Contains("10.10.5") || GetIPAddress().Contains("10.10.6") || GetIPAddress().Contains("10.10.7") ||
+                    GetIPAddress().Contains("10.10.8") || GetIPAddress().Contains("192.168.10") || GetIPAddress().Contains("192.168.100"))
+                {
+                    #region URL - Produção
+                    InfoGlobal.apiApp = "http://192.168.10.3:6162/api";
+                    InfoGlobal.apiCobranca = "http://192.168.10.3:6163/api";
+                    #endregion
 
-                #region URL - Desenvolvimento
-                InfoGlobal.apiApp = "http://192.168.10.94:5000/api";
-                InfoGlobal.apiCobranca = "http://192.168.10.94:6000/api";
-                #endregion
+                    #region URL - Desenvolvimento
+                    InfoGlobal.apiApp = "http://192.168.10.94:5000/api";
+                    InfoGlobal.apiCobranca = "http://192.168.10.94:6000/api";
+                    #endregion
+                }
             }
-
-            return await VerificarVersaoInstalada();
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+            }
+            
         }
 
         private string GetIPAddress()
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.None)
+            try
             {
-                // Nenhuma conexão de rede disponível
-                return null;
-            }
-
-            foreach (var networkInterface in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (networkInterface.OperationalStatus == OperationalStatus.Up)
+                if (Connectivity.NetworkAccess == NetworkAccess.None)
                 {
-                    foreach (var address in networkInterface.GetIPProperties().UnicastAddresses)
+                    // Nenhuma conexão de rede disponível
+                    return null;
+                }
+
+                foreach (var networkInterface in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if (networkInterface.OperationalStatus == OperationalStatus.Up)
                     {
-                        if (address.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        foreach (var address in networkInterface.GetIPProperties().UnicastAddresses)
                         {
-                            // Endereço IPv4 encontrado
-                            return address.Address.ToString();
+                            if (address.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                            {
+                                // Endereço IPv4 encontrado
+                                return address.Address.ToString();
+                            }
                         }
                     }
                 }
-            }
 
-            return null; // Nenhum endereço IPv4 encontrado
+                return null; // Nenhum endereço IPv4 encontrado
+            }
+            catch (Exception ex)
+            {
+                MetodoErroLog(ex);
+                return null;
+            }
         }
         #endregion
     }

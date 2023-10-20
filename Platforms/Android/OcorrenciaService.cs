@@ -62,7 +62,7 @@ namespace AppMarciusMagazine.Platforms.Android
 
             var notificationBuilder = new NotificationCompat.Builder(context, notificationChannelId)
                 .SetContentTitle("Serviço de sincronização")
-                .SetContentText("o App Marciu´s Magazine está sendo executado")
+                .SetContentText("O App Marciu´s Magazine está sendo executado")
                 .SetSmallIcon(Resource.Drawable.notification_icon)
                 .SetPriority(NotificationCompat.PriorityLow)
                 .SetOngoing(false);

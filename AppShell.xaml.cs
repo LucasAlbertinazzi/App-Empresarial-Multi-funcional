@@ -23,6 +23,8 @@ public partial class AppShell : Shell
         InitializeComponent();
     }
 
+   
+
     private async void Shell_Loaded(object sender, EventArgs e)
     {
         try
@@ -54,6 +56,18 @@ public partial class AppShell : Shell
         };
 
         await error.LogErro(erroLog);
+    }
+
+    public void Permissao()
+    {
+        if (InfoGlobal.departamento != 25)
+        {
+            btnOcorrencia.IsVisible = true;
+        }
+        if (InfoGlobal.departamento == 1)
+        {
+            btnConfig.IsVisible = true;
+        }
     }
 
     #endregion

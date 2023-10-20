@@ -42,10 +42,9 @@ namespace AppMarciusMagazine.Services.Cobranca
 
         public APIOcorrencia()
         {
-            _httpClient = new HttpClient() { Timeout = TimeSpan.FromMinutes(10) };
+            _httpClient = new HttpClient() { Timeout = new TimeSpan(0, 0, 30) };
         }
 
-        //----------------------------------------------------------------------------------------------
         public async Task<List<OcorrenciaClass>> BuscaOcorrencias()
         {
             try
@@ -193,7 +192,7 @@ namespace AppMarciusMagazine.Services.Cobranca
             }
             catch (Exception ex)
             {
-                // Trata a exceção, se necessário
+                await MetodoErroLog(ex);
                 return false;
             }
         }
@@ -220,7 +219,7 @@ namespace AppMarciusMagazine.Services.Cobranca
             }
             catch (Exception ex)
             {
-                // Trata a exceção, se necessário
+                await MetodoErroLog(ex);
                 return false;
             }
         }
@@ -248,8 +247,6 @@ namespace AppMarciusMagazine.Services.Cobranca
                 return false;
             }
         }
-
-        //----------------------------------------------------------------------------------------------
 
         public async Task ListenForOcorrencias()
         {
@@ -298,45 +295,64 @@ namespace AppMarciusMagazine.Services.Cobranca
             }
         }
 
-        // Defina uma classe para deserializar os dados recebidos
         public class OcorrenciaData
         {
             public string EventType { get; set; }
             public List<OcorrenciaClass> Changes { get; set; }
         }
 
-
-        //----------------------------------------------------------------------------------------------
-
         private async Task HandleNewOcorrencias(List<OcorrenciaClass> ocorrenciaList)
         {
-            if (ocorrenciaList != null && ocorrenciaList.Count > 0)
+            try
             {
-                var notificacao = new Notificacao();
-                await notificacao.EnviaNotificacao("Nova Ocorrência", "Uma nova ocorrência foi recebida.", "VOcorrencia");
-                NewOcorrenciasReceived?.Invoke(ocorrenciaList);
+                if (ocorrenciaList != null && ocorrenciaList.Count > 0)
+                {
+                    var notificacao = new Notificacao();
+                    await notificacao.EnviaNotificacao("Nova Ocorrência", "Uma nova ocorrência foi recebida.", "VOcorrencia");
+                    NewOcorrenciasReceived?.Invoke(ocorrenciaList);
+                }
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return;
             }
         }
 
         private async Task HandleErrorAndReconnect(string url)
         {
-            await Task.Delay(5000); // Aguarde um pouco antes de tentar reconectar
-            if (_reconnectionAttempts < 5)
+            try
             {
-                _reconnectionAttempts++;
-                await ListenForOcorrencias(); // Reconecta após um erro
+                await Task.Delay(5000); // Aguarde um pouco antes de tentar reconectar
+                if (_reconnectionAttempts < 5)
+                {
+                    _reconnectionAttempts++;
+                    await ListenForOcorrencias(); // Reconecta após um erro
+                }
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                await ListenForOcorrencias();
+                return;
             }
         }
 
         private async Task HandleAlteredOcorrencias(List<OcorrenciaClass> ocorrenciaList)
         {
-            if (ocorrenciaList != null && ocorrenciaList.Count > 0)
+            try
             {
-                OcorrenciasAltered?.Invoke(ocorrenciaList);
+                if (ocorrenciaList != null && ocorrenciaList.Count > 0)
+                {
+                    OcorrenciasAltered?.Invoke(ocorrenciaList);
+                }
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return;
             }
         }
-
-        //----------------------------------------------------------------------------------------------
 
         #endregion
     }
