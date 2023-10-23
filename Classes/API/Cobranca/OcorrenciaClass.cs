@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace AppMarciusMagazine.Classes.API.Cobranca
+namespace AppEmpresarialMultFuncional.Classes.API.Cobranca
 {
     public class OcorrenciaClass : INotifyPropertyChanged
     {

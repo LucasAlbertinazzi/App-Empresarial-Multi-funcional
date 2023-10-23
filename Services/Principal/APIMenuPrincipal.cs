@@ -1,9 +1,9 @@
-﻿using AppMarciusMagazine.Classes.API.Principal;
-using AppMarciusMagazine.Classes.Globais;
+﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
+using AppEmpresarialMultFuncional.Classes.Globais;
 using Newtonsoft.Json;
 using static MenuPrincipalClass;
 
-namespace AppMarciusMagazine.Services.Principal
+namespace AppEmpresarialMultFuncional.Services.Principal
 {
     public class APIMenuPrincipal
     {

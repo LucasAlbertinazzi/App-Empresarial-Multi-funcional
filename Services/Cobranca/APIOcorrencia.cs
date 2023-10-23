@@ -1,12 +1,12 @@
-﻿using AppMarciusMagazine.Classes.API.Cobranca;
-using AppMarciusMagazine.Classes.API.Principal;
-using AppMarciusMagazine.Classes.Globais;
-using AppMarciusMagazine.Services.Principal;
-using AppMarciusMagazine.Suporte;
+﻿using AppEmpresarialMultFuncional.Classes.API.Cobranca;
+using AppEmpresarialMultFuncional.Classes.API.Principal;
+using AppEmpresarialMultFuncional.Classes.Globais;
+using AppEmpresarialMultFuncional.Services.Principal;
+using AppEmpresarialMultFuncional.Suporte;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace AppMarciusMagazine.Services.Cobranca
+namespace AppEmpresarialMultFuncional.Services.Cobranca
 {
     public class APIOcorrencia
     {

@@ -1,9 +1,9 @@
-﻿using AppMarciusMagazine.Classes.API.Principal;
-using AppMarciusMagazine.Classes.Globais;
-using AppMarciusMagazine.Services.Principal;
-using AppMarciusMagazine.Views.Cobranca;
+﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
+using AppEmpresarialMultFuncional.Classes.Globais;
+using AppEmpresarialMultFuncional.Services.Principal;
+using AppEmpresarialMultFuncional.Views.Cobranca;
 
-namespace AppMarciusMagazine.ViewModels.Principal
+namespace AppEmpresarialMultFuncional.ViewModels.Principal
 {
     public class MenuPrincipalVModel
     {

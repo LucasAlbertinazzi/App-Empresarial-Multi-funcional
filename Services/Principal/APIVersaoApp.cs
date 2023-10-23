@@ -1,10 +1,10 @@
-﻿using AppMarciusMagazine.Classes.API.Principal;
-using AppMarciusMagazine.Classes.Globais;
+﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
+using AppEmpresarialMultFuncional.Classes.Globais;
 using Newtonsoft.Json;
 using System.Net.NetworkInformation;
 using System.Text;
 
-namespace AppMarciusMagazine.Services.Principal
+namespace AppEmpresarialMultFuncional.Services.Principal
 {
     public class APIVersaoApp
     {
@@ -213,8 +213,8 @@ namespace AppMarciusMagazine.Services.Principal
                     GetIPAddress().Contains("10.10.8") || GetIPAddress().Contains("192.168.10") || GetIPAddress().Contains("192.168.100"))
                 {
                     #region URL - Produção
-                    InfoGlobal.apiApp = "http://192.168.10.3:6162/api";
-                    InfoGlobal.apiCobranca = "http://192.168.10.3:6163/api";
+                    InfoGlobal.apiApp = "http://192.168.100.103:6162/api";
+                    InfoGlobal.apiCobranca = "http://192.168.100.103:6163/api";
                     #endregion
 
                     #region URL - Desenvolvimento

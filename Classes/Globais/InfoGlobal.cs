@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppMarciusMagazine.Classes.Globais
+namespace AppEmpresarialMultFuncional.Classes.Globais
 {
     public static class InfoGlobal
     {
@@ -32,7 +32,7 @@ namespace AppMarciusMagazine.Classes.Globais
 
         public static string apiApp = "http://187.63.82.117:61620/api";
         public static string apiCobranca = "http://187.63.82.117:61630/api";
-        public static string apk = "https://ofertas.marciusmagazine.com/Home/appmarciusmagazine";
+        public static string apk = "https://AppEmpresarialMultFuncional";
 
 
         public static void ClearData()

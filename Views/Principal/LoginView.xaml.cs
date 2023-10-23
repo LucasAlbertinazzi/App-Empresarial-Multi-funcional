@@ -1,12 +1,12 @@
 using Android.Content;
-using AppMarciusMagazine.Classes.API.Principal;
-using AppMarciusMagazine.Classes.Globais;
-using AppMarciusMagazine.Platforms.Android;
-using AppMarciusMagazine.Services.Principal;
-using AppMarciusMagazine.Suporte;
+using AppEmpresarialMultFuncional.Classes.API.Principal;
+using AppEmpresarialMultFuncional.Classes.Globais;
+using AppEmpresarialMultFuncional.Platforms.Android;
+using AppEmpresarialMultFuncional.Services.Principal;
+using AppEmpresarialMultFuncional.Suporte;
 using System.Diagnostics;
 
-namespace AppMarciusMagazine.Views.Principal;
+namespace AppEmpresarialMultFuncional.Views.Principal;
 
 public partial class LoginView : ContentPage
 {
@@ -147,7 +147,7 @@ public partial class LoginView : ContentPage
     {
         try
         {
-            lblInfoDev.Text = "Marciu's Magazine @Todos os direitos reservados";
+            lblInfoDev.Text = "Empresarial Mult-Funcionale @Todos os direitos reservados";
             lblInfoDevVersao.Text = $"Versão {AppInfo.Version}";
         }
         catch (Exception ex)

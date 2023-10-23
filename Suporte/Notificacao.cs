@@ -1,12 +1,12 @@
-﻿using AppMarciusMagazine.Classes.API.Principal;
-using AppMarciusMagazine.Services.Principal;
-using AppMarciusMagazine.Views.Cobranca;
-using AppMarciusMagazine.Views.Principal;
+﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
+using AppEmpresarialMultFuncional.Services.Principal;
+using AppEmpresarialMultFuncional.Views.Cobranca;
+using AppEmpresarialMultFuncional.Views.Principal;
 using Plugin.LocalNotification;
 using Plugin.LocalNotification.AndroidOption;
 using Plugin.LocalNotification.EventArgs;
 
-namespace AppMarciusMagazine.Suporte
+namespace AppEmpresarialMultFuncional.Suporte
 {
     public class Notificacao
     {
@@ -69,7 +69,7 @@ namespace AppMarciusMagazine.Suporte
                 var request = new NotificationRequest
                 {
                     NotificationId = 2,
-                    Title = "Marciu's Magazine",
+                    Title = "Empresarial Mult-Funcionale",
                     Subtitle = sub,
                     Description = desc,
                     BadgeNumber = 10,

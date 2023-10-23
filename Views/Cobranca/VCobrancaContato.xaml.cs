@@ -1,11 +1,11 @@
-using AppMarciusMagazine.Classes.API.Cobranca;
-using AppMarciusMagazine.Classes.API.Principal;
-using AppMarciusMagazine.Classes.Globais;
-using AppMarciusMagazine.Services.Cobranca;
-using AppMarciusMagazine.Services.Principal;
-using AppMarciusMagazine.Suporte;
+using AppEmpresarialMultFuncional.Classes.API.Cobranca;
+using AppEmpresarialMultFuncional.Classes.API.Principal;
+using AppEmpresarialMultFuncional.Classes.Globais;
+using AppEmpresarialMultFuncional.Services.Cobranca;
+using AppEmpresarialMultFuncional.Services.Principal;
+using AppEmpresarialMultFuncional.Suporte;
 
-namespace AppMarciusMagazine.Views.Cobranca;
+namespace AppEmpresarialMultFuncional.Views.Cobranca;
 
 public partial class VCobrancaContato : ContentPage
 {

@@ -1,4 +1,4 @@
-﻿namespace AppMarciusMagazine.Classes.API.Principal
+﻿namespace AppEmpresarialMultFuncional.Classes.API.Principal
 {
     public class VersaoAppClass
     {

@@ -1,6 +1,6 @@
 ﻿using Android.Content;
-using AppMarciusMagazine.Platforms.Android;
-using AppMarciusMagazine.Suporte;
+using AppEmpresarialMultFuncional.Platforms.Android;
+using AppEmpresarialMultFuncional.Suporte;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 
 [assembly: Dependency(typeof(FileService))]
-namespace AppMarciusMagazine.Platforms.Android
+namespace AppEmpresarialMultFuncional.Platforms.Android
 {
     public class FileService : IFileService
     {

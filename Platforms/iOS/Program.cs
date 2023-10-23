@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace AppMarciusMagazine;
+namespace AppEmpresarialMultFuncional;
 
 public class Program
 {

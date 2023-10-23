@@ -1,5 +1,5 @@
-﻿using AppMarciusMagazine.Classes.API.Principal;
-using AppMarciusMagazine.Classes.Globais;
+﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
+using AppEmpresarialMultFuncional.Classes.Globais;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppMarciusMagazine.Services.Principal
+namespace AppEmpresarialMultFuncional.Services.Principal
 {
     public class APIErroLog
     {

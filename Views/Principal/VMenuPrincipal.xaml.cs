@@ -1,12 +1,12 @@
-using AppMarciusMagazine.Classes.API.Principal;
-using AppMarciusMagazine.Classes.Globais;
-using AppMarciusMagazine.Services.Principal;
-using AppMarciusMagazine.ViewModels.Principal;
+using AppEmpresarialMultFuncional.Classes.API.Principal;
+using AppEmpresarialMultFuncional.Classes.Globais;
+using AppEmpresarialMultFuncional.Services.Principal;
+using AppEmpresarialMultFuncional.ViewModels.Principal;
 using static MenuPrincipalClass;
 using static Microsoft.Maui.Controls.Button;
 using static Microsoft.Maui.Controls.Button.ButtonContentLayout;
 
-namespace AppMarciusMagazine.Views.Principal;
+namespace AppEmpresarialMultFuncional.Views.Principal;
 
 public partial class VMenuPrincipal : ContentPage
 {

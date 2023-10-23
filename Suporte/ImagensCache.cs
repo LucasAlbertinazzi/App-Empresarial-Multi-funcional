@@ -1,8 +1,8 @@
-﻿using AppMarciusMagazine.Classes.API.Principal;
-using AppMarciusMagazine.Classes.Globais;
-using AppMarciusMagazine.Services.Principal;
+﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
+using AppEmpresarialMultFuncional.Classes.Globais;
+using AppEmpresarialMultFuncional.Services.Principal;
 
-namespace AppMarciusMagazine.Suporte
+namespace AppEmpresarialMultFuncional.Suporte
 {
     public class ImagensCache
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppMarciusMagazine.Classes.API.Principal
+namespace AppEmpresarialMultFuncional.Classes.API.Principal
 {
     public class ErrorLogClass
     {

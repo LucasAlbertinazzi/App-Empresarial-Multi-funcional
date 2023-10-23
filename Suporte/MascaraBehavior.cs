@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppMarciusMagazine.Suporte
+namespace AppEmpresarialMultFuncional.Suporte
 {
     public class MascaraBehavior : Behavior<Entry>
     {

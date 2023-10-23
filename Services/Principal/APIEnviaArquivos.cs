@@ -1,9 +1,9 @@
-﻿using AppMarciusMagazine.Classes.API.Principal;
-using AppMarciusMagazine.Classes.Globais;
-using AppMarciusMagazine.Suporte;
+﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
+using AppEmpresarialMultFuncional.Classes.Globais;
+using AppEmpresarialMultFuncional.Suporte;
 using Newtonsoft.Json;
 
-namespace AppMarciusMagazine.Services.Principal
+namespace AppEmpresarialMultFuncional.Services.Principal
 {
     public class APIEnviaArquivos
     {

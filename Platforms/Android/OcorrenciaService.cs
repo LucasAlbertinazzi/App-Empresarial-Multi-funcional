@@ -2,9 +2,9 @@
 using Android.Content;
 using Android.OS;
 using AndroidX.Core.App;
-using AppMarciusMagazine.Services.Cobranca;
+using AppEmpresarialMultFuncional.Services.Cobranca;
 
-namespace AppMarciusMagazine.Platforms.Android
+namespace AppEmpresarialMultFuncional.Platforms.Android
 {
     [Service]
     public class OcorrenciaService : Service
@@ -62,7 +62,7 @@ namespace AppMarciusMagazine.Platforms.Android
 
             var notificationBuilder = new NotificationCompat.Builder(context, notificationChannelId)
                 .SetContentTitle("Serviço de sincronização")
-                .SetContentText("O App Marciu´s Magazine está sendo executado")
+                .SetContentText("O App Empresarial Mult-Funcional está sendo executado")
                 .SetSmallIcon(Resource.Drawable.notification_icon)
                 .SetPriority(NotificationCompat.PriorityLow)
                 .SetOngoing(false);

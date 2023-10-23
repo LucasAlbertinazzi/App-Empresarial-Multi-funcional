@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace AppMarciusMagazine;
+namespace AppEmpresarialMultFuncional;
 
 [Application]
 public class MainApplication : MauiApplication

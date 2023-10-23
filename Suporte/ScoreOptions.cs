@@ -1,7 +1,7 @@
-﻿using AppMarciusMagazine.Services.Cobranca;
+﻿using AppEmpresarialMultFuncional.Services.Cobranca;
 using System.Globalization;
 
-namespace AppMarciusMagazine.Suporte
+namespace AppEmpresarialMultFuncional.Suporte
 {
     public static class ScoreOptions
     {
