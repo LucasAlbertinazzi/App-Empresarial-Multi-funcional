@@ -1,7 +1,8 @@
-﻿using ObjCRuntime;
+﻿using AppEmpresa.Platforms.iOS;
+using ObjCRuntime;
 using UIKit;
 
-namespace AppEmpresarialMultFuncional;
+namespace AppEmpresa;
 
 public class Program
 {

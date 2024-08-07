@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AppEmpresa</name>
+    </assembly>
+    <members>
+        <member name="M:AppEmpresa.Views.Cobranca.VOcorrencia.OnFrameTapped(System.Object,Microsoft.Maui.Controls.TappedEventArgs)">
+            <summary>
+            Este método realiza ações diferentes baseadas no tipo de senha da ocorrência selecionada.
+            
+            Tipos de senha:
+            1 - PEDIDO: Realiza a ação XYZ e navega para a página VInfoCliente.
+            2 - RENEGOCIAÇÃO: Exibe um alerta informando para continuar a operação pelo sistema.
+            3 - CANCELAMENTO: Exibe um alerta informando para continuar a operação pelo sistema.
+            4 - CADASTRO: Exibe um alerta informando para continuar a operação pelo sistema.
+            </summary>
+        </member>
+    </members>
+</doc>

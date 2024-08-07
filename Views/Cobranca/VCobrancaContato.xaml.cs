@@ -1,11 +1,11 @@
-using AppEmpresarialMultFuncional.Classes.API.Cobranca;
-using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
-using AppEmpresarialMultFuncional.Services.Cobranca;
-using AppEmpresarialMultFuncional.Services.Principal;
-using AppEmpresarialMultFuncional.Suporte;
+using AppEmpresa.Classes.API.Cobranca;
+using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
+using AppEmpresa.Services.Cobranca;
+using AppEmpresa.Services.Principal;
+using AppEmpresa.Suporte;
 
-namespace AppEmpresarialMultFuncional.Views.Cobranca;
+namespace AppEmpresa.Views.Cobranca;
 
 public partial class VCobrancaContato : ContentPage
 {
@@ -31,7 +31,7 @@ public partial class VCobrancaContato : ContentPage
 
     #region 2- VARIAVEIS
     APICobrancaClientes apiCCliente = new();
-
+    APIClientes apiClientes = new APIClientes();
     private readonly int codcliente;
     #endregion
 
@@ -62,6 +62,7 @@ public partial class VCobrancaContato : ContentPage
             LoadingIndicator.IsRunning = true;
 
             cmbProcesso.SelectedIndex = 0;
+            await BuscaNome();
             await DefineMascara();
             await CarregaAtraso();
             await CarregaVencer();
@@ -80,6 +81,24 @@ public partial class VCobrancaContato : ContentPage
     #endregion
 
     #region 5- METODOS
+
+    private async Task BuscaNome()
+    {
+        try
+        {
+            ClientesClass lista = await apiClientes.BuscaInfoClientes(codcliente);
+
+            if(lista != null)
+            {
+                lblNome.Text = lista.Cliente.Nome.ToUpper();
+                lblCod.Text = codcliente.ToString();
+            }
+        }
+        catch (Exception ex)
+        {
+            await MetodoErroLog(ex);
+        }
+    }
     private async Task DefineMascara()
     {
         try

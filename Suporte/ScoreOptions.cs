@@ -1,7 +1,7 @@
-﻿using AppEmpresarialMultFuncional.Services.Cobranca;
+﻿using AppEmpresa.Services.Cobranca;
 using System.Globalization;
 
-namespace AppEmpresarialMultFuncional.Suporte
+namespace AppEmpresa.Suporte
 {
     public static class ScoreOptions
     {

@@ -1,12 +1,12 @@
-﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Services.Principal;
-using AppEmpresarialMultFuncional.Views.Cobranca;
-using AppEmpresarialMultFuncional.Views.Principal;
+﻿using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Services.Principal;
+using AppEmpresa.Views.Cobranca;
+using AppEmpresa.Views.Principal;
 using Plugin.LocalNotification;
 using Plugin.LocalNotification.AndroidOption;
 using Plugin.LocalNotification.EventArgs;
 
-namespace AppEmpresarialMultFuncional.Suporte
+namespace AppEmpresa.Suporte
 {
     public class Notificacao
     {
@@ -69,7 +69,7 @@ namespace AppEmpresarialMultFuncional.Suporte
                 var request = new NotificationRequest
                 {
                     NotificationId = 2,
-                    Title = "Empresarial Mult-Funcionale",
+                    Title = "Empresa",
                     Subtitle = sub,
                     Description = desc,
                     BadgeNumber = 10,

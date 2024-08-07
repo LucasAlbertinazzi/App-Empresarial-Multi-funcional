@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppEmpresarialMultFuncional.Suporte
+namespace AppEmpresa.Suporte
 {
     public interface IFileService
     {

@@ -1,9 +1,9 @@
-﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
+﻿using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
 using Newtonsoft.Json;
 using static MenuPrincipalClass;
 
-namespace AppEmpresarialMultFuncional.Services.Principal
+namespace AppEmpresa.Services.Principal
 {
     public class APIMenuPrincipal
     {

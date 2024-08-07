@@ -1,10 +1,10 @@
-using AppEmpresarialMultFuncional.Classes.API.Cobranca;
-using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
-using AppEmpresarialMultFuncional.Services.Cobranca;
-using AppEmpresarialMultFuncional.Services.Principal;
+using AppEmpresa.Classes.API.Cobranca;
+using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
+using AppEmpresa.Services.Cobranca;
+using AppEmpresa.Services.Principal;
 
-namespace AppEmpresarialMultFuncional.Views.Cobranca;
+namespace AppEmpresa.Views.Cobranca;
 
 public partial class VInfoCliente : ContentPage
 {
@@ -69,6 +69,8 @@ public partial class VInfoCliente : ContentPage
             tipo = tipoCliente;
             ocorrencia = null;
             swPrincipal.IsEnabled = false;
+            op2.IsVisible = true;
+            op1.IsVisible = false;
         }
         catch (Exception ex)
         {
@@ -103,13 +105,13 @@ public partial class VInfoCliente : ContentPage
 
             if (!string.IsNullOrEmpty(tipo))
             {
-                BuscaCodigoTipo(tipo);
+                await BuscaCodigoTipo(tipo);
             }
             await Inicializa();
         }
         catch (Exception ex)
         {
-            MetodoErroLog(ex);
+            await MetodoErroLog(ex);
             return;
         }
     }
@@ -209,6 +211,7 @@ public partial class VInfoCliente : ContentPage
             if (tipo == "CONJUGE" || tipo == "CONJUGÊ")
             {
                 lblNome.Text = lista.Cliente.Conjuge ?? lblNome.Text;
+                lblNome2.Text = lista.Cliente.Conjuge ?? lblNome2.Text;
                 lblNascimento.Text = (lista.Cliente.ConjNascimento != null) ? lista.Cliente.ConjNascimento.Value.ToString("dd/MM/yyyy") : lblNascimento.Text;
                 lblIdade.Text = (lista.Cliente.ConjNascimento != null) ? CalcularIdade(lista.Cliente.ConjNascimento.Value, DateTime.Today).ToString() : lblIdade.Text;
                 lblCPF.Text = lista.Cliente.ConjCpf ?? lblCPF.Text;
@@ -236,6 +239,7 @@ public partial class VInfoCliente : ContentPage
             else
             {
                 lblNome.Text = lista.Cliente.Nome ?? lblNome.Text;
+                lblNome2.Text = lista.Cliente.Nome ?? lblNome2.Text;
                 lblNascimento.Text = (lista.Cliente.Nascimento != null) ? lista.Cliente.Nascimento.Value.ToString("dd/MM/yyyy") : lblNascimento.Text;
                 lblIdade.Text = (lista.Cliente.Nascimento != null) ? CalcularIdade(lista.Cliente.Nascimento.Value, DateTime.Today).ToString() : lblIdade.Text;
                 lblCPF.Text = lista.Cliente.Cpf ?? lblCPF.Text;
@@ -341,6 +345,11 @@ public partial class VInfoCliente : ContentPage
     #endregion
 
     #region 5- EVENTOS DE CONTROLE
+
+    private async void btnCobranca_Clicked(object sender, EventArgs e)
+    {
+        await Application.Current.MainPage.Navigation.PushAsync(new VCobrancaContato(Convert.ToInt32(codCliente)));
+    }
     private async void FiadorInvoked(object sender, EventArgs e)
     {
         try

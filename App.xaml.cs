@@ -1,20 +1,105 @@
-﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
-using AppEmpresarialMultFuncional.Services.Principal;
-using System.Diagnostics;
+﻿using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
+using AppEmpresa.Services.Principal;
+using System.Net;
+using System.Net.NetworkInformation;
 
-namespace AppEmpresarialMultFuncional;
+namespace AppEmpresa;
 
 public partial class App : Application
 {
-    APIErroLog error = new APIErroLog();
-    APIVersaoApp api_versao = new APIVersaoApp();
+    #region 1 - VARIÁVEIS
+    private APIErroLog error = new APIErroLog();
+    private APIVersaoApp api_versao = new APIVersaoApp();
+    private Timer internetTimer;
+    private Timer versionCheckTimer;
+    private CancellationTokenSource cancellationTokenSource;
+    #endregion
 
+    #region 2 - CONSTRUTORES
     public App()
     {
         InitializeComponent();
-
         MainPage = new AppShell();
+    }
+    #endregion
+
+    #region 3 - MÉTODOS
+
+    private void DefineTemaApp()
+    {
+        var theme = App.Current.RequestedTheme;
+        if (theme != AppTheme.Light)
+        {
+            App.Current.UserAppTheme = AppTheme.Light;
+        }
+    }
+
+    private void VerificaIpExterno()
+    {
+        string ip = null;
+        IPAddress deviceIp = null;
+
+        // Obtém todas as interfaces de rede
+        var interfaces = NetworkInterface.GetAllNetworkInterfaces();
+
+        foreach (var interfac in interfaces)
+        {
+            if (interfac.OperationalStatus == OperationalStatus.Up)
+            {
+                var properties = interfac.GetIPProperties();
+
+                foreach (var address in properties.UnicastAddresses)
+                {
+                    if (address.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        ip = address.Address.ToString();
+                        deviceIp = IPAddress.Parse(ip);
+
+                        // Verifica se o endereço IP está dentro do intervalo especificado
+                        if (IsInRange(deviceIp, "192.168.10.1", "192.168.10.254"))
+                        {
+                            InfoGlobal.apiApp = "http://192.168.10.3:6162/api";
+                            InfoGlobal.apiCobranca = "http://192.168.10.3:6163/api";
+                            InfoGlobal.apiDiretoria = "http://192.168.10.3:6164/api";
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private bool IsInRange(IPAddress ip, string startIpString, string endIpString)
+    {
+        IPAddress startIp = IPAddress.Parse(startIpString);
+        IPAddress endIp = IPAddress.Parse(endIpString);
+
+        byte[] startBytes = startIp.GetAddressBytes();
+        byte[] endBytes = endIp.GetAddressBytes();
+        byte[] ipBytes = ip.GetAddressBytes();
+
+        bool greaterOrEqualStart = true;
+        bool lessOrEqualEnd = true;
+
+        for (int i = 0; i < startBytes.Length; i++)
+        {
+            if (ipBytes[i] < startBytes[i])
+            {
+                greaterOrEqualStart = false;
+                break;
+            }
+        }
+
+        for (int i = 0; i < endBytes.Length; i++)
+        {
+            if (ipBytes[i] > endBytes[i])
+            {
+                lessOrEqualEnd = false;
+                break;
+            }
+        }
+
+        return greaterOrEqualStart && lessOrEqualEnd;
     }
 
     private async Task MetodoErroLog(Exception ex)
@@ -36,35 +121,70 @@ public partial class App : Application
     protected override void OnStart()
     {
         base.OnStart();
+        DefineTemaApp();
+        VerificaIpExterno();
+        InfoGlobal.AjustarUrlsParaDebug();
+        StartTimers();
+    }
 
-        Task.Run(async () => await VerificaInicial());
-        Task.Run(async () => await VerificarConexaoInternet());
-        Task.Run(async () => await VerificaVersaoAPP());
+    protected override void OnSleep()
+    {
+        base.OnSleep();
+        StopTimers();
+    }
+
+    protected override void OnResume()
+    {
+        base.OnResume();
+        StartTimers();
+    }
+
+    private async void StartTimers()
+    {
+        cancellationTokenSource = new CancellationTokenSource();
+
+        internetTimer = new Timer(async (state) =>
+        {
+            if (cancellationTokenSource.IsCancellationRequested)
+                return;
+
+            await VerificarConexaoInternet();
+        }, null, TimeSpan.Zero, TimeSpan.FromSeconds(30));
+
+        versionCheckTimer = new Timer(async (state) =>
+        {
+            if (cancellationTokenSource.IsCancellationRequested)
+                return;
+
+            await VerificaVersaoAPP();
+        }, null, TimeSpan.Zero, TimeSpan.FromMinutes(5));
+    }
+
+    private void StopTimers()
+    {
+        cancellationTokenSource.Cancel();
+        internetTimer.Dispose();
+        versionCheckTimer.Dispose();
     }
 
     private async Task VerificarConexaoInternet()
     {
         try
         {
-            while (true)
+            var current = Connectivity.NetworkAccess;
+
+            if (current != NetworkAccess.Internet)
             {
-                // Verifica o estado da conectividade
-                var current = Connectivity.NetworkAccess;
-
-                if (current != NetworkAccess.Internet)
-                {
-                    // Não há conexão com a internet, exiba uma mensagem ao usuário
-                    await Application.Current.MainPage.DisplayAlert("Sem internet", "Reconecte a internet para continuar usando o APP", "OK");
-                }
-
-                // Aguarda um intervalo de tempo antes de verificar novamente
-                await Task.Delay(15000); // Verificar a cada 15 segundos (você pode ajustar o intervalo conforme necessário)
+                await Application.Current.MainPage.DisplayAlert("Sem internet", "Reconecte a internet para continuar usando o APP", "OK");
+            }
+            else
+            {
+                await VerificaVersaoAPP();
             }
         }
         catch (Exception ex)
         {
             await MetodoErroLog(ex);
-            return;
         }
     }
 
@@ -72,67 +192,19 @@ public partial class App : Application
     {
         try
         {
-            while (true)
+            await api_versao.VerificaIp();
+
+            if (!await api_versao.VerificarVersaoInstalada())
             {
-                await api_versao.VerificaIp();
-
-                if (!await api_versao.VerificarVersaoInstalada())
-                {
-                    if (Debugger.IsAttached)
-                    {
-                        await api_versao.SalvaVersao();
-                    }
-                    else
-                    {
-                        // Exibir mensagem de atualização
-                        await Application.Current.MainPage.DisplayAlert("Atualização Disponível", "Uma nova versão do aplicativo está disponível. Por favor, atualize para continuar.", "OK");
-
-                        // Abrir a URL de atualização
-                        await Launcher.OpenAsync(InfoGlobal.apk);
-                    }
-                }
-
-                // Aguarda um intervalo de tempo antes de verificar novamente
-                await Task.Delay(100000); // Verificar a cada 1 min (você pode ajustar o intervalo conforme necessário)
+                await Application.Current.MainPage.DisplayAlert("Atualização Disponível", "Uma nova versão do aplicativo está disponível. Por favor, atualize para continuar.", "OK");
+                await Launcher.OpenAsync(InfoGlobal.apk);
             }
         }
         catch (Exception ex)
         {
             await MetodoErroLog(ex);
-            return;
         }
     }
 
-    private async Task VerificaInicial()
-    {
-        // Verifica o estado da conectividade
-        var current = Connectivity.NetworkAccess;
-
-        if (current != NetworkAccess.Internet)
-        {
-            // Não há conexão com a internet, exiba uma mensagem ao usuário
-            await Application.Current.MainPage.DisplayAlert("Sem internet", "Reconecte a internet para continuar usando o APP", "OK");
-        }
-
-        await api_versao.VerificaIp();
-
-        if (!await api_versao.VerificarVersaoInstalada())
-        {
-            if (Debugger.IsAttached)
-            {
-                await api_versao.SalvaVersao();
-            }
-            else
-            {
-                // Exibir mensagem de atualização
-                await Application.Current.MainPage.DisplayAlert("Atualização Disponível", "Uma nova versão do aplicativo está disponível. Por favor, atualize para continuar.", "OK");
-
-                // Abrir a URL de atualização
-                await Launcher.OpenAsync(InfoGlobal.apk);
-            }
-        }
-    }
-
-    #region 4- EVENTOS DE CONTROLE
     #endregion
 }

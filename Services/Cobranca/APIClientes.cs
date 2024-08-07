@@ -1,10 +1,10 @@
-﻿using AppEmpresarialMultFuncional.Classes.API.Cobranca;
-using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
-using AppEmpresarialMultFuncional.Services.Principal;
+﻿using AppEmpresa.Classes.API.Cobranca;
+using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
+using AppEmpresa.Services.Principal;
 using Newtonsoft.Json;
 
-namespace AppEmpresarialMultFuncional.Services.Cobranca
+namespace AppEmpresa.Services.Cobranca
 {
     public class APIClientes
     {
@@ -64,7 +64,7 @@ namespace AppEmpresarialMultFuncional.Services.Cobranca
         {
             try
             {
-                string uri = InfoGlobal.apiCobranca + $"/Clientes/busca-cliente-tipo?texto={texto}&tipo={tipo}&tipoCliente={tipoCliente}";
+                string uri = InfoGlobal.apiCobranca + $"/Clientes/busca-cliente-tipo?texto={texto.ToUpper()}&tipo={tipo}&tipoCliente={tipoCliente}";
 
                 HttpResponseMessage response = await _httpClient.GetAsync(uri);
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppEmpresarialMultFuncional.Classes.API.Cobranca
+namespace AppEmpresa.Classes.API.Cobranca
 {
     public class Cliente
     {

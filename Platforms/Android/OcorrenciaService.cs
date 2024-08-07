@@ -2,9 +2,9 @@
 using Android.Content;
 using Android.OS;
 using AndroidX.Core.App;
-using AppEmpresarialMultFuncional.Services.Cobranca;
+using AppEmpresa.Services.Cobranca;
 
-namespace AppEmpresarialMultFuncional.Platforms.Android
+namespace AppEmpresa.Platforms.Android
 {
     [Service]
     public class OcorrenciaService : Service
@@ -23,7 +23,7 @@ namespace AppEmpresarialMultFuncional.Platforms.Android
             Task.Run(async () =>
             {
                 var api = new APIOcorrencia();
-                await api.ListenForOcorrencias();
+                await api.ListenForOcorrencias().ConfigureAwait(false);
             });
 
             return StartCommandResult.Sticky;
@@ -32,7 +32,10 @@ namespace AppEmpresarialMultFuncional.Platforms.Android
         [Service]
         public class InnerService : Service
         {
-            public override IBinder OnBind(Intent intent) => null;
+            public override IBinder OnBind(Intent intent)
+            {
+                return null;
+            }
 
             public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
             {
@@ -46,23 +49,25 @@ namespace AppEmpresarialMultFuncional.Platforms.Android
 
         public static Notification CreateForegroundNotification(Context context)
         {
-            var notificationChannelId = "foreground_service_channel";
-            var notificationChannelName = "Foreground Service Notification";
+            var notificationChannelId = "servico_sincronizacao_app";
+            var notificationChannelName = "Sincronização de Notificação APP";
 
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+            using (var notificationManager = (NotificationManager)context.GetSystemService(NotificationService))
             {
-                var channel = new NotificationChannel(notificationChannelId, notificationChannelName, NotificationImportance.Low)
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
                 {
-                    Description = "Foreground Service Channel"
-                };
+                    var channel = new NotificationChannel(notificationChannelId, notificationChannelName, NotificationImportance.Low)
+                    {
+                        Description = "Sincronização do serviço de ocorrências do App Empresa"
+                    };
 
-                var notificationManager = (NotificationManager)context.GetSystemService(NotificationService);
-                notificationManager.CreateNotificationChannel(channel);
+                    notificationManager.CreateNotificationChannel(channel);
+                }
             }
 
             var notificationBuilder = new NotificationCompat.Builder(context, notificationChannelId)
                 .SetContentTitle("Serviço de sincronização")
-                .SetContentText("O App Empresarial Mult-Funcional está sendo executado")
+                .SetContentText("O App Empresa está ativo em segunda plano.")
                 .SetSmallIcon(Resource.Drawable.notification_icon)
                 .SetPriority(NotificationCompat.PriorityLow)
                 .SetOngoing(false);

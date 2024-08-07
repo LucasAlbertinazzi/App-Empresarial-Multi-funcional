@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace AppEmpresarialMultFuncional.Classes.API.Cobranca
+namespace AppEmpresa.Classes.API.Cobranca
 {
     public class OcorrenciaClass : INotifyPropertyChanged
     {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="AppEmpresarialMultFuncional.Views.Principal.LoginView"
+    x:Class="AppEmpresa.Views.Principal.LoginView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="LoginView"
@@ -11,92 +11,116 @@
             HorizontalOptions="Fill"
             Source="background1.png"
             VerticalOptions="Fill" />
-        <Grid Margin="25">
-
+        <Grid Margin="15">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3.2*" />
+                <RowDefinition Height="7*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="3*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="20" />
-                <RowDefinition Height="2.5*" />
-                <RowDefinition Height="20" />
-                <RowDefinition Height="20" />
+                <RowDefinition Height=".5*" />
+                <RowDefinition Height=".5*" />
             </Grid.RowDefinitions>
-
             <Image
                 x:Name="logoSize"
+                Grid.Row="0"
                 HorizontalOptions="CenterAndExpand"
                 Source="logo.png"
                 VerticalOptions="CenterAndExpand" />
 
-            <Frame Grid.Row="1" Style="{StaticResource frameLogin}">
+            <Frame
+                x:Name="frameUsernameEntry"
+                Grid.Row="1"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource frameLogin}"
+                VerticalOptions="CenterAndExpand">
                 <Entry
                     x:Name="UsernameEntry"
+                    HorizontalOptions="FillAndExpand"
                     Placeholder="Usuário"
-                    Style="{StaticResource entryLogin}" />
+                    Style="{StaticResource entryLogin}"
+                    VerticalOptions="FillAndExpand" />
             </Frame>
 
-            <Frame Grid.Row="2" Style="{StaticResource frameLogin}">
+            <Frame
+                x:Name="framePasswordEntry"
+                Grid.Row="2"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource frameLogin}"
+                VerticalOptions="CenterAndExpand">
                 <StackLayout Orientation="Horizontal">
                     <Entry
                         x:Name="PasswordEntry"
+                        HorizontalOptions="FillAndExpand"
                         IsPassword="True"
                         Placeholder="Senha"
-                        Style="{StaticResource entryLogin}" />
+                        Style="{StaticResource entryLogin}"
+                        VerticalOptions="FillAndExpand" />
                     <ImageButton
                         x:Name="ShowPasswordButton"
-                        Margin="0,0,10,0"
                         Clicked="OnShowPasswordButtonClicked"
-                        HeightRequest="26"
-                        WidthRequest="26" />
+                        HorizontalOptions="End"
+                        VerticalOptions="CenterAndExpand" />
                 </StackLayout>
             </Frame>
 
             <StackLayout
+                x:Name="stackLembrar"
                 Grid.Row="3"
                 FlowDirection="RightToLeft"
+                HorizontalOptions="FillAndExpand"
                 Orientation="Horizontal"
-                Spacing="5">
-                <Switch x:Name="CredentialsSwitch" />
+                Spacing="5"
+                VerticalOptions="StartAndExpand">
+                <Switch
+                    x:Name="CredentialsSwitch"
+                    VerticalOptions="FillAndExpand" />
                 <Label
-                    HorizontalOptions="Center"
+                    x:Name="lblLembrar"
                     Style="{StaticResource labelPadraoWhite}"
                     Text="Lembrar-me"
                     VerticalOptions="Center" />
             </StackLayout>
 
-            <ActivityIndicator
-                x:Name="LoadingIndicator"
+            <Grid
                 Grid.Row="4"
-                HorizontalOptions="Center"
-                IsRunning="False"
-                IsVisible="False"
-                VerticalOptions="Center"
-                Color="White" />
-
-            <Button
-                x:Name="btnEntrar"
-                Grid.Row="4"
-                Clicked="OnLoginClicked"
                 HorizontalOptions="FillAndExpand"
-                MinimumHeightRequest="50"
-                Style="{StaticResource btnMenuPadrao}"
-                Text="Entrar" />
+                VerticalOptions="FillAndExpand">
+                <ActivityIndicator
+                    x:Name="LoadingIndicator"
+                    HorizontalOptions="CenterAndExpand"
+                    IsRunning="False"
+                    IsVisible="False"
+                    VerticalOptions="FillAndExpand"
+                    Color="White" />
+
+                <Button
+                    x:Name="btnEntrar"
+                    Clicked="OnLoginClicked"
+                    HorizontalOptions="FillAndExpand"
+                    Style="{StaticResource btnMenuPadrao}"
+                    Text="Entrar"
+                    VerticalOptions="CenterAndExpand" />
+            </Grid>
 
             <Label
                 x:Name="lblInfoDev"
-                Grid.Row="5"
-                FontSize="12"
-                HorizontalOptions="Center"
+                Grid.Row="6"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
                 Style="{StaticResource labelPadraoWhite}"
-                VerticalOptions="Center" />
+                VerticalOptions="FillAndExpand"
+                VerticalTextAlignment="End" />
+
             <Label
                 x:Name="lblInfoDevVersao"
-                Grid.Row="6"
-                FontSize="12"
-                HorizontalOptions="Center"
+                Grid.Row="7"
+                HorizontalOptions="FillAndExpand"
+                HorizontalTextAlignment="Center"
                 Style="{StaticResource labelPadraoWhite}"
-                VerticalOptions="Center" />
+                VerticalOptions="FillAndExpand"
+                VerticalTextAlignment="End" />
         </Grid>
     </Grid>
 </ContentPage>

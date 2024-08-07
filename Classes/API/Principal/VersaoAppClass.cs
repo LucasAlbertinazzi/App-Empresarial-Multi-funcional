@@ -1,4 +1,4 @@
-﻿namespace AppEmpresarialMultFuncional.Classes.API.Principal
+﻿namespace AppEmpresa.Classes.API.Principal
 {
     public class VersaoAppClass
     {

@@ -1,10 +1,10 @@
-using AppEmpresarialMultFuncional.Classes.API.Cobranca;
-using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Services.Cobranca;
-using AppEmpresarialMultFuncional.Services.Principal;
+using AppEmpresa.Classes.API.Cobranca;
+using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Services.Cobranca;
+using AppEmpresa.Services.Principal;
 using System.Globalization;
 
-namespace AppEmpresarialMultFuncional.Views.Cobranca;
+namespace AppEmpresa.Views.Cobranca;
 
 public partial class VInfoClienteHistorico : ContentPage
 {
@@ -67,7 +67,7 @@ public partial class VInfoClienteHistorico : ContentPage
     {
         try
         {
-            if(tipoPagina == 1)
+            if (tipoPagina == 1)
             {
                 linha0.Height = 120;
                 cmbPeriodo.SelectedIndex = 0;
@@ -121,7 +121,7 @@ public partial class VInfoClienteHistorico : ContentPage
 
             if (!string.IsNullOrEmpty(tipoCliente))
             {
-               infoHistorico = await apiCliente.HistoricoPedidosClientePeriodo(listasuporte.Cliente.Codcliente, tipoCliente, _cancellationTokenSource.Token);
+                infoHistorico = await apiCliente.HistoricoPedidosClientePeriodo(listasuporte.Cliente.Codcliente, tipoCliente, _cancellationTokenSource.Token);
             }
             else
             {
@@ -268,11 +268,30 @@ public partial class VInfoClienteHistorico : ContentPage
     #endregion
 
     #region 5- EVENTOS DE CONTROLE
+
+    private async void cmbPeriodo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        await CarregaListas();
+    }
+
+    private async void OnFrameTapped(object sender, TappedEventArgs e)
+    {
+        if (tipoPagina == 1)
+        {
+            var frameSelecionado = sender as Frame;
+            InfoHistoricoCliente selecionado = frameSelecionado?.BindingContext as InfoHistoricoCliente;
+
+            if (selecionado != null)
+            {
+                await Navigation.PushAsync(new VInfoClienteDois(listasuporte, ocorrencia, 1, selecionado.prepedido));
+            }
+        }
+    }
     private async void btnVoltar_Clicked(object sender, EventArgs e)
     {
         try
         {
-            if(tipoPagina != 1)
+            if (tipoPagina != 1)
             {
                 _cancellationTokenSource?.Cancel(); // cancela qualquer operação em andamento
                 await Navigation.PushAsync(new VInfoCliente(ocorrencia));
@@ -280,7 +299,7 @@ public partial class VInfoClienteHistorico : ContentPage
             else
             {
                 _cancellationTokenSource?.Cancel(); // cancela qualquer operação em andamento
-                await Navigation.PushAsync(new VInfoCliente(Convert.ToInt32(listasuporte.Cliente.Codcliente),1, listasuporte.TipoCliente));
+                await Navigation.PushAsync(new VInfoCliente(Convert.ToInt32(listasuporte.Cliente.Codcliente), 1, listasuporte.TipoCliente));
             }
         }
         catch (Exception ex)
@@ -304,23 +323,4 @@ public partial class VInfoClienteHistorico : ContentPage
         }
     }
     #endregion
-
-    private async void cmbPeriodo_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        await CarregaListas();
-    }
-
-    private async void OnFrameTapped(object sender, TappedEventArgs e)
-    {
-        if(tipoPagina == 1)
-        {
-            var frameSelecionado = sender as Frame;
-            InfoHistoricoCliente selecionado = frameSelecionado?.BindingContext as InfoHistoricoCliente;
-
-            if (selecionado != null)
-            {
-                await Navigation.PushAsync(new VInfoClienteDois(listasuporte, ocorrencia, 1, selecionado.prepedido));
-            }
-        }
-    }
 }

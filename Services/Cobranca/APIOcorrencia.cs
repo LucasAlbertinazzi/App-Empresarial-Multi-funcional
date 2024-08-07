@@ -1,12 +1,12 @@
-﻿using AppEmpresarialMultFuncional.Classes.API.Cobranca;
-using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
-using AppEmpresarialMultFuncional.Services.Principal;
-using AppEmpresarialMultFuncional.Suporte;
+﻿using AppEmpresa.Classes.API.Cobranca;
+using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
+using AppEmpresa.Services.Principal;
+using AppEmpresa.Suporte;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace AppEmpresarialMultFuncional.Services.Cobranca
+namespace AppEmpresa.Services.Cobranca
 {
     public class APIOcorrencia
     {
@@ -49,7 +49,6 @@ namespace AppEmpresarialMultFuncional.Services.Cobranca
         {
             try
             {
-                string versaoInstalada = AppInfo.Version.ToString();
                 string url = InfoGlobal.apiCobranca + "/Ocorrencias/busca-ocorrencias";
 
                 var response = await _httpClient.GetAsync(url);

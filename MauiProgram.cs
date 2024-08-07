@@ -1,24 +1,31 @@
 ﻿using Microsoft.Extensions.Logging;
+#if __ANDROID__
+using Plugin.Maui.Audio;
+#endif
 
-namespace AppEmpresarialMultFuncional;
+namespace AppEmpresa;
 
 public static class MauiProgram
 {
-	public static MauiApp CreateMauiApp()
-	{
-		var builder = MauiApp.CreateBuilder();
-		builder
-			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
-			{
+    public static MauiApp CreateMauiApp()
+    {
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
                 fonts.AddFont("Roboto-Medium.ttf", "PadraoRoboto");
                 fonts.AddFont("fontello.ttf", "IconsFont");
             });
 
-#if DEBUG
-		builder.Logging.AddDebug();
+#if __ANDROID__
+        builder.Services.AddSingleton(AudioManager.Current);
 #endif
 
-		return builder.Build();
-	}
+#if DEBUG
+        builder.Logging.AddDebug();
+#endif
+
+        return builder.Build();
+    }
 }

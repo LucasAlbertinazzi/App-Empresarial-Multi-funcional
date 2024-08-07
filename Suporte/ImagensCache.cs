@@ -1,8 +1,8 @@
-﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
-using AppEmpresarialMultFuncional.Services.Principal;
+﻿using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
+using AppEmpresa.Services.Principal;
 
-namespace AppEmpresarialMultFuncional.Suporte
+namespace AppEmpresa.Suporte
 {
     public class ImagensCache
     {

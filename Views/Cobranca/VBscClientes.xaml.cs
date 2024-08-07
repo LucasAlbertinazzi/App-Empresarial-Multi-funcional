@@ -1,12 +1,12 @@
-using AppEmpresarialMultFuncional.Classes.API.Cobranca;
-using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
-using AppEmpresarialMultFuncional.Services.Cobranca;
-using AppEmpresarialMultFuncional.Services.Principal;
-using AppEmpresarialMultFuncional.Suporte;
-using AppEmpresarialMultFuncional.Views.Principal;
+using AppEmpresa.Classes.API.Cobranca;
+using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
+using AppEmpresa.Services.Cobranca;
+using AppEmpresa.Services.Principal;
+using AppEmpresa.Suporte;
+using AppEmpresa.Views.Principal;
 
-namespace AppEmpresarialMultFuncional.Views.Cobranca;
+namespace AppEmpresa.Views.Cobranca;
 
 public partial class VBscClientes : ContentPage
 {
@@ -48,7 +48,7 @@ public partial class VBscClientes : ContentPage
             cmbTipoCliente.SelectedIndex = 0;
             cmbTipo.SelectedIndex = 0;
 
-            if(pagina == 1)
+            if (pagina == 1)
             {
                 btnBuscar.IsVisible = false;
                 btnBuscarCobranca.IsVisible = true;

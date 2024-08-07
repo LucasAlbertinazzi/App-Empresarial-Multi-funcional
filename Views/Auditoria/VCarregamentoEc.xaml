@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppEmpresa.Views.Auditoria.VCarregamentoEc"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VCarregamentoEc"
+    Loaded="ContentPage_Loaded">
+    <Grid>
+        <Image
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            Source="background1.png"
+            VerticalOptions="Fill" />
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="90" />
+                <RowDefinition Height="140" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <Frame
+                BackgroundColor="White"
+                BorderColor="Transparent"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Label
+                    FontSize="16"
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{StaticResource labelInfos}"
+                    Text="CARREGAMENTO"
+                    VerticalOptions="CenterAndExpand" />
+            </Frame>
+
+            <Frame
+                Grid.Row="1"
+                Margin="5,5,5,0"
+                CornerRadius="0"
+                HeightRequest="40"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource frameDatePicker}"
+                VerticalOptions="FillAndExpand">
+                <DatePicker
+                    x:Name="dpData"
+                    FontSize="16"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand" />
+            </Frame>
+
+            <Frame
+                Grid.Row="2"
+                Margin="5,5,5,0"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource frameView}"
+                VerticalOptions="FillAndExpand">
+                <Picker
+                    x:Name="cmbTransportadora"
+                    Title="Selecione a transportadora..."
+                    FontSize="16"
+                    HorizontalOptions="FillAndExpand"
+                    ItemDisplayBinding="{Binding Veiculo}"
+                    ItemsSource="{Binding veiculos}"
+                    SelectedIndexChanged="cmbTransportadora_SelectedIndexChanged"
+                    Style="{StaticResource PickerPadrao}"
+                    VerticalOptions="FillAndExpand" />
+            </Frame>
+
+            <Frame
+                Grid.Row="3"
+                Margin="5,5,5,0"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource frameView}"
+                VerticalOptions="FillAndExpand">
+
+                <Entry
+                    x:Name="txbCodigo"
+                    FontSize="16"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Start"
+                    Placeholder="Código da etiqueta..."
+                    PlaceholderColor="Gray"
+                    Style="{StaticResource entryItem}"
+                    TextChanged="txbCodigo_TextChanged"
+                    TextColor="{StaticResource Nona}"
+                    VerticalOptions="EndAndExpand" />
+            </Frame>
+
+            <Frame
+                Grid.Row="4"
+                Margin="5,5,5,0"
+                Padding="5"
+                BackgroundColor="White"
+                BorderColor="Transparent"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Vertical">
+
+                    <!--  Linha 1  -->
+                    <StackLayout
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="FillAndExpand">
+                        <Label
+                            Margin="0,0,5,0"
+                            FontSize="16"
+                            HorizontalOptions="Start"
+                            Style="{StaticResource labelInfos}"
+                            Text="Volume:" />
+                        <Label
+                            x:Name="lblVolume"
+                            FontSize="16"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="0" />
+                        <Label
+                            Margin="0,0,5,0"
+                            FlowDirection="RightToLeft"
+                            FontSize="16"
+                            Style="{StaticResource labelInfos}"
+                            Text="Conferido:" />
+                        <Label
+                            x:Name="lblConferido1"
+                            Margin="0,0,5,0"
+                            FlowDirection="RightToLeft"
+                            FontSize="16"
+                            Style="{StaticResource labelInfos}"
+                            Text="0" />
+                    </StackLayout>
+                    <!--  Linha 2  -->
+                    <StackLayout
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        VerticalOptions="FillAndExpand">
+                        <Label
+                            Margin="0,0,5,0"
+                            FontSize="16"
+                            HorizontalOptions="Start"
+                            Style="{StaticResource labelInfos}"
+                            Text="Produto:" />
+                        <Label
+                            x:Name="lblProduto"
+                            FontSize="16"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="0" />
+                        <Label
+                            Margin="0,0,5,0"
+                            FlowDirection="RightToLeft"
+                            FontSize="16"
+                            Style="{StaticResource labelInfos}"
+                            Text="Conferido:" />
+                        <Label
+                            x:Name="lblConferido2"
+                            Margin="0,0,5,0"
+                            FlowDirection="RightToLeft"
+                            FontSize="16"
+                            Style="{StaticResource labelInfos}"
+                            Text="0" />
+
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Frame
+                Grid.Row="5"
+                Margin="5,5,5,0"
+                Padding="5"
+                BackgroundColor="White"
+                BorderColor="Transparent"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Vertical">
+                    <Label
+                        x:Name="lblCodProduto"
+                        FontAttributes="Bold"
+                        HorizontalOptions="StartAndExpand"
+                        Style="{StaticResource labelInfos}"
+                        Text="000.000.0000" />
+                    <Label
+                        x:Name="lblDescricaoProd"
+                        FontSize="Subtitle"
+                        HorizontalOptions="StartAndExpand"
+                        Style="{StaticResource labelInfos}" />
+                </StackLayout>
+            </Frame>
+
+            <Button
+                x:Name="btnProdBipado"
+                Grid.Row="7"
+                Margin="5"
+                Clicked="btnProdBipado_Clicked"
+                Style="{StaticResource btnSimples}"
+                Text="PRODUTOS BIPADOS" />
+
+        </Grid>
+
+        <Grid
+            x:Name="LoadingIndicator"
+            BackgroundColor="White"
+            IsVisible="False"
+            Opacity="0.6">
+            <ActivityIndicator
+                HorizontalOptions="CenterAndExpand"
+                IsRunning="True"
+                VerticalOptions="CenterAndExpand"
+                Color="{StaticResource Nona}" />
+        </Grid>
+
+    </Grid>
+</ContentPage>

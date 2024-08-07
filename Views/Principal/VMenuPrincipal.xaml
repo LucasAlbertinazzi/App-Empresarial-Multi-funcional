@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="AppEmpresarialMultFuncional.Views.Principal.VMenuPrincipal"
+    x:Class="AppEmpresa.Views.Principal.VMenuPrincipal"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="VMenuPrincipal"
@@ -11,13 +11,6 @@
             HorizontalOptions="Fill"
             Source="background2.png"
             VerticalOptions="Fill" />
-        <ActivityIndicator
-            x:Name="LoadingIndicator"
-            HorizontalOptions="CenterAndExpand"
-            IsRunning="False"
-            IsVisible="False"
-            VerticalOptions="CenterAndExpand"
-            Color="White" />
         <ScrollView HorizontalScrollBarVisibility="Never">
             <StackLayout>
                 <Grid x:Name="mainGrid" SizeChanged="mainGrid_SizeChanged">
@@ -31,5 +24,16 @@
                 </Grid>
             </StackLayout>
         </ScrollView>
+        <Grid
+            x:Name="LoadingIndicator"
+            BackgroundColor="White"
+            IsVisible="False"
+            Opacity="0.6">
+            <ActivityIndicator
+                HorizontalOptions="CenterAndExpand"
+                IsRunning="True"
+                VerticalOptions="CenterAndExpand"
+                Color="{StaticResource Nona}" />
+        </Grid>
     </Grid>
 </ContentPage>

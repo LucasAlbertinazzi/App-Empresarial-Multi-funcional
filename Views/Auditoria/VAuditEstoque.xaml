@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppEmpresa.Views.Auditoria.VAuditEstoque"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VAuditEstoque"
+    Loaded="ContentPage_Loaded">
+    <Grid>
+        <Image
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            Source="background1.png"
+            VerticalOptions="Fill" />
+        <ActivityIndicator
+            x:Name="LoadingIndicator"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="False"
+            IsVisible="False"
+            VerticalOptions="CenterAndExpand"
+            Color="White" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Frame
+                BackgroundColor="White"
+                BorderColor="Transparent"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Label
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{StaticResource labelInfos}"
+                    Text="AUDITORIA ESTOQUE"
+                    VerticalOptions="CenterAndExpand" />
+            </Frame>
+            <ScrollView
+                Grid.Row="1"
+                Margin="0,0,0,10"
+                BackgroundColor="Transparent"
+                HorizontalOptions="Fill"
+                HorizontalScrollBarVisibility="Never"
+                VerticalOptions="Fill"
+                VerticalScrollBarVisibility="Always">
+                <CollectionView x:Name="cardInfoHistorico" ItemsSource="{Binding listaAuditoria}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Style="{StaticResource EstiloCardAudit}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnFrameTapped" />
+                                </Frame.GestureRecognizers>
+                                <StackLayout Margin="5" Orientation="Vertical">
+
+                                    <!--#region 1- Primeira linha-->
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="FillAndExpand">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="StartAndExpand"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="N° Contagem:" />
+                                            <Label
+                                                FlowDirection="RightToLeft"
+                                                HorizontalOptions="EndAndExpand"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="{Binding NumContagem}" />
+                                        </StackLayout>
+
+                                        <StackLayout
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="FillAndExpand">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="StartAndExpand"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="Local:" />
+                                            <Label
+                                                FlowDirection="RightToLeft"
+                                                HorizontalOptions="EndAndExpand"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="{Binding Local}" />
+                                        </StackLayout>
+                                        <StackLayout
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="FillAndExpand">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="StartAndExpand"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="Divisão:" />
+                                            <Label
+                                                FlowDirection="RightToLeft"
+                                                HorizontalOptions="EndAndExpand"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="{Binding Divisao}" />
+                                        </StackLayout>
+                                        <StackLayout
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="FillAndExpand">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="StartAndExpand"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="Departamento:" />
+                                            <Label
+                                                FlowDirection="RightToLeft"
+                                                HorizontalOptions="EndAndExpand"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="{Binding Departamento}" />
+                                        </StackLayout>
+                                        <StackLayout
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="FillAndExpand">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="StartAndExpand"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="Data e Hora" />
+                                            <Label
+                                                FlowDirection="RightToLeft"
+                                                HorizontalOptions="EndAndExpand"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="{Binding DataHora}" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <!--#endregion-->
+
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,149 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net8.0-ios
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = AppMarciusMagazine
+build_property.ProjectDir = D:\Projetos\App-Empresarial-Multi-funcional\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+
+[D:/Projetos/App-Empresarial-Multi-funcional/App.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.App.xaml
+build_metadata.AdditionalFiles.TargetPath = App.xaml
+build_metadata.AdditionalFiles.RelativePath = App.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/AppShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.AppShell.xaml
+build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
+build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Resources/Styles/Colors.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Resources.Styles.Colors.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Resources/Styles/Styles.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Resources.Styles.Styles.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Auditoria/VAuditEstoque.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Auditoria.VAuditEstoque.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Auditoria\VAuditEstoque.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Auditoria\VAuditEstoque.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Auditoria/VAuditEstoqueInfos.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Auditoria.VAuditEstoqueInfos.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Auditoria\VAuditEstoqueInfos.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Auditoria\VAuditEstoqueInfos.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Auditoria/VCarregamentoEc.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Auditoria.VCarregamentoEc.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Auditoria\VCarregamentoEc.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Auditoria\VCarregamentoEc.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Auditoria/VConfereNotas.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Auditoria.VConfereNotas.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Auditoria\VConfereNotas.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Auditoria\VConfereNotas.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Auditoria/VExpedicaoEcommerce.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Auditoria.VExpedicaoEcommerce.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Auditoria\VExpedicaoEcommerce.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Auditoria\VExpedicaoEcommerce.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Auditoria/VProdutosBipados.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Auditoria.VProdutosBipados.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Auditoria\VProdutosBipados.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Auditoria\VProdutosBipados.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Cobranca/VBscClientes.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VBscClientes.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VBscClientes.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VBscClientes.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Cobranca/VCobrancaContato.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VCobrancaContato.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VCobrancaContato.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VCobrancaContato.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Cobranca/VInfoCliente.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VInfoCliente.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VInfoCliente.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VInfoCliente.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Cobranca/VInfoClienteDois.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VInfoClienteDois.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VInfoClienteDois.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VInfoClienteDois.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Cobranca/VInfoClienteHistorico.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VInfoClienteHistorico.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VInfoClienteHistorico.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VInfoClienteHistorico.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Cobranca/VInfoClienteQuatro.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VInfoClienteQuatro.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VInfoClienteQuatro.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VInfoClienteQuatro.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Cobranca/VInfoClienteTres.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VInfoClienteTres.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VInfoClienteTres.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VInfoClienteTres.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Cobranca/VOcorrencia.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Cobranca.VOcorrencia.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Cobranca\VOcorrencia.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Cobranca\VOcorrencia.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Diretoria/VComparativoVendas.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Diretoria.VComparativoVendas.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Diretoria\VComparativoVendas.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Diretoria\VComparativoVendas.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Diretoria/VGraficosVendas.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Diretoria.VGraficosVendas.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Diretoria\VGraficosVendas.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Diretoria\VGraficosVendas.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Principal/LoginView.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Principal.LoginView.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Principal\LoginView.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Principal\LoginView.xaml
+
+[D:/Projetos/App-Empresarial-Multi-funcional/Views/Principal/VMenuPrincipal.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = AppMarciusMagazine.Views.Principal.VMenuPrincipal.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Principal\VMenuPrincipal.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Principal\VMenuPrincipal.xaml

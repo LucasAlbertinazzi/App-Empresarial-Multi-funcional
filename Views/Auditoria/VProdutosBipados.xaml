@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppEmpresa.Views.Auditoria.VProdutosBipados"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VProdutosBipados"
+    Loaded="ContentPage_Loaded">
+    <Grid>
+        <Image
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            Source="background1.png"
+            VerticalOptions="Fill" />
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Frame
+                Padding="0"
+                BackgroundColor="White"
+                BorderColor="Transparent"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Label
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{StaticResource labelInfos}"
+                    Text="PRODUTOS BIPADOS"
+                    VerticalOptions="CenterAndExpand" />
+            </Frame>
+            <ScrollView
+                Grid.Row="1"
+                Margin="0,0,0,10"
+                BackgroundColor="Transparent"
+                HorizontalOptions="Fill"
+                HorizontalScrollBarVisibility="Never"
+                VerticalOptions="Fill"
+                VerticalScrollBarVisibility="Always">
+                <CollectionView x:Name="cardBipados" ItemsSource="{Binding produtosBipados}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame HeightRequest="130" Style="{StaticResource EstiloCardAudit}">
+                                <StackLayout Orientation="Vertical">
+
+                                    <!--#region 1- Primeira linha-->
+                                    <StackLayout
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Vertical"
+                                        VerticalOptions="FillAndExpand">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="16"
+                                            HorizontalOptions="StartAndExpand"
+                                            Style="{StaticResource labelInfos}"
+                                            Text="{Binding CodProduto}" />
+
+                                        <Label
+                                            FontSize="16"
+                                            HorizontalOptions="StartAndExpand"
+                                            Style="{StaticResource labelInfos}"
+                                            Text="{Binding Descricao}" />
+
+                                        <StackLayout
+                                            Margin="0,10,0,0"
+                                            HorizontalOptions="FillAndExpand"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="EndAndExpand">
+                                            <Label
+                                                Margin="0,0,5,0"
+                                                FontAttributes="Bold"
+                                                FontSize="16"
+                                                HorizontalOptions="Start"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="Quantidade:" />
+                                            <Label
+                                                FontSize="16"
+                                                HorizontalOptions="Start"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="{Binding Quantidade}" />
+                                            <Label
+                                                Margin="0,0,5,0"
+                                                FlowDirection="RightToLeft"
+                                                FontAttributes="Bold"
+                                                FontSize="16"
+                                                HorizontalOptions="EndAndExpand"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="Quantidade Vol.:" />
+                                            <Label
+                                                FlowDirection="RightToLeft"
+                                                FontSize="16"
+                                                HorizontalOptions="End"
+                                                Style="{StaticResource labelInfos}"
+                                                Text="{Binding Volume}" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <!--#endregion-->
+
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+        </Grid>
+        <Grid
+            x:Name="LoadingIndicator"
+            BackgroundColor="White"
+            IsVisible="False"
+            Opacity="0.6">
+            <ActivityIndicator
+                HorizontalOptions="CenterAndExpand"
+                IsRunning="True"
+                VerticalOptions="CenterAndExpand"
+                Color="{StaticResource Nona}" />
+        </Grid>
+    </Grid>
+</ContentPage>

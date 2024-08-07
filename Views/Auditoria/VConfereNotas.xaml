@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppEmpresa.Views.Auditoria.VConfereNotas"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VConfereNotas">
+    <Grid>
+        <Image
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            Source="background1.png"
+            VerticalOptions="Fill" />
+        <ActivityIndicator
+            x:Name="LoadingIndicator"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="False"
+            IsVisible="False"
+            VerticalOptions="CenterAndExpand"
+            Color="White" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="120" />
+            </Grid.RowDefinitions>
+            <Frame
+                BackgroundColor="White"
+                BorderColor="Transparent"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Label
+                    FontSize="16"
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{StaticResource labelInfos}"
+                    Text="CONFERÊNCIA DE NOTAS"
+                    VerticalOptions="CenterAndExpand" />
+            </Frame>
+
+            <Frame
+                Grid.Row="1"
+                Margin="5,5,5,0"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource frameView}"
+                VerticalOptions="FillAndExpand">
+
+                <Entry
+                    FontSize="16"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Start"
+                    Placeholder="Numeração da nota..."
+                    PlaceholderColor="Gray"
+                    Style="{StaticResource entryItem}"
+                    VerticalOptions="EndAndExpand" />
+            </Frame>
+
+            <Frame
+                Grid.Row="2"
+                Margin="5,5,5,0"
+                Padding="5"
+                BackgroundColor="White"
+                BorderColor="Transparent"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Vertical">
+
+                    <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                        <Label
+                            FontSize="16"
+                            HorizontalOptions="Start"
+                            Style="{StaticResource labelInfos}"
+                            Text="Nota:" />
+                        <Label
+                            x:Name="lblNota"
+                            FontSize="16"
+                            HorizontalOptions="Start"
+                            Style="{StaticResource labelInfos}"
+                            Text="0" />
+                    </StackLayout>
+
+                    <Label
+                        FontSize="Subtitle"
+                        HorizontalOptions="StartAndExpand"
+                        Style="{StaticResource labelInfos}"
+                        Text="Mensagem de erro ou mensagem de confirmação" />
+
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>

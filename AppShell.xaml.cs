@@ -1,15 +1,11 @@
-﻿using Android.Content;
-using AppEmpresarialMultFuncional.Classes.API.Cobranca;
-using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
-using AppEmpresarialMultFuncional.Platforms.Android;
-using AppEmpresarialMultFuncional.Services.Cobranca;
-using AppEmpresarialMultFuncional.Services.Principal;
-using AppEmpresarialMultFuncional.Suporte;
-using AppEmpresarialMultFuncional.Views.Cobranca;
-using AppEmpresarialMultFuncional.Views.Principal;
+﻿using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
+using AppEmpresa.Services.Principal;
+using AppEmpresa.Suporte;
+using AppEmpresa.Views.Cobranca;
+using AppEmpresa.Views.Principal;
 
-namespace AppEmpresarialMultFuncional;
+namespace AppEmpresa;
 
 public partial class AppShell : Shell
 {
@@ -22,8 +18,6 @@ public partial class AppShell : Shell
     {
         InitializeComponent();
     }
-
-   
 
     private async void Shell_Loaded(object sender, EventArgs e)
     {
@@ -83,8 +77,8 @@ public partial class AppShell : Shell
             SecureStorage.Remove("Password");
             SecureStorage.RemoveAll();
 
-            var intent = new Intent(Android.App.Application.Context, typeof(OcorrenciaService));
-            Android.App.Application.Context.StopService(intent);
+            SupAndroid.NotificacaoOcorrencia();
+
 
             await Application.Current.MainPage.Navigation.PushAsync(new LoginView());
         }

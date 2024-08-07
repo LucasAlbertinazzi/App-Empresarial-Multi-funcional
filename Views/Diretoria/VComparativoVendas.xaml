@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppEmpresa.Views.Diretoria.VComparativoVendas"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VComparativoVendas"
+    BackgroundColor="{StaticResource Gray1}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="6*" />
+        </Grid.ColumnDefinitions>
+        <StackLayout
+            Margin="5,0"
+            HorizontalOptions="Center"
+            Orientation="Vertical"
+            VerticalOptions="StartAndExpand">
+            <Label
+                FontSize="14"
+                HorizontalOptions="StartAndExpand"
+                Style="{StaticResource labelInfos}"
+                Text="Loja" />
+            <Frame
+                HeightRequest="54"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource frameView}">
+                <Picker
+                    x:Name="cmbLojas"
+                    FontSize="14"
+                    ItemDisplayBinding="{Binding NomeLoja}"
+                    ItemsSource="{Binding infoLojas}"
+                    Style="{StaticResource PickerPadrao}" />
+            </Frame>
+
+            <Label
+                FontSize="14"
+                HorizontalOptions="StartAndExpand"
+                Style="{StaticResource labelInfos}"
+                Text="Data inicial:" />
+            <Frame
+                HeightRequest="54"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource frameView}">
+                <DatePicker
+                    x:Name="dpInicial"
+                    DateSelected="dpInicial_DateSelected"
+                    FontSize="14"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand" />
+            </Frame>
+
+            <Label
+                FontSize="14"
+                HorizontalOptions="StartAndExpand"
+                Style="{StaticResource labelInfos}"
+                Text="Data final:" />
+            <Frame
+                HeightRequest="54"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource frameView}">
+                <DatePicker
+                    x:Name="dpFinal"
+                    DateSelected="dpFinal_DateSelected"
+                    FontSize="14"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand" />
+            </Frame>
+
+            <Label
+                FontSize="14"
+                HorizontalOptions="StartAndExpand"
+                Style="{StaticResource labelInfos}" />
+            <Button
+                x:Name="btnConsultar"
+                Clicked="btnConsultar_Clicked"
+                FontSize="14"
+                HorizontalOptions="Fill"
+                Style="{StaticResource btnCardYellow}"
+                Text="Consultar"
+                VerticalOptions="EndAndExpand" />
+        </StackLayout>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout
+                x:Name="stackCardsUm"
+                Padding="0,5,5,5"
+                Orientation="Horizontal"
+                Spacing="5">
+                <Frame
+                    x:Name="frameCards1"
+                    Padding="2"
+                    BackgroundColor="White"
+                    CornerRadius="5"
+                    HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Ano Antes"
+                            VerticalOptions="Start" />
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Fluxo Cx.:"
+                                TextColor="Green" />
+                            <Label
+                                x:Name="lblFluxoAno"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="Green" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Qtd. Ped.:"
+                                TextColor="SaddleBrown" />
+                            <Label
+                                x:Name="lblQtdAno"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="SaddleBrown" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Total Ped.:"
+                                TextColor="Red" />
+                            <Label
+                                x:Name="lblTotalAno"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="Red" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Cancelado:"
+                                TextColor="DarkOrange" />
+                            <Label
+                                x:Name="lblCanceladoAno"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="DarkOrange" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Saldo Ped.:"
+                                TextColor="Blue" />
+                            <Label
+                                x:Name="lblSaldoAno"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="Blue" />
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+                <Frame
+                    x:Name="frameCards2"
+                    Padding="2"
+                    BackgroundColor="White"
+                    CornerRadius="5"
+                    HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Mês Antes"
+                            VerticalOptions="Start" />
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Fluxo Cx.:"
+                                TextColor="Green" />
+                            <Label
+                                x:Name="lblFluxoMes"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="Green" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Qtd. Ped.:"
+                                TextColor="SaddleBrown" />
+                            <Label
+                                x:Name="lblQtdMes"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="SaddleBrown" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Total Ped.:"
+                                TextColor="Red" />
+                            <Label
+                                x:Name="lblTotalMes"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="Red" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Cancelado:"
+                                TextColor="DarkOrange" />
+                            <Label
+                                x:Name="lblCanceladoMes"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="DarkOrange" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Saldo Ped.:"
+                                TextColor="Blue" />
+                            <Label
+                                x:Name="lblSaldoMes"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="Blue" />
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+                <Frame
+                    x:Name="frameCards3"
+                    Padding="2"
+                    BackgroundColor="White"
+                    CornerRadius="5"
+                    HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Período selecionado"
+                            VerticalOptions="Start" />
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Fluxo Cx.:"
+                                TextColor="Green" />
+                            <Label
+                                x:Name="lblFluxoPeriodo"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="Green" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Qtd. Ped.:"
+                                TextColor="SaddleBrown" />
+                            <Label
+                                x:Name="lblQtdPeriodo"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="SaddleBrown" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Total Ped.:"
+                                TextColor="Red" />
+                            <Label
+                                x:Name="lblTotalPeriodo"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="Red" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Cancelado:"
+                                TextColor="DarkOrange" />
+                            <Label
+                                x:Name="lblCanceladoPeriodo"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="DarkOrange" />
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Saldo Ped.:"
+                                TextColor="Blue" />
+                            <Label
+                                x:Name="lblSaldoPeriodo"
+                                HorizontalOptions="CenterAndExpand"
+                                Style="{StaticResource labelInfos}"
+                                TextColor="Blue" />
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+            <StackLayout
+                x:Name="stackCardsDois"
+                Grid.Row="1"
+                Margin="0,0,5,5"
+                Orientation="Horizontal"
+                Spacing="5">
+                <Frame
+                    Padding="2"
+                    BackgroundColor="White"
+                    CornerRadius="5"
+                    HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Crescimento de Pedidos"
+                            VerticalOptions="StartAndExpand" />
+                        <StackLayout
+                            Margin="15,0"
+                            Orientation="Horizontal"
+                            VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Ano:" />
+                            <Label
+                                x:Name="lblCrecAno"
+                                HorizontalOptions="FillAndExpand"
+                                Style="{StaticResource labelInfos}" />
+                            <Label
+                                x:Name="lblCrecPorcentAno"
+                                HorizontalOptions="EndAndExpand"
+                                Style="{StaticResource labelInfos}" />
+                        </StackLayout>
+                        <StackLayout
+                            Margin="15,0"
+                            Orientation="Horizontal"
+                            VerticalOptions="StartAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Mês:" />
+                            <Label
+                                x:Name="lblCrecMes"
+                                HorizontalOptions="FillAndExpand"
+                                Style="{StaticResource labelInfos}" />
+                            <Label
+                                x:Name="lblCrecPorcentMes"
+                                HorizontalOptions="EndAndExpand"
+                                Style="{StaticResource labelInfos}" />
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+                <Frame
+                    Padding="2"
+                    BackgroundColor="White"
+                    CornerRadius="5"
+                    HorizontalOptions="FillAndExpand">
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            HorizontalOptions="CenterAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Crescimento de Fluxo de Caixa"
+                            VerticalOptions="StartAndExpand" />
+                        <StackLayout
+                            Margin="15,0"
+                            Orientation="Horizontal"
+                            VerticalOptions="StartAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Ano:" />
+                            <Label
+                                x:Name="lblCrecFluxoAno"
+                                HorizontalOptions="FillAndExpand"
+                                Style="{StaticResource labelInfos}" />
+                            <Label
+                                x:Name="lblCrecFluxoPorcentAno"
+                                HorizontalOptions="EndAndExpand"
+                                Style="{StaticResource labelInfos}" />
+                        </StackLayout>
+                        <StackLayout
+                            Margin="15,0"
+                            Orientation="Horizontal"
+                            VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Start"
+                                Style="{StaticResource labelInfos}"
+                                Text="Mês:" />
+                            <Label
+                                x:Name="lblCrecFluxoMes"
+                                HorizontalOptions="FillAndExpand"
+                                Style="{StaticResource labelInfos}" />
+                            <Label
+                                x:Name="lblCrecFluxoPorcentMes"
+                                HorizontalOptions="EndAndExpand"
+                                Style="{StaticResource labelInfos}" />
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+            <Frame
+                x:Name="frameCarregando"
+                Grid.RowSpan="2"
+                Margin="0,5,5,5"
+                BackgroundColor="White"
+                CornerRadius="5"
+                IsVisible="False">
+                <Label
+                    FontSize="26"
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{StaticResource labelInfos}"
+                    Text="Carregando..."
+                    VerticalOptions="CenterAndExpand" />
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>

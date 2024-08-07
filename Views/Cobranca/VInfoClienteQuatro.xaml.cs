@@ -1,10 +1,10 @@
-using AppEmpresarialMultFuncional.Classes.API.Cobranca;
-using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Services.Cobranca;
-using AppEmpresarialMultFuncional.Services.Principal;
-using AppEmpresarialMultFuncional.Suporte;
+using AppEmpresa.Classes.API.Cobranca;
+using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Services.Cobranca;
+using AppEmpresa.Services.Principal;
+using AppEmpresa.Suporte;
 
-namespace AppEmpresarialMultFuncional.Views.Cobranca;
+namespace AppEmpresa.Views.Cobranca;
 
 public partial class VInfoClienteQuatro : ContentPage
 {

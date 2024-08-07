@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppEmpresa.Views.Auditoria.VAuditEstoqueInfos"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VAuditEstoqueInfos"
+    Loaded="ContentPage_Loaded">
+    <Grid>
+        <Image
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            Source="background1.png"
+            VerticalOptions="Fill" />
+        <ActivityIndicator
+            x:Name="LoadingIndicator"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="False"
+            IsVisible="False"
+            VerticalOptions="CenterAndExpand"
+            Color="White" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Frame
+                BackgroundColor="White"
+                BorderColor="Transparent"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <Label
+                    x:Name="lblTituloPage"
+                    FontSize="16"
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{StaticResource labelInfos}"
+                    VerticalOptions="CenterAndExpand" />
+            </Frame>
+
+            <Frame
+                Grid.Row="1"
+                Margin="5,0"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource frameLogin}"
+                VerticalOptions="CenterAndExpand">
+
+                <Entry
+                    FontSize="16"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Código da etiqueta..."
+                    Style="{StaticResource TextBoxLogin}"
+                    VerticalOptions="FillAndExpand" />
+            </Frame>
+
+
+            <Frame
+                Grid.Row="2"
+                Margin="5,0,5,5"
+                Padding="8"
+                BackgroundColor="White"
+                BorderColor="Transparent"
+                CornerRadius="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Vertical">
+                    <!--  Linha 1  -->
+                    <StackLayout
+                        Padding="1"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="15"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Local:" />
+                        <Label
+                            x:Name="lblLocal"
+                            FlowDirection="RightToLeft"
+                            FontSize="14"
+                            Style="{StaticResource labelInfos}" />
+                    </StackLayout>
+                    <!--  Linha 2  -->
+                    <StackLayout
+                        Padding="1"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="15"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Divisão:" />
+                        <Label
+                            x:Name="lblDivisao"
+                            FlowDirection="RightToLeft"
+                            FontSize="15"
+                            Style="{StaticResource labelInfos}" />
+                    </StackLayout>
+                    <!--  Linha 3  -->
+                    <StackLayout
+                        Margin="0,0,0,10"
+                        Padding="1"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="15"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Departamento:" />
+                        <Label
+                            x:Name="lblDep"
+                            FlowDirection="RightToLeft"
+                            FontSize="15"
+                            Style="{StaticResource labelInfos}" />
+                    </StackLayout>
+                    <!--  Linha 4  -->
+                    <Line
+                        HorizontalOptions="Center"
+                        Stroke="Black"
+                        StrokeThickness="1"
+                        X1="300" />
+                    <!--  Linha 5  -->
+                    <StackLayout
+                        Margin="0,10,0,0"
+                        Padding="1"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="15"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Código:" />
+                        <Label
+                            x:Name="lblCodigo"
+                            FlowDirection="RightToLeft"
+                            FontSize="15"
+                            Style="{StaticResource labelInfos}" />
+                    </StackLayout>
+                    <!--  Linha 6  -->
+                    <StackLayout
+                        Margin="0,0,0,10"
+                        Padding="1"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="15"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Produto:" />
+                        <Label
+                            x:Name="lblProduto"
+                            FlowDirection="RightToLeft"
+                            FontSize="15"
+                            Style="{StaticResource labelInfos}" />
+                    </StackLayout>
+                    <!--  Linha 7  -->
+                    <Line
+                        HorizontalOptions="Center"
+                        Stroke="Black"
+                        StrokeThickness="1"
+                        X1="300" />
+                    <!--  Linha 8  -->
+                    <Label
+                        Margin="0,10,0,0"
+                        FontSize="16"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource labelInfos}"
+                        Text="Estoque início de contagem:" />
+                    <!--  Linha 9  -->
+                    <StackLayout
+                        Padding="1"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="15"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Estoque:" />
+                        <Label
+                            x:Name="lblEstoqueInicio"
+                            FlowDirection="RightToLeft"
+                            FontSize="15"
+                            Style="{StaticResource labelInfos}" />
+                    </StackLayout>
+                    <!--  Linha 10  -->
+                    <StackLayout
+                        Margin="0,0,0,10"
+                        Padding="1"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="15"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Entrega:"
+                            TextColor="Blue" />
+                        <Label
+                            x:Name="lblEntrega"
+                            FlowDirection="RightToLeft"
+                            FontSize="15"
+                            Style="{StaticResource labelInfos}"
+                            TextColor="Blue" />
+                    </StackLayout>
+                    <!--  Linha 11  -->
+                    <Line
+                        HorizontalOptions="Center"
+                        Stroke="Black"
+                        StrokeThickness="1"
+                        X1="300" />
+                    <!--  Linha 12  -->
+                    <Label
+                        Margin="0,10,0,0"
+                        FontSize="16"
+                        HorizontalOptions="CenterAndExpand"
+                        Style="{StaticResource labelInfos}"
+                        Text="Estoque atual:" />
+                    <!--  Linha 13  -->
+                    <StackLayout
+                        Padding="1"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="15"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Estoque contado:" />
+                        <Label
+                            x:Name="lblEstoqueContado"
+                            FlowDirection="RightToLeft"
+                            FontSize="15"
+                            Style="{StaticResource labelInfos}" />
+                    </StackLayout>
+                    <!--  Linha 14  -->
+                    <StackLayout
+                        Padding="1"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <Label
+                            FontSize="15"
+                            HorizontalOptions="StartAndExpand"
+                            Style="{StaticResource labelInfos}"
+                            Text="Estoque:"
+                            TextColor="Red" />
+                        <Label
+                            x:Name="lblEstoqueAtual"
+                            FlowDirection="RightToLeft"
+                            FontSize="15"
+                            Style="{StaticResource labelInfos}"
+                            TextColor="Red" />
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>

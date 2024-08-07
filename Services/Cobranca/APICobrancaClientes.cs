@@ -1,11 +1,11 @@
-﻿using AppEmpresarialMultFuncional.Classes.API.Cobranca;
-using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
-using AppEmpresarialMultFuncional.Services.Principal;
+﻿using AppEmpresa.Classes.API.Cobranca;
+using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
+using AppEmpresa.Services.Principal;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace AppEmpresarialMultFuncional.Services.Cobranca
+namespace AppEmpresa.Services.Cobranca
 {
     public class APICobrancaClientes
     {

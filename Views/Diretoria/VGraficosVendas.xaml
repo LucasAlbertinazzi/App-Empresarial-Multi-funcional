@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppEmpresa.Views.Diretoria.VGraficosVendas"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="VGraficosVendas"
+    Background="{StaticResource Gray1}">
+    <Grid>
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnFrameTapped" />
+        </Grid.GestureRecognizers>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="6*" />
+        </Grid.ColumnDefinitions>
+        <StackLayout
+            Margin="5,0"
+            HorizontalOptions="Center"
+            Orientation="Vertical"
+            VerticalOptions="StartAndExpand">
+            <Label
+                HorizontalOptions="StartAndExpand"
+                Style="{StaticResource labelInfos}"
+                Text="Data inicial:" />
+            <Frame
+                HeightRequest="54"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource frameView}">
+                <DatePicker
+                    x:Name="dpInicial"
+                    DateSelected="dpInicial_DateSelected"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand" />
+            </Frame>
+            <Label
+                Margin="0,15,0,0"
+                HorizontalOptions="StartAndExpand"
+                Style="{StaticResource labelInfos}"
+                Text="Data final:" />
+            <Frame
+                HeightRequest="54"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource frameView}">
+                <DatePicker
+                    x:Name="dpFinal"
+                    DateSelected="dpFinal_DateSelected"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="CenterAndExpand" />
+            </Frame>
+            <Label
+                Margin="0,15,0,0"
+                HorizontalOptions="StartAndExpand"
+                Style="{StaticResource labelInfos}" />
+            <Button
+                x:Name="btnConsultar"
+                Clicked="btnConsultar_Clicked"
+                HorizontalOptions="Fill"
+                Style="{StaticResource btnCardYellow}"
+                Text="Consultar" />
+        </StackLayout>
+
+        <CollectionView
+            x:Name="listGrafico"
+            Grid.Column="1"
+            Margin="0,10"
+            BackgroundColor="{StaticResource Gray1}"
+            ItemsSource="{Binding Graficos}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Margin="{Binding marginGrafico}"
+                        Padding="0"
+                        BackgroundColor="#ffffff"
+                        BorderColor="#ebebeb"
+                        CornerRadius="5"
+                        HasShadow="False">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="MostrarPopupGraficos" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout HorizontalOptions="CenterAndExpand" Spacing="0">
+                            <Label
+                                Margin="5"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                LineBreakMode="CharacterWrap"
+                                MaximumWidthRequest="65"
+                                Text="{Binding ValorFormatado}"
+                                VerticalOptions="StartAndExpand" />
+                            <BoxView
+                                CornerRadius="5,5,0,0"
+                                HeightRequest="{Binding Tamanho}"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="EndAndExpand"
+                                WidthRequest="{Binding LarguraBarra}"
+                                Color="{Binding CorGrafico}" />
+                            <Label
+                                Margin="0,10,0,5"
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HorizontalOptions="Center"
+                                HorizontalTextAlignment="Center"
+                                Text="{Binding Identificacao}"
+                                VerticalOptions="End" />
+                        </StackLayout>
+                    </Frame>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Frame
+            x:Name="framePopup"
+            Grid.Column="1"
+            Padding="15"
+            BackgroundColor="White"
+            CornerRadius="6"
+            IsVisible="false"
+            Opacity="0.9">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="OnFrameTapped" />
+            </Frame.GestureRecognizers>
+            <StackLayout Orientation="Vertical">
+                <Label
+                    x:Name="lblTitulo"
+                    FontSize="18"
+                    HorizontalOptions="CenterAndExpand"
+                    Style="{StaticResource labelInfos}" />
+
+                <!--  Pedidos  -->
+                <Label
+                    x:Name="lblDescricaoPedidos"
+                    Margin="0,0,20,0"
+                    FontAttributes="Bold"
+                    Style="{StaticResource labelInfos}"
+                    TextColor="#0d2b6b" />
+
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                        FontAttributes="Bold"
+                        Style="{StaticResource labelInfos}"
+                        Text="Valor :"
+                        TextColor="#0d2b6b" />
+                    <Label
+                        x:Name="lblValorPedidos"
+                        Style="{StaticResource labelInfos}"
+                        TextColor="#0d2b6b" />
+                </StackLayout>
+                <!--  Fluxo de Caixa  -->
+                <Label
+                    x:Name="lblDescricaoFluxo"
+                    Margin="0,0,20,0"
+                    FontAttributes="Bold"
+                    Style="{StaticResource labelInfos}"
+                    TextColor="#fcb441" />
+
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                        FontAttributes="Bold"
+                        Style="{StaticResource labelInfos}"
+                        Text="Valor :"
+                        TextColor="#fcb441" />
+                    <Label
+                        x:Name="lblValorFluxo"
+                        Style="{StaticResource labelInfos}"
+                        TextColor="#fcb441" />
+                </StackLayout>
+
+                <!--  Ecommerce  -->
+                <Label
+                    x:Name="lblDescricaoEco"
+                    Margin="0,0,20,0"
+                    FontAttributes="Bold"
+                    Style="{StaticResource labelInfos}"
+                    TextColor="#e0695c" />
+
+
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                        FontAttributes="Bold"
+                        Style="{StaticResource labelInfos}"
+                        Text="Valor :"
+                        TextColor="#e0695c" />
+                    <Label
+                        x:Name="lblValorEco"
+                        Style="{StaticResource labelInfos}"
+                        TextColor="#e0695c" />
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+
+        <Frame
+            x:Name="infoAvisoCarregando"
+            Grid.Column="1"
+            Margin="5,10,10,10"
+            Padding="15"
+            BackgroundColor="White"
+            CornerRadius="6"
+            IsVisible="false"
+            Opacity="0.9">
+            <Label
+                FontAttributes="Bold"
+                FontSize="24"
+                HorizontalOptions="CenterAndExpand"
+                Style="{StaticResource labelInfos}"
+                Text="Carregando..."
+                VerticalOptions="CenterAndExpand" />
+        </Frame>
+
+    </Grid>
+
+</ContentPage>

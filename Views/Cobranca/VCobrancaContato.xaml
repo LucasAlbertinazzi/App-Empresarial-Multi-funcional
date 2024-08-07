@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="AppEmpresarialMultFuncional.Views.Cobranca.VCobrancaContato"
+    x:Class="AppEmpresa.Views.Cobranca.VCobrancaContato"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="VCobrancaContato"
@@ -33,6 +33,29 @@
                     BorderColor="Transparent"
                     VerticalOptions="FillAndExpand">
                     <StackLayout Spacing="8">
+
+                        <!--#region 0 - Nome e codigo cliente-->
+                        <StackLayout Orientation="Horizontal" Spacing="6">
+                            <Label
+                                x:Name="lblNome"
+                                HorizontalOptions="Start"
+                                LineBreakMode="TailTruncation"
+                                MaximumWidthRequest="280"
+                                Style="{StaticResource labelPadraoWhite}"
+                                VerticalOptions="Center" />
+                            <Label
+                                x:Name="lblCod"
+                                HorizontalOptions="EndAndExpand"
+                                Style="{StaticResource labelPadraoWhite}"
+                                VerticalOptions="Center" />
+                        </StackLayout>
+
+                        <!--#endregion-->
+
+                        <Line
+                            BackgroundColor="White"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Center" />
 
                         <!--#region 1 - Contas em atraso-->
                         <StackLayout Orientation="Vertical" Spacing="8">

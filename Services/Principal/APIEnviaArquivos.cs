@@ -1,9 +1,9 @@
-﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
-using AppEmpresarialMultFuncional.Suporte;
+﻿using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
+using AppEmpresa.Suporte;
 using Newtonsoft.Json;
 
-namespace AppEmpresarialMultFuncional.Services.Principal
+namespace AppEmpresa.Services.Principal
 {
     public class APIEnviaArquivos
     {

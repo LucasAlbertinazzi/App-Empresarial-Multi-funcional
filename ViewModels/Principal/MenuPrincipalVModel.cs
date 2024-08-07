@@ -1,17 +1,19 @@
-﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
-using AppEmpresarialMultFuncional.Services.Principal;
-using AppEmpresarialMultFuncional.Views.Cobranca;
+﻿using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
+using AppEmpresa.Services.Principal;
+using AppEmpresa.Views.Auditoria;
+using AppEmpresa.Views.Cobranca;
+using AppEmpresa.Views.Diretoria;
+using System.Reflection;
 
-namespace AppEmpresarialMultFuncional.ViewModels.Principal
+namespace AppEmpresa.ViewModels.Principal
 {
     public class MenuPrincipalVModel
     {
         #region 1- VARIAVEIS
         APIErroLog error = new();
 
-        // Definição do delegate
-        public delegate void ExecutaMetodo();
+        public delegate Task ExecutaMetodo();
         #endregion
 
         #region 2 - METODOS CONSTRUTORES
@@ -39,11 +41,19 @@ namespace AppEmpresarialMultFuncional.ViewModels.Principal
         {
             try
             {
-                // Cria uma instância do delegate com o nome do método
-                ExecutaMetodo metodoDelegate = (ExecutaMetodo)Delegate.CreateDelegate(typeof(ExecutaMetodo), this, nomeMetodo);
+                // Obtém informações do método usando reflexão
+                MethodInfo metodoInfo = this.GetType().GetMethod(nomeMetodo);
 
-                // Chama o método usando o delegate
-                metodoDelegate.Invoke();
+                if (metodoInfo != null)
+                {
+                    // Cria uma instância do delegate usando as informações do método
+                    ExecutaMetodo metodoDelegate = (ExecutaMetodo)Delegate.CreateDelegate(typeof(ExecutaMetodo), this, metodoInfo);
+
+                    // Chama o método usando o delegate
+                    await metodoDelegate.Invoke();
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -55,7 +65,9 @@ namespace AppEmpresarialMultFuncional.ViewModels.Principal
 
         #region 4- EVENTOS DE CONTROLE
 
-        public async void BuscaContatoCobranca()
+        #region 4.1 - COBRANÇA
+
+        public async Task BuscaContatoCobranca()
         {
             try
             {
@@ -69,7 +81,7 @@ namespace AppEmpresarialMultFuncional.ViewModels.Principal
             }
         }
 
-        public async void ConsultaClientes()
+        public async Task ConsultaClientes()
         {
             try
             {
@@ -83,7 +95,7 @@ namespace AppEmpresarialMultFuncional.ViewModels.Principal
             }
         }
 
-        public async void BuscaOcorrencias()
+        public async Task BuscaOcorrencias()
         {
             try
             {
@@ -96,6 +108,82 @@ namespace AppEmpresarialMultFuncional.ViewModels.Principal
                 return;
             }
         }
+
+        #endregion
+
+        #region 4.2 - DIRETORIA
+        public async Task AnaliseVendas()
+        {
+            try
+            {
+                InfoGlobal.isMenuOpen = true;
+                await Application.Current.MainPage.Navigation.PushAsync(new VGraficosVendas());
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return;
+            }
+        }
+
+        public async Task ComparativoVendas()
+        {
+            try
+            {
+                InfoGlobal.isMenuOpen = true;
+                await Application.Current.MainPage.Navigation.PushAsync(new VComparativoVendas());
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return;
+            }
+        }
+        #endregion
+
+        #region 4.3 - DEPÓSITO
+        public async Task ExpEcomm()
+        {
+            try
+            {
+                InfoGlobal.isMenuOpen = true;
+                await Application.Current.MainPage.Navigation.PushAsync(new VExpedicaoEcommerce());
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return;
+            }
+        }
+
+        public async Task CarregEcomm()
+        {
+            try
+            {
+                InfoGlobal.isMenuOpen = true;
+                await Application.Current.MainPage.Navigation.PushAsync(new VCarregamentoEc());
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return;
+            }
+        }
+
+        public async Task DepositoAudEstoque()
+        {
+            try
+            {
+                InfoGlobal.isMenuOpen = true;
+                await Application.Current.MainPage.Navigation.PushAsync(new VAuditEstoque());
+            }
+            catch (Exception ex)
+            {
+                await MetodoErroLog(ex);
+                return;
+            }
+        }
+        #endregion
         #endregion
     }
 }

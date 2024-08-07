@@ -1,12 +1,13 @@
-using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
-using AppEmpresarialMultFuncional.Services.Principal;
-using AppEmpresarialMultFuncional.ViewModels.Principal;
+using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
+using AppEmpresa.Services.Principal;
+using AppEmpresa.Suporte;
+using AppEmpresa.ViewModels.Principal;
 using static MenuPrincipalClass;
 using static Microsoft.Maui.Controls.Button;
 using static Microsoft.Maui.Controls.Button.ButtonContentLayout;
 
-namespace AppEmpresarialMultFuncional.Views.Principal;
+namespace AppEmpresa.Views.Principal;
 
 public partial class VMenuPrincipal : ContentPage
 {
@@ -50,12 +51,8 @@ public partial class VMenuPrincipal : ContentPage
         try
         {
             LoadingIndicator.IsVisible = true;
-            LoadingIndicator.IsRunning = true;
-
             await CreateMenu();
-
             LoadingIndicator.IsVisible = false;
-            LoadingIndicator.IsRunning = false;
         }
         catch (Exception ex)
         {
@@ -75,7 +72,7 @@ public partial class VMenuPrincipal : ContentPage
             NavigationPage.SetHasNavigationBar(this, false);
             InfoGlobal.isMenuOpen = true;
 
-            
+
         }
         catch (Exception ex)
         {
@@ -107,14 +104,26 @@ public partial class VMenuPrincipal : ContentPage
                     button.Style = (Style)Application.Current.Resources["btnMenuPadrao"];
 
                     // Centralize horizontalmente e verticalmente o conteúdo do botão
-                    button.HorizontalOptions = LayoutOptions.Center;
-                    button.VerticalOptions = LayoutOptions.Center;
+                    button.HorizontalOptions = LayoutOptions.CenterAndExpand;
+                    button.VerticalOptions = LayoutOptions.CenterAndExpand;
 
-                    // Crie o ícone usando FontImageSource
                     button.ImageSource = item.CodIcone;
 
+
+                    double screenHeight = DeviceDisplay.MainDisplayInfo.Height;
+                    double screenWidth = DeviceDisplay.MainDisplayInfo.Width;
+
+                    if (screenHeight <= 800 && screenWidth <= 480)
+                    {
+                        button.FontSize = ResponsiveAuto.FontSize(24);
+                        button.Padding = new Thickness(6, 12);
+                    }
+                    else
+                    {
+                        button.FontSize = ResponsiveAuto.FontSize(16);
+                        button.Padding = new Thickness(6, 25);
+                    }
                     // Defina o tamanho da fonte do texto do botão
-                    button.FontSize = await GetFontSizeForDevice();
                     button.LineBreakMode = LineBreakMode.WordWrap;
 
                     // Adicione margens aos botões
@@ -127,9 +136,7 @@ public partial class VMenuPrincipal : ContentPage
                         button.Margin = new Thickness(5, 10, 10, 10); // Margem dos botões na coluna 1
                     }
 
-                    // Defina o valor do Padding do botão
-                    button.Padding = new Thickness(await GetButtonPaddingForDevice());
-                    button.ContentLayout = new ButtonContentLayout(ImagePosition.Bottom, 8);
+                    button.ContentLayout = new ButtonContentLayout(ImagePosition.Bottom, 0);
 
                     Grid.SetRow(button, rowIndex);
                     Grid.SetColumn(button, columnIndex);
@@ -182,7 +189,7 @@ public partial class VMenuPrincipal : ContentPage
             double screenWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
 
             // Ajuste o valor de acordo com suas preferências
-            double buttonPadding = screenWidth / 15;
+            double buttonPadding = screenWidth / 20;
 
             return buttonPadding;
         }
@@ -200,7 +207,7 @@ public partial class VMenuPrincipal : ContentPage
             double screenWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
 
             // Ajuste o valor de acordo com suas preferências
-            double fontSize = screenWidth / 21;
+            double fontSize = screenWidth / 26;
 
             return fontSize;
         }
@@ -225,16 +232,19 @@ public partial class VMenuPrincipal : ContentPage
     {
         try
         {
+#if __ANDROID__
+
             LoadingIndicator.IsVisible = true;
-            LoadingIndicator.IsRunning = true;
+#endif
 
             Button button = (Button)sender;
             string value = button.CommandParameter.ToString();
 
             await menuPrincipalModels.RedirecionaFuncao(value);
 
+#if __ANDROID__
             LoadingIndicator.IsVisible = false;
-            LoadingIndicator.IsRunning = false;
+#endif
         }
         catch (Exception ex)
         {

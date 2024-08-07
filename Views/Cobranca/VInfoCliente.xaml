@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="AppEmpresarialMultFuncional.Views.Cobranca.VInfoCliente"
+    x:Class="AppEmpresa.Views.Cobranca.VInfoCliente"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="VInfoCliente">
@@ -157,10 +157,50 @@
                         <!--#endregion-->
 
                         <!--#region 2- Nome-->
-                        <Label Style="{StaticResource labelPadraoWhite}" Text="Nome :" />
-                        <Frame Style="{StaticResource EstiloFrameInfos}">
-                            <Label x:Name="lblNome" Style="{StaticResource labelInfos}" />
-                        </Frame>
+                        <StackLayout x:Name="op1">
+                            <Label Style="{StaticResource labelPadraoWhite}" Text="Nome :" />
+                            <Frame Style="{StaticResource EstiloFrameInfos}">
+                                <Label x:Name="lblNome" Style="{StaticResource labelInfos}" />
+                            </Frame>
+                        </StackLayout>
+
+
+                        <!--  OPÇÃO 2  -->
+                        <StackLayout
+                            x:Name="op2"
+                            IsVisible="false"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Vertical"
+                                Spacing="6">
+                                <Label Style="{StaticResource labelPadraoWhite}" Text="Nome :" />
+                                <Frame Style="{StaticResource EstiloFrameInfos}">
+                                    <ScrollView Orientation="Horizontal">
+                                        <Label
+                                            x:Name="lblNome2"
+                                            LineBreakMode="TailTruncation"
+                                            Style="{StaticResource labelInfos}" />
+                                    </ScrollView>
+                                </Frame>
+                            </StackLayout>
+                            <StackLayout
+                                HorizontalOptions="End"
+                                Orientation="Vertical"
+                                Spacing="6">
+                                <Label Style="{StaticResource labelPadraoWhite}" Text="" />
+                                <Button
+                                    x:Name="btnCobranca"
+                                    Clicked="btnCobranca_Clicked"
+                                    HeightRequest="48"
+                                    Style="{StaticResource btnCardYellow}"
+                                    Text="Cobrança"
+                                    WidthRequest="100" />
+                            </StackLayout>
+                        </StackLayout>
+
+
                         <!--#endregion-->
 
                         <!--#region 3- Nascimento / Idade-->

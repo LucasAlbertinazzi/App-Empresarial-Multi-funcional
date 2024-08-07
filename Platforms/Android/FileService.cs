@@ -1,6 +1,8 @@
-﻿using Android.Content;
-using AppEmpresarialMultFuncional.Platforms.Android;
-using AppEmpresarialMultFuncional.Suporte;
+﻿
+
+using Android.Content;
+using AppEmpresa.Platforms.Android;
+using AppEmpresa.Suporte;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 
 [assembly: Dependency(typeof(FileService))]
-namespace AppEmpresarialMultFuncional.Platforms.Android
+namespace AppEmpresa.Platforms.Android
 {
     public class FileService : IFileService
     {

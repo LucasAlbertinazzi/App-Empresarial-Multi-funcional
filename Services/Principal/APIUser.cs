@@ -1,9 +1,9 @@
-﻿using AppEmpresarialMultFuncional.Classes.API.Principal;
-using AppEmpresarialMultFuncional.Classes.Globais;
+﻿using AppEmpresa.Classes.API.Principal;
+using AppEmpresa.Classes.Globais;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace AppEmpresarialMultFuncional.Services.Principal
+namespace AppEmpresa.Services.Principal
 {
     public class APIUser
     {
@@ -20,7 +20,7 @@ namespace AppEmpresarialMultFuncional.Services.Principal
                 Versao = DeviceInfo.Version.ToString(), // Obtém a versão do dispostivo
                 Plataforma = DeviceInfo.Platform.ToString(), // Obtém o sistema operacional do dispostivo
                 TelaClasse = GetType().FullName, // Obtém o nome da tela/classe
-                Data = DateTime.Now,
+                Data = DateTime.Now
             };
 
             await error.LogErro(erroLog);

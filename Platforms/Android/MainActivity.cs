@@ -1,17 +1,17 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Views;
-using AppEmpresarialMultFuncional.Platforms.Android;
 
-namespace AppEmpresarialMultFuncional;
+
+namespace AppEmpresa.Platforms.Android;
 
 [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
 public class MainActivity : MauiAppCompatActivity
 {
     protected override void OnCreate(Bundle savedInstanceState)
     {
-        base.OnCreate(savedInstanceState); 
+        base.OnCreate(savedInstanceState);
         DependencyService.Register<FileService>();
+        Xamarin.Essentials.Platform.Init(this, savedInstanceState);
     }
 }
